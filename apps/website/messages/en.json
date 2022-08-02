@@ -1,0 +1,33 @@
+{
+  "Footer": {
+    "newsletter": "Newsletter Registration",
+    "your-email-address": "Your e-mail address",
+    "sponsors": "Sponsors",
+    "media-partners": "Media Partners",
+    "supported-by": "Supported by",
+    "disclaimer": "The Immergutrocken e.V. as the organizer reserves the right to make changes to the program. The house rules as shown on the notice apply on the event area."
+  },
+  "Home": {
+    "music": "Music",
+    "readings": "Readings",
+    "festival": "Immergut Festival",
+    "news": "News"
+  },
+  "Article": {
+    "photo": "Photo",
+    "text": "Text",
+    "festival": "Immergut Festival"
+  },
+  "Layout": {
+    "ticket-shop": "ticket shop",
+    "news": "News"
+  },
+  "404": {
+    "title": "Error code 404",
+    "text-part-1": "Error 404 doesn't perfom at Immergut Festival this year.",
+    "text-part-2": "Maybe your clicked link is broken or the page was deleted. Don't worry, ",
+    "link-text": "👉 here 👈",
+    "text-part-3": " is your way back to the home page.",
+    "festival": "Immergut Festival"
+  }
+}

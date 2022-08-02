@@ -1,0 +1,31 @@
+@use "sass:math";
+
+$image-width: 320;
+$image-height: 455;
+$circle-point-x: 13;
+$circle-point-y: 170;
+$circle-site: 56;
+
+.logo {
+  top: 100vw * math.div($circle-point-y, $image-width) +
+    (100vw * math.div($circle-site, $image-width));
+  left: 100vw * math.div($circle-point-x, $image-width);
+  width: 100vw * math.div($circle-site, $image-width);
+  height: 100vw * math.div($circle-site, $image-width);
+}
+
+@media screen and (min-width: 640px) {
+  $image-width: 1140;
+  $image-height: 587;
+  $circle-point-x: 320;
+  $circle-point-y: 180;
+  $circle-site: 108;
+
+  .logo {
+    top: 100vw * math.div($circle-point-y, $image-width) +
+      (100vw * math.div($circle-site, $image-width));
+    left: 100vw * math.div($image-width - $circle-point-x, $image-width);
+    width: 100vw * math.div($circle-site, $image-width);
+    height: 100vw * math.div($circle-site, $image-width);
+  }
+}

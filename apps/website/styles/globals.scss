@@ -1,0 +1,53 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "@fortawesome/fontawesome-free/css/brands.css";
+@import "@fortawesome/fontawesome-free/css/solid.css";
+
+@font-face {
+  font-family: Ludwig-Bold;
+  src: url("./fonts/Ludwig-Bold.otf");
+}
+
+@font-face {
+  font-family: Ludwig-Normal;
+  src: url("./fonts/Ludwig-Normal.otf");
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+ol {
+  list-style: decimal;
+
+  li {
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

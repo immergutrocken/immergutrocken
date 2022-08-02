@@ -1,0 +1,74 @@
+{
+  "root": true,
+  "project": {
+    "name": "Immergutrocken"
+  },
+  "api": {
+    "projectId": "05hvmwlk",
+    "dataset": "development"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "tabs",
+    "@sanity/dashboard",
+    "media-library"
+  ],
+  "env": {
+    "development": {
+      "plugins": ["@sanity/vision"],
+      "__experimental_spaces": [
+        {
+          "name": "development",
+          "title": "Development",
+          "default": true,
+          "api": {
+            "projectId": "05hvmwlk",
+            "dataset": "development"
+          }
+        },
+        {
+          "name": "staging",
+          "title": "Staging",
+          "api": {
+            "projectId": "05hvmwlk",
+            "dataset": "staging"
+          }
+        },
+        {
+          "name": "production",
+          "title": "Production",
+          "api": {
+            "projectId": "05hvmwlk",
+            "dataset": "production"
+          }
+        }
+      ]
+    }
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
+    },
+    {
+      "implements": "part:@sanity/base/theme/variables/override-style",
+      "path": "custom-brand.css"
+    },
+    {
+      "implements": "part:@sanity/base/brand-logo",
+      "path": "./components/immergutLogo.js"
+    },
+    {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "./actions/resolveDocumentActions.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.js"
+    }
+  ]
+}

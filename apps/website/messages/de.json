@@ -1,0 +1,33 @@
+{
+  "Footer": {
+    "newsletter": "Rundschreiben",
+    "your-email-address": "Deine E-Mail-Adresse",
+    "sponsors": "Sponsor*innen",
+    "media-partners": "Medienpartner*innen",
+    "supported-by": "Gefördert von",
+    "disclaimer": "Programmänderungen bleiben dem Immergutrocken e.V. als Veranstalter vorbehalten. Auf der Veranstaltungsfläche gilt die Hausordnung laut Aushang."
+  },
+  "Home": {
+    "music": "Musik",
+    "readings": "Lesungen",
+    "festival": "Immergut Festival",
+    "news": "Neues"
+  },
+  "Article": {
+    "photo": "Foto",
+    "text": "Text",
+    "festival": "Immergut Festival"
+  },
+  "Layout": {
+    "ticket-shop": "Kartenladen",
+    "news": "Neues"
+  },
+  "404": {
+    "title": "Fehlercode 404",
+    "text-part-1": "Fehler 404 spielt eigentlich nicht auf dem diesjährigen Immergut Festival.",
+    "text-part-2": "Entweder funktioniert der von dir angeklickte Link momentan nicht oder die Seite wurde entfernt. Aber nicht schlimm, ",
+    "link-text": "👉 hier 👈",
+    "text-part-3": " geht’s zurück zur Startseite.",
+    "festival": "Immergut Festival"
+  }
+}
