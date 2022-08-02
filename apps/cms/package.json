@@ -7,7 +7,7 @@
   "author": "Admin Immergut <admin@immergutrocken.de>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "sanity start",
+    "dev": "sanity start",
     "build": "sanity build public -y"
   },
   "keywords": [

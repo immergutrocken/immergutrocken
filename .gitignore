@@ -38,3 +38,9 @@ yarn-error.log*
 apps/cms/public
 
 .vscode
+
+# turbo
+.turbo
+build/**
+dist/**
+.next/**
