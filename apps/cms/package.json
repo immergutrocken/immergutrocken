@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "open http://localhost:3333 && sanity start",
-    "build": "sanity build public -y"
+    "build": "SANITY_STUDIO_API_DATASET=$SANITY_DATASET sanity build public -y"
   },
   "keywords": [
     "sanity"
