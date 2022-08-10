@@ -4,7 +4,7 @@
   "pipeline": {
     "dev": {},
     "build": {
-      "outputs": ["dist/**", ".next/**"],
+      "outputs": ["public/**", ".next/**"],
       "dependsOn": ["^build"]
     }
   }
