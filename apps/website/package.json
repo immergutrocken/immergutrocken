@@ -12,7 +12,6 @@
     "eslint": "next lint --fix",
     "stylelint": "stylelint --fix '**/*.{css,scss}'",
     "prettier": "prettier --write '**/*.{ts,tsx,css,scss}'",
-    "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
