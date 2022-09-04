@@ -4,6 +4,7 @@ import { FaUsers } from "react-icons/fa";
 import { createSuperPane } from "sanity-super-pane";
 import { RiArticleLine } from "react-icons/ri";
 import { RiMusic2Line } from "react-icons/ri";
+import { IoMdSettings } from "react-icons/io";
 
 export default () =>
   S.list()
@@ -19,11 +20,21 @@ export default () =>
         .child(createSuperPane("artist", S)),
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !["sortings", "verein", "article", "artist"].includes(
-            listItem.getId()
-          )
+          ![
+            "sortings",
+            "verein",
+            "article",
+            "artist",
+            "generalSettings",
+          ].includes(listItem.getId())
       ),
       S.divider(),
+      S.listItem()
+        .title("Allgemein")
+        .icon(IoMdSettings)
+        .child(
+          S.editor().schemaType("generalSettings").documentId("generalSettings")
+        ),
       S.listItem()
         .title("Sortierungen")
         .icon(MdFormatListNumbered)
