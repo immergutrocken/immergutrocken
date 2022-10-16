@@ -25,7 +25,6 @@ export interface IGeneralSettings {
   };
 }
 
-//testtttt
 export const getGeneralSettings = async (
   locale: string
 ): Promise<IGeneralSettings> => {
@@ -39,26 +38,32 @@ export const getGeneralSettings = async (
   }`;
   const result = (await client.fetch(query))[0];
   const bannerDesktop =
-    locale === "de" ? result.bannerDesktopDe : result.bannerDesktopEn;
+    locale === "de"
+      ? result.bannerDesktopDe
+      : result.bannerDesktopEn ?? result.bannerDesktopDe;
   const bannerMobile =
-    locale === "de" ? result.bannerMobileDe : result.bannerMobileEn;
+    locale === "de"
+      ? result.bannerMobileDe
+      : result.bannerMobileEn ?? result.bannerMobileDe;
   return {
     websiteTitle:
-      locale === "de" ? result.websiteTitleDe : result.websiteTitleEn,
+      locale === "de"
+        ? result.websiteTitleDe
+        : result.websiteTitleEn ?? result.websiteTitleDe,
     bannerDesktop: {
       ...bannerDesktop,
       url: bannerDesktop.hotspot
         ? urlFor(bannerDesktop.asset)
             .fit("crop")
             .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
+            .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
             .url()
         : urlFor(bannerDesktop.asset).url(),
       urlWithBlur: bannerDesktop.hotspot
         ? urlFor(bannerDesktop.asset)
             .fit("crop")
             .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
+            .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
             .blur(200)
             .url()
         : urlFor(bannerDesktop.asset).blur(200).url(),
@@ -69,14 +74,14 @@ export const getGeneralSettings = async (
         ? urlFor(bannerMobile.asset)
             .fit("crop")
             .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
+            .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
             .url()
         : urlFor(bannerMobile.asset).url(),
       urlWithBlur: bannerMobile.hotspot
         ? urlFor(bannerMobile.asset)
             .fit("crop")
             .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
+            .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
             .blur(200)
             .url()
         : urlFor(bannerMobile.asset).blur(200).url(),
