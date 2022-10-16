@@ -11,11 +11,13 @@ const fields = [
     ...getImage(false),
     title: "Banner Desktop",
     name: "bannerDesktop",
+    description: "3280px breit und 1336px hoch sein für optimale Darstellung",
   },
   {
     ...getImage(false),
     title: "Banner Mobile",
     name: "bannerMobile",
+    description: "1800px breit und 2250px hoch sein für optimale Darstellung",
   },
 ];
 

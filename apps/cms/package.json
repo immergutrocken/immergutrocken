@@ -7,7 +7,7 @@
   "author": "Admin Immergut <admin@immergutrocken.de>",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "open http://localhost:3333 && sanity start",
+    "dev": "sanity start",
     "build": "SANITY_STUDIO_API_DATASET=$SANITY_DATASET sanity build public -y"
   },
   "keywords": [
