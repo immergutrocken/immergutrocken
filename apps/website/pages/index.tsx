@@ -17,6 +17,7 @@ import bannerDesktop from "../public/images/ig-website-desktop-cd.png";
 // import { useState } from "react";
 import Label from "../components/shared/label";
 import { NextSeo } from "next-seo";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
 
 interface HomeProps {
   newsLinkList: INewsLink[];
@@ -27,6 +28,7 @@ interface HomeProps {
   artistLinkList: IArtistLink[];
   notificationList: INotification[];
   newsList: INewsLink[];
+  generalSettings: IGeneralSettings;
   messages: unknown;
 }
 
@@ -43,6 +45,7 @@ export const getStaticProps = async ({
       artistLinkList: await getArtistLinkList(locale),
       notificationList: await getNotificationList(locale),
       newsList: await getNewsLinkList(locale),
+      generalSettings: await getGeneralSettings(locale),
       messages: require(`../messages/${locale}.json`),
     },
     revalidate: 1,
@@ -65,11 +68,10 @@ export default function Home(props: HomeProps): JSX.Element {
       showNewsList={showNewsList}
     >
       <NextHead>
-        <title>{t("festival")}</title>
         <link rel="icon" href="/favicon.ico" />
       </NextHead>
       <NextSeo
-        title={t("festival")}
+        title={props.generalSettings.websiteTitle}
         openGraph={{
           images: [
             {
@@ -79,22 +81,24 @@ export default function Home(props: HomeProps): JSX.Element {
           ],
         }}
       />
-      <div className={`block ${showNewsList ? "pt-9" : ""} sm:hidden`}>
+      <div className={`block sm:hidden${showNewsList ? " pt-9" : ""}`}>
         <NextImage
-          src={bannerMobile}
-          width={bannerMobile.width}
-          height={bannerMobile.height}
+          src={props.generalSettings.bannerMobile.url}
+          width={1800}
+          height={2250}
           layout="responsive"
           placeholder="blur"
+          blurDataURL={props.generalSettings.bannerMobile.urlWithBlur}
         />
       </div>
-      <div className={`hidden ${showNewsList ? "sm:pt-10" : ""} sm:block`}>
+      <div className={`hidden sm:block${showNewsList ? " sm:pt-10" : ""}`}>
         <NextImage
-          src={bannerDesktop}
-          width={bannerDesktop.width}
-          height={bannerDesktop.height}
+          src={props.generalSettings.bannerDesktop.url}
+          height={1336}
+          width={3280}
           layout="responsive"
           placeholder="blur"
+          blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
         />
       </div>
       <div className="flex justify-center mt-4 sm:mt-6">

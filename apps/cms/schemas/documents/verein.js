@@ -1,5 +1,5 @@
 import { slug } from "../fields/slug";
-import image, { getImage } from "../fields/image";
+import { getImage } from "../fields/image";
 import blockContent from "../fields/blockContent";
 import expander from "../fields/expander";
 import localizedTabs from "./localizedTabs";

@@ -8,6 +8,7 @@ import notification from "./documents/notification";
 import artist from "./documents/artist";
 import sortings from "./documents/sortings";
 import verein from "./documents/verein";
+import generalSettings from "./documents/general-settings";
 
 export default createSchema({
   name: "default",
@@ -19,5 +20,6 @@ export default createSchema({
     notification,
     sortings,
     verein,
+    generalSettings,
   ]),
 });

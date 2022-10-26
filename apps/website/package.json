@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "open http://localhost:3000 && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "test": "jest --watchAll",
