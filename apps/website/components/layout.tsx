@@ -70,7 +70,7 @@ const Layout = ({
           </Bubble>
           <div className="flex gap-2 right-2 top-12 sm:right-4 sm:top-16 sm:gap-4">
             <Link
-              href="https://immergut.tickettoaster.de/tickets"
+              href="https://tickets.hoemepage.com/event/immergut-festival-3bu6"
               className="hover:no-underline"
             >
               <Button className="!bg-tertiary">{t("ticket-shop")}</Button>
