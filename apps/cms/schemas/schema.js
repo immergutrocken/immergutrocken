@@ -9,6 +9,7 @@ import artist from "./documents/artist";
 import sortings from "./documents/sortings";
 import verein from "./documents/verein";
 import generalSettings from "./documents/general-settings";
+import merch from "./documents/merch";
 
 export default createSchema({
   name: "default",
@@ -20,6 +21,7 @@ export default createSchema({
     notification,
     sortings,
     verein,
+    merch,
     generalSettings,
   ]),
 });
