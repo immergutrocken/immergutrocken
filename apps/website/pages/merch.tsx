@@ -36,8 +36,8 @@ export const getStaticProps = async ({
       menuItems: await getMenu(),
       notificationList: await getNotificationList(locale),
       messages: require(`../messages/${locale}.json`),
-      description: merch.description,
-      products: merch.productList,
+      description: merch?.description ?? [],
+      products: merch?.productList ?? [],
     },
     revalidate: 1,
   };
@@ -50,8 +50,8 @@ const Merch = ({
   additionalList,
   menuItems,
   newsLinkList,
-  description = [],
-  products = [],
+  description,
+  products,
 }: MerchProps): JSX.Element => {
   return (
     <Layout

@@ -15,9 +15,13 @@ export const getMerch = async (locale: string): Promise<IMerch> => {
     }`;
   const result: IMerch = (await client.fetch(query))[0];
 
+  if (!result) {
+    return null;
+  }
+
   const imageSizePreview = 300;
   const imageSize = 1000;
-  result.productList.forEach((product) => {
+  result.productList?.forEach((product) => {
     product.images.forEach((image, index) => {
       if (index === 0) {
         image.urlPreview = image.hotspot
