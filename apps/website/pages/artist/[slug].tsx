@@ -125,9 +125,6 @@ const Artist = ({
       menuItems={menuItems}
       newsList={newsList}
     >
-      <NextHead>
-        <title>{`${title} - ${t("festival")}`}</title>
-      </NextHead>
       <NextSeo
         title={`${title} &minus; ${t("festival")}`}
         openGraph={{
@@ -139,6 +136,9 @@ const Artist = ({
           ],
         }}
       />
+      <NextHead>
+        <title>{`${title} - ${t("festival")}`}</title>
+      </NextHead>
       <div className="grid h-full grid-cols-1 sm:grid-cols-2 sm:space-x-5 sm:px-6 sm:pt-6">
         <div
           className={`relative top-9 sm:sticky sm:top-0 sm:max-h-screen sm:h-full flex items-center`}
