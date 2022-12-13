@@ -1,8 +1,11 @@
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import Image from "next/image";
+import { useState } from "react";
 import Content from "../components/block-content/content";
 import Layout from "../components/layout";
+import Bubble from "../components/shared/bubble";
 import Label from "../components/shared/label";
+import LightBox from "../components/shared/lightbox";
 import PartnerCategory from "../lib/enums/partnerCategory.enum";
 import { getMenu, IMenuItem } from "../lib/menu";
 import { getMerch } from "../lib/merch";
@@ -53,6 +56,10 @@ const Merch = ({
   description,
   products,
 }: MerchProps): JSX.Element => {
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [currentLightboxImages, setCurrentLightboxImages] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   return (
     <Layout
       notifcationList={notificationList}
@@ -64,19 +71,44 @@ const Merch = ({
       showNewsList={true}
     >
       <div className="flex flex-col items-center px-4 pt-24 sm:px-8 sm:pt-36">
-        <h1 className="text-4xl sm:text-7xl font-important">Merch</h1>
-        <Content content={description} />
+        <div>
+          <h1 className="self-start text-4xl sm:text-7xl font-important">
+            Merch
+          </h1>
+          <Content content={description} />
+        </div>
         <div className="flex flex-wrap gap-4 mt-10 sm:gap-8 place-content-center">
           {products.map((product, index) => {
             return (
               <div className="w-1/5 min-w-[300px]" key={index}>
-                <Image
-                  src={product.images[0].urlPreview}
-                  width={300}
-                  height={300}
-                  alt={product.title}
-                ></Image>
-                <h2 className="text-2xl sm:text-4xl font-important">
+                <div
+                  className="relative cursor-pointer"
+                  onClick={() => {
+                    setShowLightbox(true);
+                    setCurrentLightboxImages(product.images);
+                    setCurrentImageIndex(0);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "enter") {
+                      setShowLightbox(true);
+                      setCurrentLightboxImages(product.images);
+                      setCurrentImageIndex(0);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <Image
+                    src={product.images[0].urlPreview}
+                    width={300}
+                    height={300}
+                    alt={product.title}
+                  ></Image>
+                  <Bubble className="absolute right-1 top-1" size="small">
+                    <em className="fas fa-expand-alt"></em>
+                  </Bubble>
+                </div>
+                <h2 className="text-base sm:text-2xl font-important">
                   {product.title}
                 </h2>
                 <div className="flex mt-2 mb-2">
@@ -88,6 +120,15 @@ const Merch = ({
           })}
         </div>
       </div>
+      {showLightbox && (
+        <LightBox
+          images={currentLightboxImages}
+          imageIndex={currentImageIndex}
+          show={showLightbox}
+          onShow={setShowLightbox}
+          onCurrentImageIndexChange={setCurrentImageIndex}
+        ></LightBox>
+      )}
     </Layout>
   );
 };
