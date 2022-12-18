@@ -40,6 +40,7 @@ export default {
             type: 'array',
             name: 'images',
             title: 'Bilder',
+            description: 'Das oberste Bild wird automatisch als Anzeigebild für das Produkt auf der "Merch"-Seite genutzt',
             of: [getImage(false)],
             validation: (Rule) => Rule.required()
         }
