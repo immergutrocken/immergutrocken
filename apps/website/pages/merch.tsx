@@ -13,6 +13,9 @@ import { IProduct } from "../lib/models/product.interface";
 import { getNewsLinkList, INewsLink } from "../lib/news";
 import { getNotificationList, INotification } from "../lib/notification";
 import { getPartnerList, IPartner } from "../lib/partner";
+import NextHead from "next/head";
+import { NextSeo } from "next-seo";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
 
 interface MerchProps {
   description: [];
@@ -23,6 +26,7 @@ interface MerchProps {
   mediaPartnerList: IPartner[];
   additionalList: IPartner[];
   notificationList: INotification[];
+  generalSettings: IGeneralSettings;
   messages: unknown;
 }
 
@@ -38,6 +42,7 @@ export const getStaticProps = async ({
       additionalList: await getPartnerList(PartnerCategory.ADDITIONAL),
       menuItems: await getMenu(),
       notificationList: await getNotificationList(locale),
+      generalSettings: await getGeneralSettings(locale),
       messages: require(`../messages/${locale}.json`),
       description: merch?.description ?? [],
       products: merch?.productList ?? [],
@@ -53,6 +58,7 @@ const Merch = ({
   additionalList,
   menuItems,
   newsLinkList,
+  generalSettings,
   description,
   products,
 }: MerchProps): JSX.Element => {
@@ -70,6 +76,21 @@ const Merch = ({
       newsList={newsLinkList}
       showNewsList={true}
     >
+      <NextSeo
+        title={"Merch &minus; " + generalSettings.websiteTitle}
+        openGraph={{
+          images: [
+            {
+              url: generalSettings.bannerDesktop.url,
+              type: "image/png",
+            },
+          ],
+        }}
+      />
+      <NextHead>
+        <link rel="icon" href="/favicon.ico" />
+        <title>{"Merch - " + generalSettings.websiteTitle}</title>
+      </NextHead>
       <div className="flex flex-col items-center px-4 pt-24 sm:px-8 sm:pt-36">
         <div>
           <h1 className="self-start text-4xl sm:text-7xl font-important">
@@ -80,7 +101,7 @@ const Merch = ({
         <div className="flex flex-wrap gap-4 mt-10 sm:gap-8 place-content-center">
           {products.map((product, index) => {
             return (
-              <div className="w-1/5 min-w-[300px]" key={index}>
+              <div className="w-1/5 min-w-[300px] max-w-[300px]" key={index}>
                 <div
                   className="relative cursor-pointer"
                   onClick={() => {

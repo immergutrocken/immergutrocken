@@ -20,6 +20,10 @@ import PartnerCategory from "../../lib/enums/partnerCategory.enum";
 import { getMenu, IMenuItem } from "../../lib/menu";
 import { getNewsLinkList, INewsLink } from "../../lib/news";
 import { NextSeo } from "next-seo";
+import {
+  getGeneralSettings,
+  IGeneralSettings,
+} from "../../lib/general-settings";
 
 interface ArtistParams extends ParsedUrlQuery {
   slug: string;
@@ -32,6 +36,7 @@ interface ArtistProps extends IArtist {
   additionalList: IPartner[];
   menuItems: IMenuItem[];
   newsList: INewsLink[];
+  generalSettings: IGeneralSettings;
   messages: unknown;
 }
 
@@ -83,6 +88,7 @@ export const getStaticProps = async ({
       additionalList: await getPartnerList(PartnerCategory.ADDITIONAL),
       menuItems: await getMenu(),
       newsList: await getNewsLinkList(locale),
+      generalSettings: await getGeneralSettings(locale),
       messages: require(`../../messages/${locale}.json`),
     },
     revalidate: 1,
@@ -113,6 +119,7 @@ const Artist = ({
   additionalList,
   menuItems,
   newsList,
+  generalSettings,
 }: ArtistProps): JSX.Element => {
   const t = useTranslations("Article");
 
@@ -126,7 +133,7 @@ const Artist = ({
       newsList={newsList}
     >
       <NextSeo
-        title={`${title} &minus; ${t("festival")}`}
+        title={`${title} &minus; ${generalSettings.websiteTitle}`}
         openGraph={{
           images: [
             {
@@ -137,7 +144,8 @@ const Artist = ({
         }}
       />
       <NextHead>
-        <title>{`${title} - ${t("festival")}`}</title>
+        <link rel="icon" href="/favicon.ico" />
+        <title>{`${title} - ${generalSettings.websiteTitle}`}</title>
       </NextHead>
       <div className="grid h-full grid-cols-1 sm:grid-cols-2 sm:space-x-5 sm:px-6 sm:pt-6">
         <div
