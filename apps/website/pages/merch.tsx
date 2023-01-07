@@ -98,7 +98,7 @@ const Merch = ({
           </h1>
           <Content content={description} />
         </div>
-        <div className="flex flex-wrap gap-4 mt-10 sm:gap-8 place-content-center">
+        <div className="flex flex-wrap gap-4 mt-10 sm:gap-8 place-content-center max-w-[1296px]">
           {products.map((product, index) => {
             return (
               <div className="w-1/5 min-w-[300px] max-w-[300px]" key={index}>
