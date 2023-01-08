@@ -10,8 +10,6 @@ import Layout from "../components/layout";
 import { getNotificationList, INotification } from "../lib/notification";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { useTranslations } from "next-intl";
-import bannerMobile from "../public/images/ig-website-mobile-cd.png";
-import bannerDesktop from "../public/images/ig-website-desktop-cd.png";
 // import { ArtistCategory } from "../lib/enums/artistCategory.enum";
 // import Button from "../components/shared/button";
 // import { useState } from "react";
@@ -75,7 +73,7 @@ export default function Home(props: HomeProps): JSX.Element {
         openGraph={{
           images: [
             {
-              url: bannerDesktop.src,
+              url: props.generalSettings.bannerDesktop.url,
               type: "image/png",
             },
           ],

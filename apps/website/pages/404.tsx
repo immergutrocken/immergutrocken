@@ -8,6 +8,7 @@ import { getPartnerList, IPartner } from "../lib/partner";
 import NextHead from "next/head";
 import NextLink from "next/link";
 import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
 
 interface Custom404Props {
   notificationList: INotification[];
@@ -16,6 +17,7 @@ interface Custom404Props {
   additionalList: IPartner[];
   menuItems: IMenuItem[];
   newsList: INewsLink[];
+  generalSettings: IGeneralSettings;
   messages: unknown;
 }
 
@@ -30,6 +32,7 @@ export const getStaticProps = async ({
       additionalList: await getPartnerList(PartnerCategory.ADDITIONAL),
       menuItems: await getMenu(),
       newsList: await getNewsLinkList(locale),
+      generalSettings: await getGeneralSettings(locale),
       messages: require(`../messages/${locale}.json`),
     },
     revalidate: 1,
@@ -43,6 +46,7 @@ const Custom404 = ({
   additionalList,
   menuItems,
   newsList,
+  generalSettings,
 }: Custom404Props): JSX.Element => {
   const t = useTranslations("404");
 
@@ -56,7 +60,7 @@ const Custom404 = ({
       newsList={newsList}
     >
       <NextHead>
-        <title>{t("festival")}</title>
+        <title>{generalSettings.websiteTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </NextHead>
       <div className="pt-20 text-center px-7">

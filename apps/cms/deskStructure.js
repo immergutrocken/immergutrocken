@@ -1,10 +1,9 @@
 import S from "@sanity/desk-tool/structure-builder";
-import { MdFormatListNumbered } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
-import { createSuperPane } from "sanity-super-pane";
-import { RiArticleLine } from "react-icons/ri";
-import { RiMusic2Line } from "react-icons/ri";
+import { FaShoppingBag, FaUsers } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
+import { MdFormatListNumbered } from "react-icons/md";
+import { RiArticleLine, RiMusic2Line } from "react-icons/ri";
+import { createSuperPane } from "sanity-super-pane";
 
 export default () =>
   S.list()
@@ -26,6 +25,7 @@ export default () =>
             "article",
             "artist",
             "generalSettings",
+            "merch",
           ].includes(listItem.getId())
       ),
       S.divider(),
@@ -43,4 +43,8 @@ export default () =>
         .title("Verein")
         .icon(FaUsers)
         .child(S.editor().schemaType("verein").documentId("verein")),
+      S.listItem()
+        .title("Merch")
+        .icon(FaShoppingBag)
+        .child(S.editor().schemaType("merch").documentId("merch")),
     ]);

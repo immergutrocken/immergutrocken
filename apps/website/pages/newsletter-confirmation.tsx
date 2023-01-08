@@ -31,9 +31,10 @@ const NewsletterConfirmation = (): JSX.Element => {
   });
 
   return (
-    <div className="flex flex-row justify-center items-center h-screen px-7 text-3xl text-center">
+    <div className="flex flex-row items-center justify-center h-screen text-3xl text-center px-7">
       <NextHead>
-        <title>Newsletter Anmeldung - 21. Immergut Festival</title>
+        <link rel="icon" href="/favicon.ico" />
+        <title>Newsletter Anmeldung - Immergut Festival</title>
       </NextHead>
       {state === "loading" && "Einen Moment bitte ..."}
       {state === "success" && (
