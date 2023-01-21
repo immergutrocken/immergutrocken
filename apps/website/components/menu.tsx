@@ -1,9 +1,11 @@
-import Bubble from "./shared/bubble";
-import { IMenuItem } from "../lib/menu";
-import { MenuItemType } from "../lib/enums/menuItemType.enum";
-import Link from "./shared/link";
-import NextLink from "next/link";
 import { useRouter } from "next/dist/client/router";
+import Image from "next/image";
+import NextLink from "next/link";
+import { MenuItemType } from "../lib/enums/menuItemType.enum";
+import { IMenuItem } from "../lib/menu";
+import euter from '../public/images/ig-euter.svg';
+import Bubble from "./shared/bubble";
+import Link from "./shared/link";
 
 interface MenuProps {
   onClose: () => void;
@@ -67,7 +69,16 @@ const Menu = ({
       <Bubble className="absolute top-3 right-3" onClick={() => onClose()}>
         <em className="fas fa-times text-secondary"></em>
       </Bubble>
-      <div className="mt-16 sm:mt-24">
+      <div className="flex justify-center mt-16 sm:mt-24">
+        <NextLink href="/">
+          <a>
+            <Bubble className="bg-transparent">
+              <Image src={euter} layout="fill"></Image>
+            </Bubble>
+          </a>
+        </NextLink>
+      </div>
+      <div className="mt-8 sm:mt-12">
         {items.map((item, index) => (
           <div className="text-3xl text-center sm:text-6xl" key={index}>
             {buildMenuItem(item, onClose, router.locale)}
