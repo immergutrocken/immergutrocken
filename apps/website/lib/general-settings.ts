@@ -23,6 +23,7 @@ export interface IGeneralSettings {
     width: number;
     height: number;
   };
+  showNewsAsPrimaryContent: boolean;
 }
 
 export const getGeneralSettings = async (
@@ -34,7 +35,8 @@ export const getGeneralSettings = async (
     'bannerDesktopDe': languages.de.bannerDesktop,
     'bannerDesktopEn': languages.en.bannerDesktop,
     'bannerMobileDe': languages.de.bannerMobile,
-    'bannerMobileEn': languages.en.bannerMobile
+    'bannerMobileEn': languages.en.bannerMobile,
+    'displayMode': displayMode
   }`;
   const result = (await client.fetch(query))[0];
   const bannerDesktop =
@@ -86,5 +88,6 @@ export const getGeneralSettings = async (
             .url()
         : urlFor(bannerMobile.asset).blur(200).url(),
     },
+    showNewsAsPrimaryContent: result.displayMode === "news",
   };
 };
