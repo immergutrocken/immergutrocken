@@ -73,7 +73,7 @@ const Layout = ({
               href="https://tickets.hoemepage.com/event/immergut-festival-3bu6"
               className="hover:no-underline"
             >
-              <Button className="bg-tertiary !text-primary">
+              <Button className="!bg-tertiary !text-primary">
                 {t("ticket-shop")}
               </Button>
             </Link>
