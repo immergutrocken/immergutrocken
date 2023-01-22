@@ -88,6 +88,8 @@ export const getGeneralSettings = async (
             .url()
         : urlFor(bannerMobile.asset).blur(200).url(),
     },
-    showNewsAsPrimaryContent: result.displayMode === "news",
+    showNewsAsPrimaryContent: result.displayMode
+      ? result.displayMode === "news"
+      : true,
   };
 };
