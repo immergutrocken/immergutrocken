@@ -25,7 +25,24 @@ export default {
   title: "Allgemein",
   type: "document",
   name: "generalSettings",
-  fields: [localizedTabs(fields)],
+  fields: [
+    localizedTabs(fields),
+    {
+      name: "displayMode",
+      type: "string",
+      title: "Anzeigemodus",
+      description:
+        "zeigt die gewählte Option als Hauptinhalt auf der Startseite an",
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: [
+          { title: "News", value: "news" },
+          { title: "Künstler", value: "artists" },
+        ],
+        layout: "radio",
+      },
+    },
+  ],
   preview: {
     prepare() {
       return {
