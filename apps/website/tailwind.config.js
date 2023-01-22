@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         primary: "#000",
         secondary: "#FFF",
-        tertiary: "#98CE58",
+        tertiary: "#FFEF26",
       },
       invert: {
         partner: "0",
