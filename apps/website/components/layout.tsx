@@ -95,7 +95,9 @@ const Layout = ({
           items={menuItems}
         />
       </header>
-      <main>{children}</main>
+      <main className={showNewsList ? "mt-[38px] sm:mt-[50px]" : ""}>
+        {children}
+      </main>
       <footer>
         <Footer
           sponsorList={sponsorList}
