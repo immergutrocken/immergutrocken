@@ -1,5 +1,4 @@
 import { useRouter } from "next/dist/client/router";
-import Image from "next/image";
 import NextLink from "next/link";
 import { MenuItemType } from "../lib/enums/menuItemType.enum";
 import { IMenuItem } from "../lib/menu";
@@ -69,7 +68,14 @@ const Menu = ({
       <Bubble className="absolute top-3 right-3" onClick={() => onClose()}>
         <em className="fas fa-times text-secondary"></em>
       </Bubble>
-      <div className="flex justify-center mt-16 sm:mt-24">
+      <div className="mt-16 sm:mt-24">
+        {items.map((item, index) => (
+          <div className="text-3xl text-center sm:text-6xl" key={index}>
+            {buildMenuItem(item, onClose, router.locale)}
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-center mt-4  gap-4">
         <NextLink href="/">
           <a>
             <Bubble className="bg-[#ffef09]">
@@ -77,15 +83,6 @@ const Menu = ({
             </Bubble>
           </a>
         </NextLink>
-      </div>
-      <div className="mt-8 sm:mt-12">
-        {items.map((item, index) => (
-          <div className="text-3xl text-center sm:text-6xl" key={index}>
-            {buildMenuItem(item, onClose, router.locale)}
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-4">
         <NextLink
           href={router.asPath}
           locale={router.locale === "de" ? "en" : "de"}
