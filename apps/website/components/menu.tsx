@@ -3,8 +3,8 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { MenuItemType } from "../lib/enums/menuItemType.enum";
 import { IMenuItem } from "../lib/menu";
-import euter from '../public/images/ig-euter.svg';
 import Bubble from "./shared/bubble";
+import EuterIcon from "./shared/euter-icon";
 import Link from "./shared/link";
 
 interface MenuProps {
@@ -72,8 +72,8 @@ const Menu = ({
       <div className="flex justify-center mt-16 sm:mt-24">
         <NextLink href="/">
           <a>
-            <Bubble className="bg-transparent">
-              <Image src={euter} layout="fill"></Image>
+            <Bubble className="bg-[#ffef09]">
+              <EuterIcon className="h-8"></EuterIcon>
             </Bubble>
           </a>
         </NextLink>
