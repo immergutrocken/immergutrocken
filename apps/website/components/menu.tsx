@@ -78,7 +78,7 @@ const Menu = ({
       <div className="flex justify-center mt-4  gap-4">
         <NextLink href="/">
           <a>
-            <Bubble className="bg-[#ffef09]">
+            <Bubble className="!bg-[#ffef09]">
               <EuterIcon className="h-8"></EuterIcon>
             </Bubble>
           </a>
