@@ -72,7 +72,7 @@ const Menu = ({
         <NextLink href="/">
           <a>
             <Bubble className="!bg-[#ffef09]">
-              <EuterIcon className="h-8"></EuterIcon>
+              <EuterIcon className="h-6"></EuterIcon>
             </Bubble>
           </a>
         </NextLink>
