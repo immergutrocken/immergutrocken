@@ -1,9 +1,10 @@
-import Bubble from "./shared/bubble";
-import { IMenuItem } from "../lib/menu";
-import { MenuItemType } from "../lib/enums/menuItemType.enum";
-import Link from "./shared/link";
-import NextLink from "next/link";
 import { useRouter } from "next/dist/client/router";
+import NextLink from "next/link";
+import { MenuItemType } from "../lib/enums/menuItemType.enum";
+import { IMenuItem } from "../lib/menu";
+import Bubble from "./shared/bubble";
+import EuterIcon from "./shared/euter-icon";
+import Link from "./shared/link";
 
 interface MenuProps {
   onClose: () => void;
@@ -67,14 +68,23 @@ const Menu = ({
       <Bubble className="absolute top-3 right-3" onClick={() => onClose()}>
         <em className="fas fa-times text-secondary"></em>
       </Bubble>
-      <div className="mt-16 sm:mt-24">
+      <div className="flex justify-center mt-12 sm:mt-20  gap-4">
+        <NextLink href="/">
+          <a>
+            <Bubble className="!bg-[#ffef09]">
+              <EuterIcon className="h-6"></EuterIcon>
+            </Bubble>
+          </a>
+        </NextLink>
+      </div>
+      <div className="mt-4 sm:mt-6">
         {items.map((item, index) => (
           <div className="text-3xl text-center sm:text-6xl" key={index}>
             {buildMenuItem(item, onClose, router.locale)}
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4  gap-4">
         <NextLink
           href={router.asPath}
           locale={router.locale === "de" ? "en" : "de"}
