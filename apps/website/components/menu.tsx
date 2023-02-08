@@ -68,11 +68,11 @@ const Menu = ({
       <Bubble className="absolute top-3 right-3" onClick={() => onClose()}>
         <em className="fas fa-times text-secondary"></em>
       </Bubble>
-      <div className="flex justify-center mt-12 sm:mt-20  gap-4">
+      <div className="flex justify-center gap-4 mt-12 sm:mt-20">
         <NextLink href="/">
           <a>
             <Bubble className="!bg-[#ffef09]">
-              <EuterIcon className="h-6"></EuterIcon>
+              <EuterIcon className="h-6 sm:h-8"></EuterIcon>
             </Bubble>
           </a>
         </NextLink>
@@ -84,7 +84,7 @@ const Menu = ({
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4  gap-4">
+      <div className="flex justify-center gap-4 mt-4">
         <NextLink
           href={router.asPath}
           locale={router.locale === "de" ? "en" : "de"}
