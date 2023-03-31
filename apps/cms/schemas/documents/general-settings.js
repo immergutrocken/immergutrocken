@@ -6,6 +6,7 @@ const fields = [
     title: "Titel der Website",
     name: "websiteTitle",
     type: "string",
+    description: "wird im Browser Tab angezeigt",
   },
   {
     ...getImage(false),
@@ -18,6 +19,12 @@ const fields = [
     title: "Banner Mobile",
     name: "bannerMobile",
     description: "1800px breit und 2250px hoch sein für optimale Darstellung",
+  },
+  {
+    name: "additionalTextAfterArtists",
+    type: "string",
+    title: "Text nach Künstler Liste",
+    description: 'zum Beispiel "und viele mehr"',
   },
 ];
 
