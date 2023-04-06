@@ -24,6 +24,7 @@ export interface IGeneralSettings {
     height: number;
   };
   showNewsAsPrimaryContent: boolean;
+  additionalTextAfterArtists: string;
 }
 
 export const getGeneralSettings = async (
@@ -36,7 +37,9 @@ export const getGeneralSettings = async (
     'bannerDesktopEn': languages.en.bannerDesktop,
     'bannerMobileDe': languages.de.bannerMobile,
     'bannerMobileEn': languages.en.bannerMobile,
-    'displayMode': displayMode
+    'displayMode': displayMode,
+    'additionalTextAfterArtistsDe': languages.de.additionalTextAfterArtists,
+    'additionalTextAfterArtistsEn': languages.en.additionalTextAfterArtists,
   }`;
   const result = (await client.fetch(query))[0];
   const bannerDesktop =
@@ -91,5 +94,10 @@ export const getGeneralSettings = async (
     showNewsAsPrimaryContent: result.displayMode
       ? result.displayMode === "news"
       : true,
+    additionalTextAfterArtists:
+      locale === "de"
+        ? result.additionalTextAfterArtistsDe
+        : result.additionalTextAfterArtistsEn ??
+          result.additionalTextAfterArtistsDe,
   };
 };

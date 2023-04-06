@@ -167,6 +167,9 @@ export default function Home(props: HomeProps): JSX.Element {
                   {index === array.length - 1 ? "" : "•"}
                 </span>
               ))}
+            {props.generalSettings.additionalTextAfterArtists && (
+              <span> • {props.generalSettings.additionalTextAfterArtists}</span>
+            )}
           </>
         )}
         {props.generalSettings.showNewsAsPrimaryContent && (
