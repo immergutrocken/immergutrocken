@@ -87,6 +87,7 @@ export default function Home(props: HomeProps): JSX.Element {
           layout="responsive"
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerMobile.urlWithBlur}
+          alt="Banner"
         />
       </div>
       <div className={`hidden sm:block${showNewsList ? " sm:pt-10" : ""}`}>
@@ -97,6 +98,7 @@ export default function Home(props: HomeProps): JSX.Element {
           layout="responsive"
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
+          alt="Banner"
         />
       </div>
       <div className="flex justify-center mt-4 sm:mt-6">
@@ -161,8 +163,11 @@ export default function Home(props: HomeProps): JSX.Element {
               )
               .map((link, index, array) => (
                 <span key={index}>
-                  <NextLink href={`/artist/${link.slug}`}>
-                    <a className="mx-2 sm:mx-5">{link.title}</a>
+                  <NextLink
+                    href={`/artist/${link.slug}`}
+                    className="mx-2 sm:mx-5"
+                  >
+                    {link.title}
                   </NextLink>
                   {index === array.length - 1 ? "" : "•"}
                 </span>
@@ -176,8 +181,11 @@ export default function Home(props: HomeProps): JSX.Element {
           <>
             {props.newsLinkList.map((link, index, array) => (
               <span key={index}>
-                <NextLink href={`/article/${link.slug}`}>
-                  <a className="mx-2 sm:mx-5">{link.title}</a>
+                <NextLink
+                  href={`/article/${link.slug}`}
+                  className="mx-2 sm:mx-5"
+                >
+                  {link.title}
                 </NextLink>
                 {index === array.length - 1 ? "" : "•"}
               </span>

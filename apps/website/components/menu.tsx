@@ -30,11 +30,9 @@ const buildMenuItem = (
           href={
             item.url != null ? item.url : `/${item.documentType}/${item.slug}`
           }
+          onClick={() => onClose()}
         >
-          {/* eslint-disable-next-line */}
-          <a onClick={() => onClose()}>
-            {locale === "de" ? item.title.de : item.title.en}
-          </a>
+          {locale === "de" ? item.title.de : item.title.en}
         </NextLink>
       );
     case MenuItemType.SUBMENU:
@@ -70,11 +68,9 @@ const Menu = ({
       </Bubble>
       <div className="flex justify-center gap-4 mt-12 sm:mt-20">
         <NextLink href="/">
-          <a>
-            <Bubble className="!bg-[#ffef09]">
-              <EuterIcon className="h-6 sm:h-8"></EuterIcon>
-            </Bubble>
-          </a>
+          <Bubble className="!bg-[#ffef09]">
+            <EuterIcon className="h-6 sm:h-8"></EuterIcon>
+          </Bubble>
         </NextLink>
       </div>
       <div className="mt-4 sm:mt-6">
@@ -89,11 +85,9 @@ const Menu = ({
           href={router.asPath}
           locale={router.locale === "de" ? "en" : "de"}
         >
-          <a>
-            <Bubble className="text-xl sm:text-3xl font-important">
-              {router.locale === "de" ? "en" : "de"}
-            </Bubble>
-          </a>
+          <Bubble className="text-xl sm:text-3xl font-important">
+            {router.locale === "de" ? "en" : "de"}
+          </Bubble>
         </NextLink>
       </div>
     </div>

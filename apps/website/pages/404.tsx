@@ -69,10 +69,7 @@ const Custom404 = ({
           {t("text-part-1")}
           <br />
           {t("text-part-2")}
-          <NextLink href="/">
-            <a>{t("link-text")}</a>
-          </NextLink>{" "}
-          {t("text-part-3")}
+          <NextLink href="/">{t("link-text")}</NextLink> {t("text-part-3")}
         </p>
       </div>
     </Layout>

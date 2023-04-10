@@ -19,8 +19,8 @@ const addEmailAddressToContactList = async (
       ContactEmail: fixedEmail,
     });
 
-    if (listRecipient.body.Count !== 0) {
-      const data = listRecipient.body.Data[0] as IData;
+    if (listRecipient.body.length !== 0) {
+      const data = listRecipient.body[0] as IData;
 
       if (!data.IsUnsubscribed) {
         res.status(200).json({});

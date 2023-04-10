@@ -40,6 +40,7 @@ const ImageGallery = (props: ImageGalleryProps): JSX.Element => {
                 objectFit="cover"
                 placeholder="blur"
                 blurDataURL={image.urlPreviewBlur}
+                alt={image.alt}
               />
             </div>
             <Bubble className="absolute right-1 top-1" size="small">
