@@ -1,5 +1,4 @@
-import React from "react";
-import image from "../fields/image";
+import image from "./image";
 import youtube from "../components/youtube";
 import {
   FaHighlighter,
@@ -9,16 +8,16 @@ import {
   FaAlignJustify,
 } from "react-icons/fa";
 import imageGallery from "../components/imageGallery";
-import link from "../fields/link";
-import externalLink from "../fields/externalLink";
-import { withCTA } from "../fields/fieldExtender";
-import internalLink from "../fields/internalLink";
+import link from "./link";
+import externalLink from "./externalLink";
+import { withCTA } from "./fieldExtender";
+import internalLink from "./internalLink";
 
-const highlightRender = (props) => (
+const HighlightRender = (props) => (
   <span style={{ backgroundColor: "yellow" }}>{props.children}</span>
 );
 
-const alignRender = (align) => (props) =>
+const AlignRender = (align) => (props) =>
   (
     <div
       class="test"
@@ -30,7 +29,7 @@ const alignRender = (align) => (props) =>
     </div>
   );
 
-const colorRender = (color) => (props) =>
+const ColorRender = (color) => (props) =>
   <span style={{ color: color }}>{props.children}</span>;
 
 export default {
@@ -56,66 +55,50 @@ export default {
           {
             title: "Highlight",
             value: "highlight",
-            blockEditor: {
-              icon: FaHighlighter,
-              render: highlightRender,
-            },
+            icon: FaHighlighter,
+            component: HighlightRender,
           },
           {
             title: "Align left",
             value: "align-left",
-            blockEditor: {
-              icon: FaAlignLeft,
-              render: alignRender("left"),
-            },
+            icon: FaAlignLeft,
+            component: AlignRender("left"),
           },
           {
             title: "Align center",
             value: "align-center",
-            blockEditor: {
-              icon: FaAlignCenter,
-              render: alignRender("center"),
-            },
+            icon: FaAlignCenter,
+            component: AlignRender("center"),
           },
           {
             title: "Align right",
             value: "align-right",
-            blockEditor: {
-              icon: FaAlignRight,
-              render: alignRender("right"),
-            },
+            icon: FaAlignRight,
+            component: AlignRender("right"),
           },
           {
             title: "Align justify",
             value: "align-justify",
-            blockEditor: {
-              icon: FaAlignJustify,
-              render: alignRender("justify"),
-            },
+            icon: FaAlignJustify,
+            component: AlignRender("justify"),
           },
           {
             title: "Primary Color",
             value: "color-primary",
-            blockEditor: {
-              icon: () => "CP",
-              render: colorRender("red"),
-            },
+            icon: () => "CP",
+            component: ColorRender("red"),
           },
           {
             title: "Secondary Color",
             value: "color-secondary",
-            blockEditor: {
-              icon: () => "CS",
-              render: colorRender("green"),
-            },
+            icon: () => "CS",
+            component: ColorRender("green"),
           },
           {
             title: "Tertiary Color",
             value: "color-tertiary",
-            blockEditor: {
-              icon: () => "CT",
-              render: colorRender("blue"),
-            },
+            icon: () => "CT",
+            component: ColorRender("blue"),
           },
         ],
         annotations: [

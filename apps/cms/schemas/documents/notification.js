@@ -1,6 +1,5 @@
 import { RiNotification2Line } from "react-icons/ri";
-import supportedLanguages from "../../config/supportedLanguages";
-import Tabs from "sanity-plugin-tabs";
+import supportedLanguages from "../../supportedLanguages";
 import blockContent from "../fields/blockContent";
 
 const fields = [
@@ -36,7 +35,6 @@ export default {
     {
       name: "languages",
       type: "object",
-      inputComponent: Tabs,
       fieldsets: supportedLanguages.map((lang) => ({
         name: lang.id + "-tab",
         title: lang.title,

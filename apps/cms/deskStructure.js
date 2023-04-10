@@ -1,32 +1,17 @@
-import S from "@sanity/desk-tool/structure-builder";
 import { FaShoppingBag, FaUsers } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { MdFormatListNumbered } from "react-icons/md";
 import { RiArticleLine, RiMusic2Line } from "react-icons/ri";
-import { createSuperPane } from "sanity-super-pane";
 
-export default () =>
+export default (S) =>
   S.list()
     .title("Content")
     .items([
-      S.listItem()
-        .title("Artikel")
-        .icon(RiArticleLine)
-        .child(createSuperPane("article", S)),
-      S.listItem()
-        .title("Künstler*innen")
-        .icon(RiMusic2Line)
-        .child(createSuperPane("artist", S)),
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          ![
-            "sortings",
-            "verein",
-            "article",
-            "artist",
-            "generalSettings",
-            "merch",
-          ].includes(listItem.getId())
+          !["sortings", "verein", "generalSettings", "merch"].includes(
+            listItem.getId()
+          )
       ),
       S.divider(),
       S.listItem()

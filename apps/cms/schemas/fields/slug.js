@@ -1,6 +1,8 @@
-import sanityClient from "part:@sanity/base/client";
+import { useClient } from "sanity";
 
 export async function slugify(input) {
+  const sanityClient = useClient();
+
   const slugyfiedTitle = input.title
     .toLowerCase()
     .replace(/\s+/g, "-")

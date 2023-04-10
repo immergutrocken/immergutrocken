@@ -1,27 +1,15 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
   "pipeline": {
     "dev": {
-      "outputs": [
-        "dist/**",
-        "build/**"
-      ]
+      "outputs": ["dist/**", "build/**"]
     },
     "build": {
-      "outputs": [
-        "public/**",
-        ".next/**"
-      ],
-      "dependsOn": [
-        "^build"
-      ]
+      "outputs": ["public/**", ".next/**"],
+      "dependsOn": ["^build"]
     },
     "test": {
-      "outputs": [
-        "dist/**",
-        "build/**"
-      ]
+      "outputs": ["dist/**", "build/**"]
     }
   }
 }
