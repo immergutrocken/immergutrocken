@@ -1,21 +1,21 @@
-import NextHead from "next/head";
-import NextImage from "next/image";
-import { getNewsLinkList, INewsLink } from "../lib/news";
-import { getPartnerList, IPartner } from "../lib/partner";
-import PartnerCategory from "../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../lib/menu";
-import { getArtistLinkList, IArtistLink } from "../lib/artist";
-import NextLink from "next/link";
-import Layout from "../components/layout";
-import { getNotificationList, INotification } from "../lib/notification";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { useTranslations } from "next-intl";
-import { ArtistCategory } from "../lib/enums/artistCategory.enum";
-import Button from "../components/shared/button";
-import { useState } from "react";
-import Label from "../components/shared/label";
 import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import NextLink from "next/link";
+import { useState } from "react";
+import Layout from "../components/layout";
+import Button from "../components/shared/button";
+import Label from "../components/shared/label";
+import { getArtistLinkList, IArtistLink } from "../lib/artist";
+import { ArtistCategory } from "../lib/enums/artistCategory.enum";
+import PartnerCategory from "../lib/enums/partnerCategory.enum";
 import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { getMenu, IMenuItem } from "../lib/menu";
+import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getNotificationList, INotification } from "../lib/notification";
+import { getPartnerList, IPartner } from "../lib/partner";
 
 interface HomeProps {
   newsLinkList: INewsLink[];
@@ -99,7 +99,7 @@ export default function Home(props: HomeProps): JSX.Element {
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
         />
       </div>
-      <div className="flex justify-center mt-4 sm:mt-6">
+      <div className="flex justify-center pt-4 sm:pt-6 bg-ciGray">
         {props.generalSettings.showNewsAsPrimaryContent && (
           <Label>{t("news")}</Label>
         )}
@@ -108,49 +108,49 @@ export default function Home(props: HomeProps): JSX.Element {
             {props.artistLinkList.some(
               (link) => link.category === ArtistCategory.MUSIC
             ) && (
-              <Button
-                className="mx-2"
-                click={() =>
-                  setFilterCategory(
-                    filterCategory === ArtistCategory.MUSIC
-                      ? null
-                      : ArtistCategory.MUSIC
-                  )
-                }
-                active={
-                  filterCategory === ArtistCategory.MUSIC ||
-                  filterCategory === null
-                }
-                size="small"
-              >
-                {t("music").toString()}
-              </Button>
-            )}
+                <Button
+                  className="mx-2"
+                  click={() =>
+                    setFilterCategory(
+                      filterCategory === ArtistCategory.MUSIC
+                        ? null
+                        : ArtistCategory.MUSIC
+                    )
+                  }
+                  active={
+                    filterCategory === ArtistCategory.MUSIC ||
+                    filterCategory === null
+                  }
+                  size="small"
+                >
+                  {t("music").toString()}
+                </Button>
+              )}
             {props.artistLinkList.some(
               (link) => link.category === ArtistCategory.READING
             ) && (
-              <Button
-                className="mx-2"
-                click={() =>
-                  setFilterCategory(
-                    filterCategory === ArtistCategory.READING
-                      ? null
-                      : ArtistCategory.READING
-                  )
-                }
-                active={
-                  filterCategory === ArtistCategory.READING ||
-                  filterCategory === null
-                }
-                size="small"
-              >
-                {t("readings").toString()}
-              </Button>
-            )}
+                <Button
+                  className="mx-2"
+                  click={() =>
+                    setFilterCategory(
+                      filterCategory === ArtistCategory.READING
+                        ? null
+                        : ArtistCategory.READING
+                    )
+                  }
+                  active={
+                    filterCategory === ArtistCategory.READING ||
+                    filterCategory === null
+                  }
+                  size="small"
+                >
+                  {t("readings").toString()}
+                </Button>
+              )}
           </>
         )}
       </div>
-      <div className="flex flex-row flex-wrap justify-center mt-4 text-3xl text-center sm:mt-6 sm:text-5xl font-important">
+      <div className="flex flex-row flex-wrap justify-center  bg-ciGray pt-4 pb-4 text-3xl text-center sm:pt-6 sm:pb-6 sm:text-5xl font-important">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
             {props.artistLinkList
@@ -162,7 +162,7 @@ export default function Home(props: HomeProps): JSX.Element {
               .map((link, index, array) => (
                 <span key={index}>
                   <NextLink href={`/artist/${link.slug}`}>
-                    <a className="mx-2 sm:mx-5">{link.title}</a>
+                    <a className="mx-2 sm:mx-5">{link.title} aaaa</a>
                   </NextLink>
                   {index === array.length - 1 ? "" : "•"}
                 </span>
