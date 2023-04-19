@@ -21,10 +21,10 @@ const Footer = ({
 
   return (
     <>
-      <div className="pt-8 sm:pt-12 pb-8 sm:pb-12 bg-ciPurple">
+      <div className="mt-8 sm:mt-12">
         <NewsletterRegistration />
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-4 pt-8 pb-8 bg-ciGray">
+      <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
         {socialMedia.map((element, index) => (
           <Link href={element.url} key={index}>
             <Bubble>
@@ -41,25 +41,23 @@ const Footer = ({
         />
         <Partner label={t("supported-by").toString()} list={additionalList} />
       </div>
-      <div className="w-full  px-3 pb-6 pt-8 text-center sm:pb-10 font-content bg-ciOrange">
-        <div className="max-w-3xl mx-auto">
-          <p>
-            Immergut Festival / Am Bürgerseeweg 28 / 17235 Neustrelitz
-            <br />
-            {t("disclaimer").toString()}
-          </p>
-          <p className="mt-4">
-            Made with{" "}
-            <span role="img" aria-label="heart">
-              ❤️
-            </span>
-            , structured content powered by{" "}
-            <Link href="https://www.sanity.io">sanity.io</Link>, hosted by{" "}
-            <Link href="https://www.vercel.com?utm_source=website-2021&utm_campaign=oss">
-              vercel.com
-            </Link>
-          </p>
-        </div>
+      <div className="w-full max-w-3xl px-3 pb-6 mx-auto mt-8 text-center sm:pb-10 font-content">
+        <p>
+          Immergut Festival / Am Bürgerseeweg 28 / 17235 Neustrelitz
+          <br />
+          {t("disclaimer").toString()}
+        </p>
+        <p className="mt-4">
+          Made with{" "}
+          <span role="img" aria-label="heart">
+            ❤️
+          </span>
+          , structured content powered by{" "}
+          <Link href="https://www.sanity.io">sanity.io</Link>, hosted by{" "}
+          <Link href="https://www.vercel.com?utm_source=website-2021&utm_campaign=oss">
+            vercel.com
+          </Link>
+        </p>
       </div>
     </>
   );
