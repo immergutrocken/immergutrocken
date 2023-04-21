@@ -50,6 +50,33 @@ export const getStaticProps = async ({
   };
 };
 
+const buildArtistLinkPairList = (
+  artistLinkList: IArtistLink[]
+): IArtistLink[][] => {
+  const artistLinkPairList = [];
+  artistLinkList.forEach((artistLink, index, originalArray) => {
+    if (index % 2 === 0) {
+      if (originalArray[index + 1] === undefined)
+        artistLinkPairList.push([artistLink]);
+      else artistLinkPairList.push([artistLink, originalArray[index + 1]]);
+    }
+  });
+  return artistLinkPairList;
+};
+
+const getArtistTextColor = (
+  linkPairIndex: number,
+  linkIndex: number
+): string => {
+  if (linkPairIndex % 2 === 0) {
+    if (linkIndex === 0) return "text-ciPurple";
+    else return "text-ciOrange";
+  } else {
+    if (linkIndex === 0) return "text-ciPurple sm:text-ciOrange";
+    else return "text-ciOrange sm:text-ciPurple";
+  }
+};
+
 export default function Home(props: HomeProps): JSX.Element {
   const [filterCategory, setFilterCategory] = useState<ArtistCategory>(null);
   const t = useTranslations("Home");
@@ -99,7 +126,7 @@ export default function Home(props: HomeProps): JSX.Element {
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
         />
       </div>
-      <div className="flex justify-center pt-4 sm:pt-6 bg-ciGray">
+      <div className="flex justify-center pt-4 sm:pt-6">
         {props.generalSettings.showNewsAsPrimaryContent && (
           <Label>{t("news")}</Label>
         )}
@@ -108,67 +135,82 @@ export default function Home(props: HomeProps): JSX.Element {
             {props.artistLinkList.some(
               (link) => link.category === ArtistCategory.MUSIC
             ) && (
-                <Button
-                  className="mx-2"
-                  click={() =>
-                    setFilterCategory(
-                      filterCategory === ArtistCategory.MUSIC
-                        ? null
-                        : ArtistCategory.MUSIC
-                    )
-                  }
-                  active={
-                    filterCategory === ArtistCategory.MUSIC ||
-                    filterCategory === null
-                  }
-                  size="small"
-                >
-                  {t("music").toString()}
-                </Button>
-              )}
+              <Button
+                className="mx-2"
+                click={() =>
+                  setFilterCategory(
+                    filterCategory === ArtistCategory.MUSIC
+                      ? null
+                      : ArtistCategory.MUSIC
+                  )
+                }
+                active={
+                  filterCategory === ArtistCategory.MUSIC ||
+                  filterCategory === null
+                }
+                size="small"
+              >
+                {t("music").toString()}
+              </Button>
+            )}
             {props.artistLinkList.some(
               (link) => link.category === ArtistCategory.READING
             ) && (
-                <Button
-                  className="mx-2"
-                  click={() =>
-                    setFilterCategory(
-                      filterCategory === ArtistCategory.READING
-                        ? null
-                        : ArtistCategory.READING
-                    )
-                  }
-                  active={
-                    filterCategory === ArtistCategory.READING ||
-                    filterCategory === null
-                  }
-                  size="small"
-                >
-                  {t("readings").toString()}
-                </Button>
-              )}
+              <Button
+                className="mx-2"
+                click={() =>
+                  setFilterCategory(
+                    filterCategory === ArtistCategory.READING
+                      ? null
+                      : ArtistCategory.READING
+                  )
+                }
+                active={
+                  filterCategory === ArtistCategory.READING ||
+                  filterCategory === null
+                }
+                size="small"
+              >
+                {t("readings").toString()}
+              </Button>
+            )}
           </>
         )}
       </div>
-      <div className="flex flex-row flex-wrap justify-center  bg-ciGray pt-4 pb-4 text-3xl text-center sm:pt-6 sm:pb-6 sm:text-5xl font-important">
+      <div className="flex flex-col flex-wrap justify-center pt-4 pb-4 text-3xl text-center sm:pt-6 sm:pb-6 sm:text-5xl font-important">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
-            {props.artistLinkList
-              .filter((link) =>
+            {buildArtistLinkPairList(
+              props.artistLinkList.filter((link) =>
                 filterCategory === null
                   ? true
                   : link.category === filterCategory
               )
-              .map((link, index, array) => (
-                <span key={index}>
-                  <NextLink href={`/artist/${link.slug}`}>
-                    <a className="mx-2 sm:mx-5">{link.title} aaaa</a>
-                  </NextLink>
-                  {index === array.length - 1 ? "" : "•"}
-                </span>
-              ))}
+            ).map((linkPair, indexLinkPair) => (
+              <div
+                key={indexLinkPair}
+                className={"grid grid-cols-1 sm:grid-cols-" + linkPair.length}
+              >
+                {linkPair.map((link, index) => (
+                  <div className="flex items-center justify-center" key={index}>
+                    <NextLink key={index} href={`/artist/${link.slug}`}>
+                      <a
+                        className={
+                          "mx-2 sm:mx-5 w100 " +
+                          getArtistTextColor(indexLinkPair, index)
+                        }
+                      >
+                        {link.title} aaaa
+                      </a>
+                    </NextLink>
+                  </div>
+                ))}
+              </div>
+            ))}
             {props.generalSettings.additionalTextAfterArtists && (
-              <span> • {props.generalSettings.additionalTextAfterArtists}</span>
+              <span className="w100">
+                {props.generalSettings.additionalTextAfterArtists}
+              </span>
             )}
           </>
         )}
