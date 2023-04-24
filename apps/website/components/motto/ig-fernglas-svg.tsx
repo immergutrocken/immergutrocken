@@ -8,7 +8,7 @@ const IgFernglasSvg = () => (
     y="0px"
     viewBox="0 0 698.67 693.95"
     xmlSpace="preserve"
-    style={{ maxWidth: "400px" }}
+    style={{ maxWidth: "400px", height: "100%" }}
   >
     <g>
       <path

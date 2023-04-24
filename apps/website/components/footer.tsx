@@ -23,10 +23,12 @@ const Footer = ({
 
   return (
     <>
-      <div className="pt-8 pb-8 sm:pt-12 sm:pb-12 bg-ciPurple">
-        <NewsletterRegistration />
-        <div className="flex justify-center mx-4 mt-4 w-100">
-          <IgFernglasSvg />
+      <div className="flex justify-center pt-8 pb-8 sm:pt-12 sm:pb-12 bg-ciPurple">
+        <div className="relative">
+          <div className="absolute flex justify-center w-2/3 pr-2 sm:pr-8 -left-2/3 -top-2/3">
+            <IgFernglasSvg />
+          </div>
+          <NewsletterRegistration />
         </div>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4 pt-8 pb-8 bg-ciGray">

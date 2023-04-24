@@ -200,7 +200,7 @@ export default function Home(props: HomeProps): JSX.Element {
                           getArtistTextColor(indexLinkPair, index)
                         }
                       >
-                        {link.title} aaaa
+                        {link.title}
                       </a>
                     </NextLink>
                   </div>
