@@ -6,29 +6,116 @@ import schema from "./schemas/schema";
 import deskStructure from "./deskStructure";
 import { ImmergutLogo } from "./components/immergutLogo";
 
-export default defineConfig({
-  title: "Immergutrocken",
-  projectId: "05hvmwlk",
-  dataset: "development",
-  plugins: [
-    deskTool({
-      structure: deskStructure,
-    }),
-    visionTool(),
-    media(),
-  ],
-  tools: (prev) => {
-    if (import.meta.env.DEV) {
-      return prev;
-    }
-    return prev.filter((tool) => tool.name !== "vision");
-  },
-  schema: {
-    types: schema,
-  },
-  studio: {
-    components: {
-      logo: ImmergutLogo,
-    },
-  },
-});
+const getConfig = () => {
+  if (import.meta.env.DEV)
+    return [
+      {
+        title: "DEV - Immergutrocken",
+        projectId: "05hvmwlk",
+        dataset: "development",
+        name: "development",
+        basePath: "/dev",
+        plugins: [
+          deskTool({
+            structure: deskStructure,
+          }),
+          visionTool(),
+          media(),
+        ],
+        tools: (prev) => {
+          if (import.meta.env.DEV) {
+            return prev;
+          }
+          return prev.filter((tool) => tool.name !== "vision");
+        },
+        schema: {
+          types: schema,
+        },
+        studio: {
+          components: {
+            logo: ImmergutLogo,
+          },
+        },
+      },
+      {
+        title: "STAGING - Immergutrocken",
+        projectId: "05hvmwlk",
+        dataset: "staging",
+        name: "staging",
+        basePath: "/staging",
+        plugins: [
+          deskTool({
+            structure: deskStructure,
+          }),
+          visionTool(),
+          media(),
+        ],
+        tools: (prev) => {
+          if (import.meta.env.DEV) {
+            return prev;
+          }
+          return prev.filter((tool) => tool.name !== "vision");
+        },
+        schema: {
+          types: schema,
+        },
+        studio: {
+          components: {
+            logo: ImmergutLogo,
+          },
+        },
+      },
+      {
+        title: "PRODUCTION - Immergutrocken",
+        projectId: "05hvmwlk",
+        dataset: "production",
+        name: "production",
+        basePath: "/production",
+        plugins: [
+          deskTool({
+            structure: deskStructure,
+          }),
+          visionTool(),
+          media(),
+        ],
+        tools: (prev) => {
+          if (import.meta.env.DEV) {
+            return prev;
+          }
+          return prev.filter((tool) => tool.name !== "vision");
+        },
+        schema: {
+          types: schema,
+        },
+        studio: {
+          components: {
+            logo: ImmergutLogo,
+          },
+        },
+      },
+    ];
+  else
+    return [
+      {
+        title: "Immergutrocken",
+        projectId: "05hvmwlk",
+        dataset: "development",
+        plugins: [
+          deskTool({
+            structure: deskStructure,
+          }),
+          media(),
+        ],
+        schema: {
+          types: schema,
+        },
+        studio: {
+          components: {
+            logo: ImmergutLogo,
+          },
+        },
+      },
+    ];
+};
+
+export default defineConfig(getConfig());
