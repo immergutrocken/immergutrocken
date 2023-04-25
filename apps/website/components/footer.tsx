@@ -5,7 +5,6 @@ import Partner from "./partner";
 import socialMedia from "../lib/models/socialMedia";
 import NewsletterRegistration from "./newsletterRegistration";
 import { useTranslations } from "next-intl";
-import NextImage from "next/image";
 import IgFernglasSvg from "./motto/ig-fernglas-svg";
 
 interface FooterProps {
@@ -23,7 +22,7 @@ const Footer = ({
 
   return (
     <>
-      <div className="flex justify-center pt-8 pb-8 sm:pt-12 sm:pb-12 bg-ciPurple">
+      <div className="flex justify-center py-16 sm:py-24 bg-ciPurple">
         <div className="relative">
           <div className="absolute flex justify-center w-2/3 pr-2 sm:pr-8 -left-2/3 -top-2/3">
             <IgFernglasSvg />

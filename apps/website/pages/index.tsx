@@ -177,7 +177,7 @@ export default function Home(props: HomeProps): JSX.Element {
           </>
         )}
       </div>
-      <div className="flex flex-col flex-wrap justify-center pt-4 pb-4 text-3xl text-center sm:pt-6 sm:pb-6 sm:text-5xl font-important">
+      <div className="flex flex-col flex-wrap justify-center pt-4 pb-4 text-3xl text-center sm:max-w-7xl sm:pt-6 sm:pb-6 sm:text-5xl font-important sm:mx-auto">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
             {buildArtistLinkPairList(
