@@ -5,6 +5,7 @@ import Partner from "./partner";
 import socialMedia from "../lib/models/socialMedia";
 import NewsletterRegistration from "./newsletterRegistration";
 import { useTranslations } from "next-intl";
+import IgFernglasSvg from "./motto/ig-fernglas-svg";
 
 interface FooterProps {
   sponsorList: IPartner[];
@@ -21,10 +22,15 @@ const Footer = ({
 
   return (
     <>
-      <div className="mt-8 sm:mt-12">
-        <NewsletterRegistration />
+      <div className="flex justify-center py-16 sm:py-24 bg-ciPurple">
+        <div className="relative">
+          <div className="absolute flex justify-center w-2/3 pr-2 sm:pr-8 -left-2/3 -top-2/3">
+            <IgFernglasSvg />
+          </div>
+          <NewsletterRegistration />
+        </div>
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+      <div className="flex flex-wrap items-center justify-center gap-4 pt-8 pb-8 bg-ciGray">
         {socialMedia.map((element, index) => (
           <Link href={element.url} key={index}>
             <Bubble>
@@ -41,23 +47,25 @@ const Footer = ({
         />
         <Partner label={t("supported-by").toString()} list={additionalList} />
       </div>
-      <div className="w-full max-w-3xl px-3 pb-6 mx-auto mt-8 text-center sm:pb-10 font-content">
-        <p>
-          Immergut Festival / Am Bürgerseeweg 28 / 17235 Neustrelitz
-          <br />
-          {t("disclaimer").toString()}
-        </p>
-        <p className="mt-4">
-          Made with{" "}
-          <span role="img" aria-label="heart">
-            ❤️
-          </span>
-          , structured content powered by{" "}
-          <Link href="https://www.sanity.io">sanity.io</Link>, hosted by{" "}
-          <Link href="https://www.vercel.com?utm_source=website-2021&utm_campaign=oss">
-            vercel.com
-          </Link>
-        </p>
+      <div className="w-full px-3 pt-8 pb-6 text-center sm:pb-10 font-content bg-ciOrange">
+        <div className="max-w-3xl mx-auto">
+          <p>
+            Immergut Festival / Am Bürgerseeweg 28 / 17235 Neustrelitz
+            <br />
+            {t("disclaimer").toString()}
+          </p>
+          <p className="mt-4">
+            Made with{" "}
+            <span role="img" aria-label="heart">
+              ❤️
+            </span>
+            , structured content powered by{" "}
+            <Link href="https://www.sanity.io">sanity.io</Link>, hosted by{" "}
+            <Link href="https://www.vercel.com?utm_source=website-2021&utm_campaign=oss">
+              vercel.com
+            </Link>
+          </p>
+        </div>
       </div>
     </>
   );

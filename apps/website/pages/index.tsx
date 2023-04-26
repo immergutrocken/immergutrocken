@@ -1,21 +1,21 @@
-import NextHead from "next/head";
-import NextImage from "next/image";
-import { getNewsLinkList, INewsLink } from "../lib/news";
-import { getPartnerList, IPartner } from "../lib/partner";
-import PartnerCategory from "../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../lib/menu";
-import { getArtistLinkList, IArtistLink } from "../lib/artist";
-import NextLink from "next/link";
-import Layout from "../components/layout";
-import { getNotificationList, INotification } from "../lib/notification";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { useTranslations } from "next-intl";
-import { ArtistCategory } from "../lib/enums/artistCategory.enum";
-import Button from "../components/shared/button";
-import { useState } from "react";
-import Label from "../components/shared/label";
 import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import NextLink from "next/link";
+import { useState } from "react";
+import Layout from "../components/layout";
+import Button from "../components/shared/button";
+import Label from "../components/shared/label";
+import { getArtistLinkList, IArtistLink } from "../lib/artist";
+import { ArtistCategory } from "../lib/enums/artistCategory.enum";
+import PartnerCategory from "../lib/enums/partnerCategory.enum";
 import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { getMenu, IMenuItem } from "../lib/menu";
+import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getNotificationList, INotification } from "../lib/notification";
+import { getPartnerList, IPartner } from "../lib/partner";
 
 interface HomeProps {
   newsLinkList: INewsLink[];
@@ -48,6 +48,33 @@ export const getStaticProps = async ({
     },
     revalidate: 1,
   };
+};
+
+const buildArtistLinkPairList = (
+  artistLinkList: IArtistLink[]
+): IArtistLink[][] => {
+  const artistLinkPairList = [];
+  artistLinkList.forEach((artistLink, index, originalArray) => {
+    if (index % 2 === 0) {
+      if (originalArray[index + 1] === undefined)
+        artistLinkPairList.push([artistLink]);
+      else artistLinkPairList.push([artistLink, originalArray[index + 1]]);
+    }
+  });
+  return artistLinkPairList;
+};
+
+const getArtistTextColor = (
+  linkPairIndex: number,
+  linkIndex: number
+): string => {
+  if (linkPairIndex % 2 === 0) {
+    if (linkIndex === 0) return "text-ciPurple";
+    else return "text-ciOrange";
+  } else {
+    if (linkIndex === 0) return "text-ciPurple sm:text-ciOrange";
+    else return "text-ciOrange sm:text-ciPurple";
+  }
 };
 
 export default function Home(props: HomeProps): JSX.Element {
@@ -99,7 +126,7 @@ export default function Home(props: HomeProps): JSX.Element {
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
         />
       </div>
-      <div className="flex justify-center mt-4 sm:mt-6">
+      <div className="flex justify-center pt-4 sm:pt-6">
         {props.generalSettings.showNewsAsPrimaryContent && (
           <Label>{t("news")}</Label>
         )}
@@ -150,25 +177,40 @@ export default function Home(props: HomeProps): JSX.Element {
           </>
         )}
       </div>
-      <div className="flex flex-row flex-wrap justify-center mt-4 text-3xl text-center sm:mt-6 sm:text-5xl font-important">
+      <div className="flex flex-col flex-wrap justify-center pt-4 pb-4 text-3xl text-center sm:max-w-7xl sm:pt-6 sm:pb-6 sm:text-5xl font-important sm:mx-auto">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
-            {props.artistLinkList
-              .filter((link) =>
+            {buildArtistLinkPairList(
+              props.artistLinkList.filter((link) =>
                 filterCategory === null
                   ? true
                   : link.category === filterCategory
               )
-              .map((link, index, array) => (
-                <span key={index}>
-                  <NextLink href={`/artist/${link.slug}`}>
-                    <a className="mx-2 sm:mx-5">{link.title}</a>
-                  </NextLink>
-                  {index === array.length - 1 ? "" : "•"}
-                </span>
-              ))}
+            ).map((linkPair, indexLinkPair) => (
+              <div
+                key={indexLinkPair}
+                className={"grid grid-cols-1 sm:grid-cols-" + linkPair.length}
+              >
+                {linkPair.map((link, index) => (
+                  <div className="flex items-center justify-center" key={index}>
+                    <NextLink key={index} href={`/artist/${link.slug}`}>
+                      <a
+                        className={
+                          "mx-2 sm:mx-5 w100 " +
+                          getArtistTextColor(indexLinkPair, index)
+                        }
+                      >
+                        {link.title}
+                      </a>
+                    </NextLink>
+                  </div>
+                ))}
+              </div>
+            ))}
             {props.generalSettings.additionalTextAfterArtists && (
-              <span> • {props.generalSettings.additionalTextAfterArtists}</span>
+              <span className="w100">
+                {props.generalSettings.additionalTextAfterArtists}
+              </span>
             )}
           </>
         )}

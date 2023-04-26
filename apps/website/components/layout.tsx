@@ -43,7 +43,7 @@ const Layout = ({
     <div className="text-primary bg-secondary">
       <header className="fixed top-0 z-10 flex flex-col w-full">
         {showNewsList && (
-          <div className="flex w-full py-1 text-lg border-b-2 bg-secondary border-primary flex-nowrap sm:text-4xl font-important">
+          <div className="flex w-full py-1 text-lg border-b-2 bg-ciYellow border-ciYellow flex-nowrap sm:text-4xl font-important">
             <span className="flex items-center px-1 sm:px-2">{t("news")}:</span>
             <div
               className={
