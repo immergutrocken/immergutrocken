@@ -189,10 +189,15 @@ export default function Home(props: HomeProps): JSX.Element {
             ).map((linkPair, indexLinkPair) => (
               <div
                 key={indexLinkPair}
-                className={"grid grid-cols-1 sm:grid-cols-" + linkPair.length}
+                className={`grid grid-cols-1 h-${
+                  12 * linkPair.length
+                } sm:h-14 sm:grid-cols-${linkPair.length}`}
               >
                 {linkPair.map((link, index) => (
-                  <div className="flex items-center justify-center" key={index}>
+                  <div
+                    className="flex items-center justify-center h-100"
+                    key={index}
+                  >
                     <NextLink key={index} href={`/artist/${link.slug}`}>
                       <a
                         className={
@@ -208,9 +213,9 @@ export default function Home(props: HomeProps): JSX.Element {
               </div>
             ))}
             {props.generalSettings.additionalTextAfterArtists && (
-              <span className="w100">
+              <div className="flex items-center justify-center h-12 sm:h-14 w100">
                 {props.generalSettings.additionalTextAfterArtists}
-              </span>
+              </div>
             )}
           </>
         )}
