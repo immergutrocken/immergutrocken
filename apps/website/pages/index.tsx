@@ -68,6 +68,7 @@ const getArtistTextColor = (
   linkPairIndex: number,
   linkIndex: number
 ): string => {
+  console.log("nice");
   if (linkPairIndex % 2 === 0) {
     if (linkIndex === 0) return "text-ciPurple";
     else return "text-ciOrange";
@@ -177,43 +178,40 @@ export default function Home(props: HomeProps): JSX.Element {
           </>
         )}
       </div>
-      <div className="flex flex-col flex-wrap justify-center pt-4 pb-4 text-3xl text-center sm:max-w-7xl sm:pt-6 sm:pb-6 sm:text-5xl font-important sm:mx-auto">
+      <div className="flex flex-col justify-center py-4 text-3xl text-center sm:max-w-7xl sm:py-6 sm:text-5xl font-important sm:mx-auto">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
-            {buildArtistLinkPairList(
-              props.artistLinkList.filter((link) =>
-                filterCategory === null
-                  ? true
-                  : link.category === filterCategory
+            {buildArtistLinkPairList(props.artistLinkList).map(
+              (linkPair, indexLinkPair) => (
+                <div
+                  key={indexLinkPair}
+                  className={`flex flex-col sm:flex-row items-center justify-center w100`}
+                >
+                  {linkPair.map((link, index) => (
+                    <div
+                      className="flex items-center justify-center flex-grow mt-1 sm:mt-2 sm:w-1/2"
+                      key={index}
+                    >
+                      <NextLink key={index} href={`/artist/${link.slug}`}>
+                        <a
+                          className={`mx-2 sm:mx-5 w100
+                              ${
+                                filterCategory !== null &&
+                                link.category !== filterCategory
+                                  ? "text-gray-300"
+                                  : getArtistTextColor(indexLinkPair, index)
+                              }`}
+                        >
+                          {link.title}
+                        </a>
+                      </NextLink>
+                    </div>
+                  ))}
+                </div>
               )
-            ).map((linkPair, indexLinkPair) => (
-              <div
-                key={indexLinkPair}
-                className={`grid grid-cols-1 h-${
-                  12 * linkPair.length
-                } sm:h-14 sm:grid-cols-${linkPair.length}`}
-              >
-                {linkPair.map((link, index) => (
-                  <div
-                    className="flex items-center justify-center h-100"
-                    key={index}
-                  >
-                    <NextLink key={index} href={`/artist/${link.slug}`}>
-                      <a
-                        className={
-                          "mx-2 sm:mx-5 w100 " +
-                          getArtistTextColor(indexLinkPair, index)
-                        }
-                      >
-                        {link.title}
-                      </a>
-                    </NextLink>
-                  </div>
-                ))}
-              </div>
-            ))}
+            )}
             {props.generalSettings.additionalTextAfterArtists && (
-              <div className="flex items-center justify-center h-12 sm:h-14 w100">
+              <div className="flex items-center justify-center w100">
                 {props.generalSettings.additionalTextAfterArtists}
               </div>
             )}
