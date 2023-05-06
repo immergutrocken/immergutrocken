@@ -1,10 +1,5 @@
-import { RiMusic2Line } from "react-icons/ri";
-import { slug } from "../fields/slug";
-import localizedTabs from "./localizedTabs";
-import image from "../fields/image";
-import blockContent from "../fields/blockContent";
-import externalLink from "../fields/externalLink";
 import {
+  FaCompactDisc,
   FaFacebook,
   FaGlobe,
   FaInstagram,
@@ -12,9 +7,14 @@ import {
   FaTwitter,
   FaVimeo,
   FaYoutube,
-  FaCompactDisc,
 } from "react-icons/fa";
+import { RiMusic2Line } from "react-icons/ri";
 import { SiTiktok } from "react-icons/si";
+import blockContent from "../fields/blockContent";
+import externalLink from "../fields/externalLink";
+import image from "../fields/image";
+import { slug } from "../fields/slug";
+import localizedTabs from "./localizedTabs";
 
 const fields = [
   {
@@ -40,6 +40,31 @@ const fields = [
     validation: (Rule) => Rule.required(),
   },
 ];
+
+const stagePerformanceGroup = {
+  title: "Auftritt",
+  name: "stagePerformance",
+  type: 'object',
+  fields: [
+    {
+      title: "Bühne",
+      name: "stage",
+      type: "string",
+      options: {
+        list: [
+          "Waldbühne",
+          "Zeltbühne",
+          "Birkenhain"
+        ],
+      }
+    },
+    {
+      title: 'Zeit',
+      name: 'time',
+      type: 'datetime'
+    },
+  ]
+}
 
 export default {
   type: "document",
@@ -144,6 +169,7 @@ export default {
         },
       ],
     },
+    stagePerformanceGroup,
   ],
   preview: {
     select: {
