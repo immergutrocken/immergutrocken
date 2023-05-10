@@ -49,6 +49,12 @@ export default {
         layout: "radio",
       },
     },
+    {
+      title: "Bühne und Uhrzeit anzeigen?",
+      description: 'zeigt, wenn aktiviert, die Auftrittsdetails der Künstler und den Time-Table auf der Webseite an',
+      name: "isStageAndTimeVisible",
+      type: "boolean",
+    },
   ],
   preview: {
     prepare() {
