@@ -50,9 +50,9 @@ export default {
       },
     },
     {
-      title: "Bühne und Uhrzeit anzeigen?",
-      description: 'zeigt, wenn aktiviert, die Auftrittsdetails der Künstler und den Time-Table auf der Webseite an',
-      name: "isStageAndTimeVisible",
+      title: "Auftrittsdetails anzeigen?",
+      description: 'zeigt, wenn aktiviert, die Auftrittsdetails der Künstler (Stage und Uhrzeit) und den Time-Table auf der Webseite an',
+      name: "isPerformanceDetailsVisible",
       type: "boolean",
     },
   ],
