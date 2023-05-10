@@ -24,7 +24,7 @@ const Footer = ({
     <>
       <div className="flex justify-center py-16 sm:py-24 bg-ciPurple">
         <div className="relative">
-          <div className="absolute flex justify-center w-2/3 pr-2 sm:pr-8 -left-2/3 -top-2/3 -bottom-1/2">
+          <div className="absolute flex justify-center w-2/3 pr-2 sm:pr-8 -left-2/3 -top-2/3 -bottom-2/3">
             <IgFernglasSvg />
           </div>
           <NewsletterRegistration />
