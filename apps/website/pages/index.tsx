@@ -84,7 +84,9 @@ export default function Home(props: HomeProps): JSX.Element {
           src={props.generalSettings.bannerMobile.url}
           width={1800}
           height={2250}
-          layout="responsive"
+          style={{
+            fill: "responsive",
+          }}
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerMobile.urlWithBlur}
           alt="Banner"
@@ -95,7 +97,9 @@ export default function Home(props: HomeProps): JSX.Element {
           src={props.generalSettings.bannerDesktop.url}
           height={1336}
           width={3280}
-          layout="responsive"
+          style={{
+            fill: "responsive",
+          }}
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
           alt="Banner"
