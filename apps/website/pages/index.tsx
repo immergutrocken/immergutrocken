@@ -68,7 +68,6 @@ const getArtistTextColor = (
   linkPairIndex: number,
   linkIndex: number
 ): string => {
-  console.log("nice");
   if (linkPairIndex % 2 === 0) {
     if (linkIndex === 0) return "text-ciPurple";
     else return "text-ciOrange";
