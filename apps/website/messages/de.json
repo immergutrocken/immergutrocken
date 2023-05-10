@@ -16,7 +16,8 @@
   "Article": {
     "photo": "Foto",
     "text": "Text",
-    "festival": "Immergut Festival"
+    "festival": "Immergut Festival",
+    "performance": "Auftritt"
   },
   "Layout": {
     "ticket-shop": "Kartenladen",

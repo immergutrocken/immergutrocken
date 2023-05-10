@@ -3,27 +3,28 @@ import {
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next";
-import { ParsedUrlQuery } from "querystring";
-import Layout from "../../components/layout";
-import { getArtist, getArtistList, IArtist } from "../../lib/artist";
-import NextImage from "next/image";
-import Label from "../../components/shared/label";
-import Bubble from "../../components/shared/bubble";
-import Link from "../../components/shared/link";
-import { SocialMedia } from "../../lib/enums/socialMedia.enum";
-import NextHead from "next/head";
-import { getNotificationList, INotification } from "../../lib/notification";
-import Content from "../../components/block-content/content";
 import { useTranslations } from "next-intl";
-import { getPartnerList, IPartner } from "../../lib/partner";
-import PartnerCategory from "../../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../../lib/menu";
-import { getNewsLinkList, INewsLink } from "../../lib/news";
 import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
+import Content from "../../components/block-content/content";
+import Layout from "../../components/layout";
+import Bubble from "../../components/shared/bubble";
+import Label from "../../components/shared/label";
+import Link from "../../components/shared/link";
+import { IArtist, getArtist, getArtistList } from "../../lib/artist";
+import PartnerCategory from "../../lib/enums/partnerCategory.enum";
+import { SocialMedia } from "../../lib/enums/socialMedia.enum";
 import {
-  getGeneralSettings,
   IGeneralSettings,
+  getGeneralSettings,
 } from "../../lib/general-settings";
+import { IMenuItem, getMenu } from "../../lib/menu";
+import { INewsLink, getNewsLinkList } from "../../lib/news";
+import { INotification, getNotificationList } from "../../lib/notification";
+import { IPartner, getPartnerList } from "../../lib/partner";
 
 interface ArtistParams extends ParsedUrlQuery {
   slug: string;
@@ -111,6 +112,7 @@ const Artist = ({
   title,
   banner,
   author,
+  performance,
   socialMedia,
   content,
   notificationList,
@@ -121,7 +123,9 @@ const Artist = ({
   newsList,
   generalSettings,
 }: ArtistProps): JSX.Element => {
+  const router = useRouter();
   const t = useTranslations("Article");
+  const performanceDate = new Date(performance.time);
 
   return (
     <Layout
@@ -147,9 +151,9 @@ const Artist = ({
         <link rel="icon" href="/favicon.ico" />
         <title>{`${title} - ${generalSettings.websiteTitle}`}</title>
       </NextHead>
-      <div className="grid h-full grid-cols-1 sm:grid-cols-2 sm:space-x-5 sm:px-6 sm:pt-6">
+      <div className="grid h-full grid-cols-1 lg:grid-cols-2 lg:space-x-5 lg:px-6 lg:pt-6">
         <div
-          className={`relative top-9 sm:sticky sm:top-0 sm:max-h-screen sm:h-full flex items-center`}
+          className={`relative top-9 lg:sticky lg:top-0 lg:max-h-screen lg:h-full flex items-center`}
         >
           <NextImage
             src={banner.url}
@@ -161,19 +165,32 @@ const Artist = ({
           />
         </div>
         <div className="px-4 pb-5 pt-14 sm:pt-32 sm:pb-5">
-          <h1 className="text-4xl sm:text-7xl sm:text-center font-important">
+          <h1 className="text-4xl sm:text-7xl text-center font-important">
             {title}
           </h1>
-          <div className="flex flex-row mt-5 space-x-4 sm:mt-8 sm:justify-center sm:text-3xl">
-            <Label>{t("photo").toString()}</Label>
-            <span className="font-important">{banner.credits}</span>
+          <div className="mt-5 sm:mt-8 sm:text-3xl grid grid-cols-2 gap-y-2 gap-x-2 items-center">
+            {author && (
+              <>
+                <Label>{t("photo").toString()}</Label>
+                <span className="font-important text-left">{banner.credits}</span>
+              </>
+            )}
+
+            {author && (
+              <>
+                <Label>{t("text").toString()}</Label>
+                <span className="font-important text-left">{author}</span>
+              </>
+            )}
+
+            {generalSettings.isPerformanceDetailsVisible && (
+              <>
+                <Label>{t("performance").toString()}</Label>
+                <span className="font-important text-left">{performance.stage} <br />
+                  {performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>
+              </>
+            )}
           </div>
-          {author && (
-            <div className="flex flex-row mt-2 space-x-4 sm:mt-4 sm:justify-center sm:text-3xl">
-              <Label>{t("text").toString()}</Label>
-              <span className="font-important">{author}</span>
-            </div>
-          )}
           <div className="flex flex-row flex-wrap mt-3 sm:mt-6 sm:justify-center">
             {socialMedia.map((element, index) => (
               <Link

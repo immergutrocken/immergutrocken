@@ -41,9 +41,9 @@ const fields = [
   },
 ];
 
-const stagePerformanceGroup = {
+const performanceGroup = {
   title: "Auftritt",
-  name: "stagePerformance",
+  name: "performance",
   type: 'object',
   fields: [
     {
@@ -169,7 +169,7 @@ export default {
         },
       ],
     },
-    stagePerformanceGroup,
+    performanceGroup,
   ],
   preview: {
     select: {
