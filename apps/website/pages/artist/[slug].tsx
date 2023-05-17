@@ -125,7 +125,7 @@ const Artist = ({
 }: ArtistProps): JSX.Element => {
   const router = useRouter();
   const t = useTranslations("Article");
-  const performanceDate = new Date(performance.time);
+  const performanceDate = performance?.time ? new Date(performance.time) : null;
 
   return (
     <Layout
@@ -183,11 +183,13 @@ const Artist = ({
               </>
             )}
 
-            {generalSettings.isPerformanceDetailsVisible && (
+            {generalSettings.isPerformanceDetailsVisible && (performance?.stage || performance?.time) && (
               <>
                 <Label>{t("performance").toString()}</Label>
-                <span className="font-important text-left">{performance.stage} <br />
-                  {performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>
+                <span>
+                  {performance?.stage && (<span className="font-important text-left">{performance.stage} <br /></span>)}
+                  {performance?.time && (<span className="font-important text-left">{performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>)}
+                </span>
               </>
             )}
           </div>
