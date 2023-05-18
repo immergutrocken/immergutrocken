@@ -168,29 +168,28 @@ const Artist = ({
           <h1 className="text-4xl sm:text-7xl text-center font-important">
             {title}
           </h1>
-          <div className="mt-5 sm:mt-8 sm:text-3xl grid grid-cols-2 gap-y-2 gap-x-2 items-center">
+          <div className="mt-5 sm:mt-8 sm:text-3xl flex flex-col gap-y-2  items-center">
             {author && (
-              <>
+              <div className="flex flex-row gap-x-4 items-baseline">
                 <Label>{t("photo").toString()}</Label>
                 <span className="font-important text-left">{banner.credits}</span>
-              </>
+              </div>
             )}
-
             {author && (
-              <>
+             <div className="flex flex-row gap-x-4 items-baseline">
                 <Label>{t("text").toString()}</Label>
                 <span className="font-important text-left">{author}</span>
-              </>
+              </div>
             )}
 
             {generalSettings.isPerformanceDetailsVisible && (performance?.stage || performance?.time) && (
-              <>
+              <div className="flex flex-row gap-x-4 items-center">
                 <Label>{t("performance").toString()}</Label>
                 <span>
                   {performance?.stage && (<span className="font-important text-left">{performance.stage} <br /></span>)}
                   {performance?.time && (<span className="font-important text-left">{performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>)}
                 </span>
-              </>
+              </div>
             )}
           </div>
           <div className="flex flex-row flex-wrap mt-3 sm:mt-6 sm:justify-center">
