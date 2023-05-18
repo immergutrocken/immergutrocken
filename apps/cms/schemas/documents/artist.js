@@ -54,7 +54,8 @@ const performanceGroup = {
         list: [
           "Waldbühne",
           "Zeltbühne",
-          "Birkenhain"
+          "Birkenhain",
+          "Wortbühne"
         ],
       }
     },
