@@ -181,18 +181,20 @@ const Artist = ({
                 <span className="font-important text-left">{author}</span>
               </>
             )}
-
-            {generalSettings.isPerformanceDetailsVisible && (performance?.stage || performance?.time) && (
+            {generalSettings.isPerformanceDetailsVisible && (performance?.stage) && (
               <>
-                <Label className="text-right">{t("performance").toString()}</Label>
-                <span>
-                  {performance?.stage && (<span className="font-important text-left">{performance.stage} <br /></span>)}
-                  {performance?.time && (<span className="font-important text-left">{performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>)}
-                </span>
+                <Label className="text-right">{t("stage").toString()}</Label>
+                <span className="font-important text-left">{performance.stage}</span>
+              </>
+            )}
+            {generalSettings.isPerformanceDetailsVisible && (performance?.time) && (
+              <>
+                <Label className="text-right">{t("time").toString()}</Label>
+                <span className="font-important text-left">{performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>
               </>
             )}
           </div>
-          <div className="flex flex-row flex-wrap mt-3 sm:mt-6 sm:justify-center">
+          <div className="flex flex-row flex-wrap mt-3 justify-center sm:mt-6">
             {socialMedia.map((element, index) => (
               <Link
                 href={element.url}
