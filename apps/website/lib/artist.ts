@@ -5,6 +5,7 @@ import { SocialMedia } from "./enums/socialMedia.enum";
 import client from "./shared/sanityClient";
 import { urlFor } from "./shared/sanityImageUrl";
 
+
 export interface IArtistLink {
   title: string;
   slug: string;
@@ -26,6 +27,10 @@ export interface IArtist {
     url: string;
   }[];
   content: [];
+  performance: {
+    stage: string;
+    time: string;
+  }
 }
 
 const categoryMapping = new Map<string, ArtistCategory>([
@@ -84,6 +89,7 @@ export const getArtist = async (
     'titleEn': languages.en.title,
     'banner': languages.de.banner,
     author,
+    performance,
     socialMedia,
     'contentDe': languages.de.content[] {
       ..., 
@@ -116,34 +122,34 @@ export const getArtist = async (
       ...result.banner,
       url: result.banner.hotspot
         ? urlFor(result.banner.asset)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
-            .url()
+          .height(1000)
+          .width(1000)
+          .fit("crop")
+          .crop("focalpoint")
+          .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
+          .url()
         : urlFor(result.banner.asset)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("center")
-            .url(),
+          .height(1000)
+          .width(1000)
+          .fit("crop")
+          .crop("center")
+          .url(),
       urlWithBlur: result.banner.hotspot
         ? urlFor(result.banner.asset)
-            .blur(200)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
-            .url()
+          .blur(200)
+          .height(1000)
+          .width(1000)
+          .fit("crop")
+          .crop("focalpoint")
+          .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
+          .url()
         : urlFor(result.banner.asset)
-            .blur(200)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("center")
-            .url(),
+          .blur(200)
+          .height(1000)
+          .width(1000)
+          .fit("crop")
+          .crop("center")
+          .url(),
     },
     socialMedia: result.socialMedia.map((element) => ({
       type: socialMediaMapping.get(element.medium),

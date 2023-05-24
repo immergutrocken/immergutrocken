@@ -49,6 +49,13 @@ export default {
         layout: "radio",
       },
     },
+    {
+      title: "Auftrittsdetails anzeigen?",
+      description:
+        "Wenn aktiviert, wird Bühne und Zeit beim Künstler sowie der Time-Table auf der Website angezeigt",
+      name: "isPerformanceDetailsVisible",
+      type: "boolean",
+    },
   ],
   preview: {
     prepare() {
