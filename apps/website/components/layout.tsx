@@ -22,6 +22,7 @@ interface LayoutProps {
   additionalList: IPartner[];
   menuItems: IMenuItem[];
   newsList: INewsLink[];
+  ticketshopUrl: string;
   showNewsList?: boolean;
 }
 
@@ -33,6 +34,7 @@ const Layout = ({
   additionalList,
   menuItems,
   newsList,
+  ticketshopUrl,
   showNewsList = true,
 }: LayoutProps): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false);
@@ -69,12 +71,11 @@ const Layout = ({
             <em className="fas fa-bars text-secondary"></em>
           </Bubble>
           <div className="flex gap-2 right-2 top-12 sm:right-4 sm:top-16 sm:gap-4">
-            <Link
-              href="https://tickets.hoemepage.com/event/immergut-festival-3bu6"
-              className="hover:no-underline"
-            >
-              <Button className="!bg-tertiary">{t("ticket-shop")}</Button>
-            </Link>
+            {ticketshopUrl && (
+              <Link href={ticketshopUrl} className="hover:no-underline">
+                <Button className="!bg-tertiary">{t("ticket-shop")}</Button>
+              </Link>
+            )}
             <NextLink
               href={router.asPath}
               locale={router.locale === "de" ? "en" : "de"}

@@ -105,6 +105,7 @@ const Article = ({
       additionalList={additionalList}
       menuItems={menuItems}
       newsList={newsList}
+      ticketshopUrl={generalSettings.ticketshopUrl}
     >
       <NextSeo
         title={`${title} &minus; ${generalSettings.websiteTitle}`}

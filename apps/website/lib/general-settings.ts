@@ -26,6 +26,7 @@ export interface IGeneralSettings {
   showNewsAsPrimaryContent: boolean;
   additionalTextAfterArtists: string;
   isPerformanceDetailsVisible: boolean;
+  ticketshopUrl: string;
 }
 
 export const getGeneralSettings = async (
@@ -41,7 +42,8 @@ export const getGeneralSettings = async (
     'displayMode': displayMode,
     'additionalTextAfterArtistsDe': languages.de.additionalTextAfterArtists,
     'additionalTextAfterArtistsEn': languages.en.additionalTextAfterArtists,
-    'isPerformanceDetailsVisible': isPerformanceDetailsVisible
+    'isPerformanceDetailsVisible': isPerformanceDetailsVisible,
+    'ticketshopUrl': ticketshopUrl
   }`;
   const result = (await client.fetch(query))[0];
   const bannerDesktop =
@@ -61,36 +63,36 @@ export const getGeneralSettings = async (
       ...bannerDesktop,
       url: bannerDesktop.hotspot
         ? urlFor(bannerDesktop.asset)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
-          .url()
+            .fit("crop")
+            .crop("focalpoint")
+            .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
+            .url()
         : urlFor(bannerDesktop.asset).url(),
       urlWithBlur: bannerDesktop.hotspot
         ? urlFor(bannerDesktop.asset)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
-          .blur(200)
-          .url()
+            .fit("crop")
+            .crop("focalpoint")
+            .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
+            .blur(200)
+            .url()
         : urlFor(bannerDesktop.asset).blur(200).url(),
     },
     bannerMobile: {
       ...bannerMobile,
       url: bannerMobile.hotspot
         ? urlFor(bannerMobile.asset)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
-          .url()
+            .fit("crop")
+            .crop("focalpoint")
+            .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
+            .url()
         : urlFor(bannerMobile.asset).url(),
       urlWithBlur: bannerMobile.hotspot
         ? urlFor(bannerMobile.asset)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
-          .blur(200)
-          .url()
+            .fit("crop")
+            .crop("focalpoint")
+            .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
+            .blur(200)
+            .url()
         : urlFor(bannerMobile.asset).blur(200).url(),
     },
     showNewsAsPrimaryContent: result.displayMode
@@ -100,7 +102,8 @@ export const getGeneralSettings = async (
       locale === "de"
         ? result.additionalTextAfterArtistsDe
         : result.additionalTextAfterArtistsEn ??
-        result.additionalTextAfterArtistsDe,
+          result.additionalTextAfterArtistsDe,
     isPerformanceDetailsVisible: result.isPerformanceDetailsVisible ?? false,
+    ticketshopUrl: result.ticketshopUrl,
   };
 };

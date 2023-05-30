@@ -135,6 +135,7 @@ const Artist = ({
       additionalList={additionalList}
       menuItems={menuItems}
       newsList={newsList}
+      ticketshopUrl={generalSettings.ticketshopUrl}
     >
       <NextSeo
         title={`${title} &minus; ${generalSettings.websiteTitle}`}
@@ -165,36 +166,47 @@ const Artist = ({
           />
         </div>
         <div className="px-4 pb-5 pt-14 sm:pt-32 sm:pb-5">
-          <h1 className="text-4xl sm:text-7xl text-center font-important">
+          <h1 className="text-4xl text-center sm:text-7xl font-important">
             {title}
           </h1>
-          <div className="mt-5 sm:mt-8 sm:text-3xl grid grid-cols-2 gap-x-4 gap-y-2  items-center">
+          <div className="grid items-center grid-cols-2 mt-5 sm:mt-8 sm:text-3xl gap-x-4 gap-y-2">
             {author && (
               <>
                 <Label className="text-right">{t("photo").toString()}</Label>
-                <span className="font-important text-left">{banner.credits}</span>
+                <span className="text-left font-important">
+                  {banner.credits}
+                </span>
               </>
             )}
             {author && (
               <>
                 <Label className="text-right">{t("text").toString()}</Label>
-                <span className="font-important text-left">{author}</span>
+                <span className="text-left font-important">{author}</span>
               </>
             )}
-            {generalSettings.isPerformanceDetailsVisible && (performance?.stage) && (
+            {generalSettings.isPerformanceDetailsVisible && performance?.stage && (
               <>
                 <Label className="text-right">{t("stage").toString()}</Label>
-                <span className="font-important text-left">{performance.stage}</span>
+                <span className="text-left font-important">
+                  {performance.stage}
+                </span>
               </>
             )}
-            {generalSettings.isPerformanceDetailsVisible && (performance?.time) && (
+            {generalSettings.isPerformanceDetailsVisible && performance?.time && (
               <>
                 <Label className="text-right">{t("time").toString()}</Label>
-                <span className="font-important text-left">{performanceDate.toLocaleString(router.locale, { weekday: 'long', hour: 'numeric', minute: 'numeric' })} {router.locale === 'de' ? 'Uhr' : ''}</span>
+                <span className="text-left font-important">
+                  {performanceDate.toLocaleString(router.locale, {
+                    weekday: "long",
+                    hour: "numeric",
+                    minute: "numeric",
+                  })}{" "}
+                  {router.locale === "de" ? "Uhr" : ""}
+                </span>
               </>
             )}
           </div>
-          <div className="flex flex-row flex-wrap mt-3 justify-center sm:mt-6">
+          <div className="flex flex-row flex-wrap justify-center mt-3 sm:mt-6">
             {socialMedia.map((element, index) => (
               <Link
                 href={element.url}

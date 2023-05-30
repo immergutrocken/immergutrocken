@@ -64,6 +64,7 @@ export default function Home(props: HomeProps): JSX.Element {
       menuItems={props.menuItems}
       newsList={props.newsLinkList}
       showNewsList={!props.generalSettings.showNewsAsPrimaryContent}
+      ticketshopUrl={props.generalSettings.ticketshopUrl}
     >
       <NextHead>
         <link rel="icon" href="/favicon.ico" />
