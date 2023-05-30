@@ -35,6 +35,17 @@ export default {
   fields: [
     localizedTabs(fields),
     {
+      title: "Kartenladen Link",
+      description:
+        "Link zum Kartenladen vom Kartenladen-Button. Wenn leer, wird der Button nicht angezeigt.",
+      name: "ticketshopUrl",
+      type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ["http", "https"],
+        }),
+    },
+    {
       name: "displayMode",
       type: "string",
       title: "Anzeigemodus",
