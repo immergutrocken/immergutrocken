@@ -58,6 +58,7 @@ const Custom404 = ({
       additionalList={additionalList}
       menuItems={menuItems}
       newsList={newsList}
+      ticketshopUrl={generalSettings.ticketshopUrl}
     >
       <NextHead>
         <title>{generalSettings.websiteTitle}</title>

@@ -75,6 +75,7 @@ const Merch = ({
       menuItems={menuItems}
       newsList={newsLinkList}
       showNewsList={true}
+      ticketshopUrl={generalSettings.ticketshopUrl}
     >
       <NextSeo
         title={"Merch &minus; " + generalSettings.websiteTitle}

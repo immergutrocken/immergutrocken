@@ -25,6 +25,8 @@ export interface IGeneralSettings {
   };
   showNewsAsPrimaryContent: boolean;
   additionalTextAfterArtists: string;
+  isPerformanceDetailsVisible: boolean;
+  ticketshopUrl: string;
 }
 
 export const getGeneralSettings = async (
@@ -40,6 +42,8 @@ export const getGeneralSettings = async (
     'displayMode': displayMode,
     'additionalTextAfterArtistsDe': languages.de.additionalTextAfterArtists,
     'additionalTextAfterArtistsEn': languages.en.additionalTextAfterArtists,
+    'isPerformanceDetailsVisible': isPerformanceDetailsVisible,
+    'ticketshopUrl': ticketshopUrl
   }`;
   const result = (await client.fetch(query))[0];
   const bannerDesktop =
@@ -99,5 +103,7 @@ export const getGeneralSettings = async (
         ? result.additionalTextAfterArtistsDe
         : result.additionalTextAfterArtistsEn ??
           result.additionalTextAfterArtistsDe,
+    isPerformanceDetailsVisible: result.isPerformanceDetailsVisible ?? false,
+    ticketshopUrl: result.ticketshopUrl,
   };
 };

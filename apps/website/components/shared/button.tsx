@@ -19,7 +19,7 @@ const Button = ({
 }: ButtonProps): JSX.Element => (
   <button
     className={`text-secondary rounded-full focus:outline-none font-important uppercase flex justify-center items-center sm:transition-transform sm:duration-300 sm:ease-in-out sm:transform sm:hover:scale-110 ${className} ${
-      active ? "bg-primary" : "bg-gray-200"
+      active ? "bg-primary" : "bg-gray-300"
     } ${disabled ? "cursor-not-allowed" : "cursor-pointer"} ${
       size === "small"
         ? "pt-0.5 px-2.5 sm: px - 4 text - base sm: text - xl h - 6 sm: h - 10"

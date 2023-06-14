@@ -16,7 +16,9 @@
   "Article": {
     "photo": "Photo",
     "text": "Text",
-    "festival": "Immergut Festival"
+    "festival": "Immergut Festival",
+    "stage": "Stage",
+    "time": "Time"
   },
   "Layout": {
     "ticket-shop": "ticket shop",

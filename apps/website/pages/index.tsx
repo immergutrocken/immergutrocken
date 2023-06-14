@@ -64,6 +64,7 @@ export default function Home(props: HomeProps): JSX.Element {
       menuItems={props.menuItems}
       newsList={props.newsLinkList}
       showNewsList={!props.generalSettings.showNewsAsPrimaryContent}
+      ticketshopUrl={props.generalSettings.ticketshopUrl}
     >
       <NextHead>
         <link rel="icon" href="/favicon.ico" />
@@ -159,23 +160,21 @@ export default function Home(props: HomeProps): JSX.Element {
       <div className="flex flex-row flex-wrap justify-center mt-4 text-3xl text-center sm:mt-6 sm:text-5xl font-important">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
-            {props.artistLinkList
-              .filter((link) =>
-                filterCategory === null
-                  ? true
-                  : link.category === filterCategory
-              )
-              .map((link, index, array) => (
-                <span key={index}>
-                  <NextLink
-                    href={`/artist/${link.slug}`}
-                    className="mx-2 sm:mx-5"
-                  >
-                    {link.title}
-                  </NextLink>
-                  {index === array.length - 1 ? "" : "•"}
-                </span>
-              ))}
+            {props.artistLinkList.map((link, index, array) => (
+              <span key={index}>
+                <NextLink
+                  href={`/artist/${link.slug}`}
+                  className={`mx-2 sm:mx-5${
+                    filterCategory != null && link.category !== filterCategory
+                      ? " text-gray-300"
+                      : ""
+                  }`}
+                >
+                  {link.title}
+                </NextLink>
+                {index === array.length - 1 ? "" : "•"}
+              </span>
+            ))}
             {props.generalSettings.additionalTextAfterArtists && (
               <span> • {props.generalSettings.additionalTextAfterArtists}</span>
             )}
