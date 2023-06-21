@@ -20,10 +20,12 @@ export default {
       title: "YouTube video URL",
     },
   ],
+  components: {
+    preview: Preview,
+  },
   preview: {
     select: {
       url: "url",
     },
-    component: Preview,
   },
 };

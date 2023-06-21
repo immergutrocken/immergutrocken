@@ -7,8 +7,8 @@ const buildFields = (fields) => {
       type: "object",
       name: lang.id,
       title: lang.title,
-      fieldset: lang.id + "-tab",
       fields: fields,
+      group: lang.id,
     };
     languagedFields.push(langObject);
   });
@@ -17,9 +17,10 @@ const buildFields = (fields) => {
 
 export default (fields) => ({
   name: "languages",
+  title: " ",
   type: "object",
-  fieldsets: supportedLanguages.map((lang) => ({
-    name: lang.id + "-tab",
+  groups: supportedLanguages.map((lang) => ({
+    name: lang.id,
     title: lang.title,
   })),
   fields: buildFields(fields),

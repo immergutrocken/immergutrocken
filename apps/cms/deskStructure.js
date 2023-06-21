@@ -9,9 +9,13 @@ export default (S) =>
     .items([
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !["sortings", "verein", "generalSettings", "merch"].includes(
-            listItem.getId()
-          )
+          ![
+            "sortings",
+            "verein",
+            "generalSettings",
+            "merch",
+            "media.tag",
+          ].includes(listItem.getId())
       ),
       S.divider(),
       S.listItem()

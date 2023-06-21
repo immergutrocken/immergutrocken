@@ -9,7 +9,7 @@ export default {
       name: "artists",
       title: "Künstler",
       options: {
-        editModal: "popover",
+        modal: "popover",
       },
       of: [
         {
@@ -23,7 +23,7 @@ export default {
       name: "news",
       title: "News",
       options: {
-        editModal: "popover",
+        modal: "popover",
       },
       of: [
         {

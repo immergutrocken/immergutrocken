@@ -47,10 +47,12 @@ export default {
       of: [image],
     },
   ],
+  componets: {
+    preview: Preview,
+  },
   preview: {
     select: {
       images: "images",
     },
-    component: Preview,
   },
 };
