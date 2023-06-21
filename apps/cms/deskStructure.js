@@ -1,7 +1,6 @@
 import { FaShoppingBag, FaUsers } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { MdFormatListNumbered } from "react-icons/md";
-import { RiArticleLine, RiMusic2Line } from "react-icons/ri";
 
 export default (S) =>
   S.list()

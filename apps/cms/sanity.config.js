@@ -99,7 +99,7 @@ const getConfig = () => {
       {
         title: "Immergutrocken",
         projectId: "05hvmwlk",
-        dataset: "development",
+        dataset: process.env.SANITY_STUDIO_DATASET,
         plugins: [
           deskTool({
             structure: deskStructure,
