@@ -71,12 +71,14 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
         hidden ? "hidden" : ""
       }`}
     >
-      <div className="self-center w-1/2 p-5 bg-white">
-        <div className="text-3xl sm:text-6xl">{notification.title}</div>
+      <div className="self-center p-5 mx-2 border-2 rounded-lg w-100 sm:w-2/3 xl:w-1/2 bg-secondary font-important border-primary">
+        <div className="text-3xl text-center sm:text-6xl">
+          {notification.title}
+        </div>
         <div className="font-content">
           <Content content={notification.content} />
         </div>
-        <div className="text-right">
+        <div className="flex justify-end mt-5">
           <Button
             size="small"
             click={() => {
