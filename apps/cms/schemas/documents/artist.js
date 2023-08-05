@@ -13,7 +13,7 @@ import { SiTiktok } from "react-icons/si";
 import blockContent from "../fields/blockContent";
 import externalLink from "../fields/externalLink";
 import image from "../fields/image";
-import { slug } from "../fields/slug";
+import slug from "../fields/slug";
 import localizedTabs from "./localizedTabs";
 
 const fields = [
@@ -44,28 +44,23 @@ const fields = [
 const performanceGroup = {
   title: "Auftritt",
   name: "performance",
-  type: 'object',
+  type: "object",
   fields: [
     {
       title: "Bühne",
       name: "stage",
       type: "string",
       options: {
-        list: [
-          "Waldbühne",
-          "Zeltbühne",
-          "Birkenhain",
-          "Wortbühne"
-        ],
-      }
+        list: ["Waldbühne", "Zeltbühne", "Birkenhain", "Wortbühne"],
+      },
     },
     {
-      title: 'Zeit',
-      name: 'time',
-      type: 'datetime'
+      title: "Zeit",
+      name: "time",
+      type: "datetime",
     },
-  ]
-}
+  ],
+};
 
 export default {
   type: "document",

@@ -12,7 +12,7 @@ export interface PartnerProps {
 const Partner = ({ label, className, list }: PartnerProps): JSX.Element => (
   <div className={className}>
     <Label>{label}</Label>
-    <div className="mt-4 text-center">
+    <div className="flex flex-wrap justify-center mt-4">
       {list?.map((partner, index) => (
         <span className="p-3" key={index}>
           <Link href={partner.link}>

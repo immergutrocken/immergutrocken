@@ -3,33 +3,42 @@ import { useClient } from "sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { IoMdImages } from "react-icons/io";
 
-const Preview = ({ value }) => {
-  const { images } = value;
+const Preview = (props) => {
+  const { images, renderDefault } = props;
   const builder = imageUrlBuilder(useClient());
+  console.log(images[1]);
+  console.log(images[2]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        overflowX: "auto",
-        alignItems: "center",
-        padding: "10px",
-      }}
-    >
-      {images &&
-        images.map((image) => {
-          if (image.asset != null) {
-            const url = builder.image(image).url();
-            return (
-              <img
-                src={url}
-                style={{ maxWidth: "25%", margin: "10px", maxHeight: "100px" }}
-                key={url}
-              />
-            );
-          }
-        })}
+    <div>
+      {renderDefault({ ...props, title: "Bildergalerie" })}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          overflowX: "auto",
+          alignItems: "center",
+          padding: "10px",
+        }}
+      >
+        {images &&
+          images.map((image) => {
+            if (image.asset != null) {
+              const url = builder.image(image).url();
+              return (
+                <img
+                  src={url}
+                  style={{
+                    maxWidth: "25%",
+                    margin: "10px",
+                    maxHeight: "100px",
+                  }}
+                  key={image._key}
+                />
+              );
+            }
+          })}
+      </div>
     </div>
   );
 };
@@ -47,7 +56,7 @@ export default {
       of: [image],
     },
   ],
-  componets: {
+  components: {
     preview: Preview,
   },
   preview: {

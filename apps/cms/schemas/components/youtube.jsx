@@ -2,10 +2,15 @@ import getYouTubeId from "get-youtube-id";
 import YouTube from "react-youtube";
 import { FaYoutube } from "react-icons/fa";
 
-const Preview = ({ value }) => {
-  const { url } = value;
+const Preview = (props) => {
+  const { url, renderDefault } = props;
   const id = getYouTubeId(url);
-  return <YouTube videoId={id} opts={{ width: "100%" }} />;
+  return (
+    <div>
+      {renderDefault({ ...props, title: "YouTube Video" })}
+      <YouTube videoId={id} opts={{ width: "100%" }} />
+    </div>
+  );
 };
 
 export default {

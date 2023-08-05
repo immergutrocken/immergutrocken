@@ -30,9 +30,9 @@ interface HomeProps {
   messages: unknown;
 }
 
-export const getStaticProps = async ({
-  locale,
-}: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> => {
+export const getStaticProps = async (
+  { locale }: GetStaticPropsContext
+): Promise<GetStaticPropsResult<HomeProps>> => {
   return {
     props: {
       newsLinkList: await getNewsLinkList(locale),

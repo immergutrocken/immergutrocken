@@ -15,16 +15,16 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/vision": "^3.12.2",
+    "@sanity/vision": "^3.14.5",
     "get-youtube-id": "^1.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.9.0",
+    "react-icons": "^4.10.1",
     "react-youtube": "^10.1.0",
-    "sanity": "^3.12.2",
-    "sanity-plugin-media": "^2.0.5",
-    "styled-components": "^5.3.10"
+    "sanity": "^3.14.5",
+    "sanity-plugin-media": "^2.2.2",
+    "styled-components": "^6.0.7"
   },
   "repository": {
     "type": "git",

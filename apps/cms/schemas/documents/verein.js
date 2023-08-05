@@ -45,7 +45,6 @@ export default {
         },
       ],
     },
-    slug,
     {
       title: "Autor",
       name: "author",
