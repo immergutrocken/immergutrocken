@@ -1,7 +1,7 @@
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import groq from "groq";
 import client from "./shared/sanityClient";
-import { urlFor } from "./shared/sanityImageUrl";
+import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
 
 export interface IArticle {
   title: string;
@@ -97,36 +97,8 @@ export const getArticle = async (
     title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
     banner: {
       ...result.banner,
-      url: result.banner.hotspot
-        ? urlFor(result.banner.asset)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
-            .url()
-        : urlFor(result.banner.asset)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("center")
-            .url(),
-      urlWithBlur: result.banner.hotspot
-        ? urlFor(result.banner.asset)
-            .blur(200)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
-            .url()
-        : urlFor(result.banner.asset)
-            .blur(200)
-            .height(1000)
-            .width(1000)
-            .fit("crop")
-            .crop("center")
-            .url(),
+      url: getImageUrl(result.banner, 1000, 1000),
+      urlWithBlur: await getPlaceholderImage(result.banner),
     },
     content:
       locale === "en" && result.contentEn ? result.contentEn : result.contentDe,
@@ -134,11 +106,11 @@ export const getArticle = async (
 
   article.content.forEach((element) => {
     if (element._type === "imageGallery") {
-      element.images.forEach((image) => {
-        image.urlPreview = urlFor(image.asset).height(400).url();
-        image.urlPreviewBlur = urlFor(image.asset).height(400).blur(200).url();
-        image.url = urlFor(image.asset).height(1000).url();
-        image.urlBlur = urlFor(image.asset).height(100).blur(200).url();
+      element.images.forEach(async (image) => {
+        image.urlPreview = getImageUrl(image, 400);
+        image.urlPreviewBlur = await getPlaceholderImage(image);
+        image.url = getImageUrl(image, 1000);
+        image.urlBlur = await getPlaceholderImage(image);
       });
     }
   });

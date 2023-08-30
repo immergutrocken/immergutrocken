@@ -1,7 +1,7 @@
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import groq from "groq";
 import client from "./shared/sanityClient";
-import { urlFor } from "./shared/sanityImageUrl";
+import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
 
 export interface IGeneralSettings {
   websiteTitle: string;
@@ -61,39 +61,13 @@ export const getGeneralSettings = async (
         : result.websiteTitleEn ?? result.websiteTitleDe,
     bannerDesktop: {
       ...bannerDesktop,
-      url: bannerDesktop.hotspot
-        ? urlFor(bannerDesktop.asset)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
-            .url()
-        : urlFor(bannerDesktop.asset).url(),
-      urlWithBlur: bannerDesktop.hotspot
-        ? urlFor(bannerDesktop.asset)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(bannerDesktop.hotspot.x, bannerDesktop.hotspot.y)
-            .blur(200)
-            .url()
-        : urlFor(bannerDesktop.asset).blur(200).url(),
+      url: getImageUrl(bannerDesktop),
+      urlWithBlur: await getPlaceholderImage(bannerDesktop),
     },
     bannerMobile: {
       ...bannerMobile,
-      url: bannerMobile.hotspot
-        ? urlFor(bannerMobile.asset)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
-            .url()
-        : urlFor(bannerMobile.asset).url(),
-      urlWithBlur: bannerMobile.hotspot
-        ? urlFor(bannerMobile.asset)
-            .fit("crop")
-            .crop("focalpoint")
-            .focalPoint(bannerMobile.hotspot.x, bannerMobile.hotspot.y)
-            .blur(200)
-            .url()
-        : urlFor(bannerMobile.asset).blur(200).url(),
+      url: getImageUrl(bannerMobile),
+      urlWithBlur: await getPlaceholderImage(bannerMobile),
     },
     showNewsAsPrimaryContent: result.displayMode
       ? result.displayMode === "news"

@@ -3,8 +3,7 @@ import groq from "groq";
 import { ArtistCategory } from "./enums/artistCategory.enum";
 import { SocialMedia } from "./enums/socialMedia.enum";
 import client from "./shared/sanityClient";
-import { urlFor } from "./shared/sanityImageUrl";
-
+import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
 
 export interface IArtistLink {
   title: string;
@@ -30,7 +29,7 @@ export interface IArtist {
   performance: {
     stage: string;
     time: string;
-  }
+  };
 }
 
 const categoryMapping = new Map<string, ArtistCategory>([
@@ -120,36 +119,8 @@ export const getArtist = async (
     title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
     banner: {
       ...result.banner,
-      url: result.banner.hotspot
-        ? urlFor(result.banner.asset)
-          .height(1000)
-          .width(1000)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
-          .url()
-        : urlFor(result.banner.asset)
-          .height(1000)
-          .width(1000)
-          .fit("crop")
-          .crop("center")
-          .url(),
-      urlWithBlur: result.banner.hotspot
-        ? urlFor(result.banner.asset)
-          .blur(200)
-          .height(1000)
-          .width(1000)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(result.banner.hotspot.x, result.banner.hotspot.y)
-          .url()
-        : urlFor(result.banner.asset)
-          .blur(200)
-          .height(1000)
-          .width(1000)
-          .fit("crop")
-          .crop("center")
-          .url(),
+      url: getImageUrl(result.banner.asset, 1000, 1000),
+      urlWithBlur: getPlaceholderImage(result.banner.asset),
     },
     socialMedia: result.socialMedia.map((element) => ({
       type: socialMediaMapping.get(element.medium),
