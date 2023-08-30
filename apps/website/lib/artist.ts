@@ -119,8 +119,8 @@ export const getArtist = async (
     title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
     banner: {
       ...result.banner,
-      url: getImageUrl(result.banner.asset, 1000, 1000),
-      urlWithBlur: getPlaceholderImage(result.banner.asset),
+      url: getImageUrl(result.banner, 1000, 1000),
+      urlWithBlur: await getPlaceholderImage(result.banner),
     },
     socialMedia: result.socialMedia.map((element) => ({
       type: socialMediaMapping.get(element.medium),

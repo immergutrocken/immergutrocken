@@ -104,7 +104,6 @@ export default function Home(props: HomeProps): JSX.Element {
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
           alt="Banner"
-          priority
         />
       </div>
       <div className="flex justify-center mt-4 sm:mt-6">

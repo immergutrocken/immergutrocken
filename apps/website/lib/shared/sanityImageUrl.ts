@@ -52,7 +52,6 @@ export const getPlaceholderImage = ({
     hotspot
       ? urlFor(asset)
           .height(10)
-          .width(10)
           .fit("crop")
           .crop("focalpoint")
           .focalPoint(hotspot.x, hotspot.y)
