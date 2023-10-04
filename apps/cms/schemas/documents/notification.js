@@ -1,5 +1,4 @@
 import { RiNotification2Line } from "react-icons/ri";
-import supportedLanguages from "../../supportedLanguages";
 import blockContent from "../fields/blockContent";
 import localizedTabs from "./localizedTabs";
 
