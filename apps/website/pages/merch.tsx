@@ -125,6 +125,8 @@ const Merch = ({
                     width={300}
                     height={300}
                     alt={product.title}
+                    placeholder="blur"
+                    blurDataURL={product.images[0].urlPreviewBlur}
                   ></Image>
                   <Bubble className="absolute right-1 top-1" size="small">
                     <em className="fas fa-expand-alt"></em>

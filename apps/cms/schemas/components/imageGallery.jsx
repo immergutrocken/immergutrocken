@@ -6,8 +6,6 @@ import { IoMdImages } from "react-icons/io";
 const Preview = (props) => {
   const { images, renderDefault } = props;
   const builder = imageUrlBuilder(useClient());
-  console.log(images[1]);
-  console.log(images[2]);
 
   return (
     <div>
