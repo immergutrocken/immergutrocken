@@ -9,7 +9,7 @@ interface NotificationProps {
 }
 
 const Notification = ({ notification }: NotificationProps): JSX.Element => {
-  const [hidden, setHidden] = useState(true);
+  const [show, setShow] = useState(false);
 
   const key =
     "ig-notification-" + notification.title.toLowerCase().replace(/\s/g, "-");
@@ -21,26 +21,24 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
       localStorage?.setItem(key, notAccepted);
     }
 
-    if (!hidden && localStorage?.getItem(key) === accepted) {
-      setHidden(true);
-    }
-
     const startDate = notification.startDate
       ? new Date(notification.startDate)
       : null;
     const endDate = notification.endDate
       ? new Date(notification.endDate)
       : null;
-    if (
-      !hidden &&
-      (Date.now() < startDate?.getTime() || endDate?.getTime() < Date.now())
-    ) {
-      setHidden(true);
+
+    const isAccepted: boolean = localStorage?.getItem(key) === accepted;
+    const isBeforeStartDate: boolean = Date.now() < startDate?.getTime();
+    const isAfterEndDate: boolean = Date.now() > endDate?.getTime();
+
+    if (!isAccepted && !isBeforeStartDate && !isAfterEndDate) {
+      setShow(true);
     }
-  }, [key, hidden, notification.startDate, notification.endDate]);
+  }, [key, show, notification.startDate, notification.endDate]);
 
   const buildFooterNotification = (): JSX.Element =>
-    !hidden && (
+    show && (
       <div className={`bg-secondary border-t-2 border-primary p-3 sm:pt-6`}>
         <div className="text-3xl sm:text-6xl font-important">
           {notification.title}
@@ -52,7 +50,7 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
           <Button
             size="small"
             click={() => {
-              setHidden(true);
+              setShow(false);
               localStorage.setItem(key, accepted);
             }}
           >
@@ -63,7 +61,7 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
     );
 
   const buildPopupNotification = (): JSX.Element =>
-    !hidden && (
+    show && (
       <div
         className={`fixed top-0 left-0 z-20 bg-gray-600 bg-opacity-25 w-full h-full flex justify-center`}
       >
@@ -78,7 +76,7 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
             <Button
               size="small"
               click={() => {
-                setHidden(true);
+                setShow(true);
                 localStorage.setItem(key, accepted);
               }}
             >
