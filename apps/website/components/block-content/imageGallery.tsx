@@ -36,10 +36,10 @@ const ImageGallery = (props: ImageGalleryProps): JSX.Element => {
             <div className="relative h-48 md:h-64 xl:h-96">
               <NextImage
                 src={image.urlPreview}
-                layout="fill"
-                objectFit="cover"
+                style={{ fill: "responsive", objectFit: "cover" }}
                 placeholder="blur"
                 blurDataURL={image.urlPreviewBlur}
+                alt={image.alt}
               />
             </div>
             <Bubble className="absolute right-1 top-1" size="small">

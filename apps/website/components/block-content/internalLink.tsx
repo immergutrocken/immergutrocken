@@ -20,8 +20,8 @@ const buildChildren = (
 
 const InternalLink = ({ mark, children }: InternalLinkProps): JSX.Element => {
   return (
-    <NextLink href={`/${mark.docType}/${mark.slug}`}>
-      <a className="font-bold">{buildChildren(mark.isCTA, children)}</a>
+    <NextLink href={`/${mark.docType}/${mark.slug}`} className="font-bold">
+      {buildChildren(mark.isCTA, children)}
     </NextLink>
   );
 };

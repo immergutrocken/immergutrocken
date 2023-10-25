@@ -1,12 +1,12 @@
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import client from "./shared/sanityClient";
-import { urlFor } from "./shared/sanityImageUrl";
-import PartnerCategory from "./enums/partnerCategory.enum";
 import groq from "groq";
+import PartnerCategory from "./enums/partnerCategory.enum";
+import client from "./shared/sanityClient";
+import { SanityImage, getImageUrl } from "./shared/sanityImageUrl";
 
 export interface IPartner {
   link: string;
-  logo: {
+  logo: SanityImage & {
     alt: string;
     asset: SanityImageSource;
     credits: string;
@@ -32,10 +32,7 @@ export const getPartnerList = async (
       ...p,
       logo: {
         ...p.logo,
-        url: urlFor(p.logo.asset)
-          .width(p.logo.width)
-          .height(p.logo.height)
-          .url(),
+        url: getImageUrl(p.logo, p.logo.height, p.logo.width),
       },
     } as IPartner;
   });

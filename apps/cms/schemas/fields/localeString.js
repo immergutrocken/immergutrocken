@@ -1,4 +1,4 @@
-import supportedLanguages from "../../config/supportedLanguages";
+import supportedLanguages from "../../supportedLanguages";
 
 export default (title, name) => ({
   title: title,

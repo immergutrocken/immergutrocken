@@ -1,5 +1,4 @@
-import Tabs from "sanity-plugin-tabs";
-import supportedLanguages from "../../config/supportedLanguages";
+import supportedLanguages from "../../supportedLanguages";
 
 const buildFields = (fields) => {
   const languagedFields = [];
@@ -8,8 +7,8 @@ const buildFields = (fields) => {
       type: "object",
       name: lang.id,
       title: lang.title,
-      fieldset: lang.id + "-tab",
       fields: fields,
+      group: lang.id,
     };
     languagedFields.push(langObject);
   });
@@ -18,10 +17,10 @@ const buildFields = (fields) => {
 
 export default (fields) => ({
   name: "languages",
+  title: " ",
   type: "object",
-  inputComponent: Tabs,
-  fieldsets: supportedLanguages.map((lang) => ({
-    name: lang.id + "-tab",
+  groups: supportedLanguages.map((lang) => ({
+    name: lang.id,
     title: lang.title,
   })),
   fields: buildFields(fields),

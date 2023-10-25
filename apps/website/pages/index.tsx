@@ -85,9 +85,12 @@ export default function Home(props: HomeProps): JSX.Element {
           src={props.generalSettings.bannerMobile.url}
           width={1800}
           height={2250}
-          layout="responsive"
+          style={{
+            fill: "responsive",
+          }}
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerMobile.urlWithBlur}
+          alt="Banner"
         />
       </div>
       <div className={`hidden sm:block${showNewsList ? " sm:pt-10" : ""}`}>
@@ -95,9 +98,12 @@ export default function Home(props: HomeProps): JSX.Element {
           src={props.generalSettings.bannerDesktop.url}
           height={1336}
           width={3280}
-          layout="responsive"
+          style={{
+            fill: "responsive",
+          }}
           placeholder="blur"
           blurDataURL={props.generalSettings.bannerDesktop.urlWithBlur}
+          alt="Banner"
         />
       </div>
       <div className="flex justify-center mt-4 sm:mt-6">
@@ -156,16 +162,15 @@ export default function Home(props: HomeProps): JSX.Element {
           <>
             {props.artistLinkList.map((link, index, array) => (
               <span key={index}>
-                <NextLink href={`/artist/${link.slug}`}>
-                  <a
-                    className={`mx-2 sm:mx-5${
-                      filterCategory != null && link.category !== filterCategory
-                        ? " text-gray-300"
-                        : ""
-                    }`}
-                  >
-                    {link.title}
-                  </a>
+                <NextLink
+                  href={`/artist/${link.slug}`}
+                  className={`mx-2 sm:mx-5${
+                    filterCategory != null && link.category !== filterCategory
+                      ? " text-gray-300"
+                      : ""
+                  }`}
+                >
+                  {link.title}
                 </NextLink>
                 {index === array.length - 1 ? "" : "•"}
               </span>
@@ -179,8 +184,11 @@ export default function Home(props: HomeProps): JSX.Element {
           <>
             {props.newsLinkList.map((link, index, array) => (
               <span key={index}>
-                <NextLink href={`/article/${link.slug}`}>
-                  <a className="mx-2 sm:mx-5">{link.title}</a>
+                <NextLink
+                  href={`/article/${link.slug}`}
+                  className="mx-2 sm:mx-5"
+                >
+                  {link.title}
                 </NextLink>
                 {index === array.length - 1 ? "" : "•"}
               </span>
