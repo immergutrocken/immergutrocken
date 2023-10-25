@@ -1,25 +1,8 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/apps/website"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    labels:
-      - "website"
-
-  - package-ecosystem: "npm"
-    directory: "/apps/cms"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    labels:
-      - "cms"
-
-  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
-    labels:
-      - "monorepo"
+    versioning-strategy: increase
