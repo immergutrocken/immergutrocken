@@ -33,7 +33,7 @@
     "react-player": "^2.13.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^13.5.5",
+    "@next/eslint-plugin-next": "^14.0.0",
     "@plaiceholder/next": "^3.0.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
