@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ImageGallery from "../../../components/block-content/image-gallery";
 
@@ -20,6 +20,5 @@ describe("Image Gallery", () => {
     };
 
     render(<ImageGallery node={props.node} />);
-    screen.debug();
   });
 });

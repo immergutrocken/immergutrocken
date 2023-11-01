@@ -10,6 +10,9 @@
     },
     "test": {
       "outputs": ["dist/**", "build/**"]
+    },
+    "test:ci": {
+      "outputs": ["dist/**", "build/**"]
     }
   }
 }
