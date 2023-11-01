@@ -1,7 +1,7 @@
 import BlockContent from "@sanity/block-content-to-react";
 import AlignCenter from "./alignCenter";
 import BlockExpander from "./expander";
-import ImageGallery from "./imageGallery";
+import ImageGallery from "./image-gallery";
 import InternalLink from "./internalLink";
 import Youtube from "./youtube";
 import ExternalLink from "./externalLink";
@@ -24,7 +24,7 @@ interface ContentProps {
 }
 
 const Content = ({ content }: ContentProps): JSX.Element => (
-  <div className="font-content text-base sm:text-lg">
+  <div className="text-base font-content sm:text-lg">
     <BlockContent
       blocks={content}
       serializers={serializers}

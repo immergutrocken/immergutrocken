@@ -22,7 +22,7 @@ const socialMedia: ISocialMediaElement[] = [
   },
   {
     url: "https://twitter.com/immergutrocken",
-    brandLogo: "twitter",
+    brandLogo: "x-twitter",
   },
   {
     url: "https://www.flickr.com/photos/immergutrocken",
