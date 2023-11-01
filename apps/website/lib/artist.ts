@@ -114,7 +114,8 @@ export const getArtist = async (
     }
   }`;
   const result = (await client.fetch(query))[0];
-  return {
+
+  const artist = {
     ...result,
     title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
     banner: {
@@ -129,4 +130,17 @@ export const getArtist = async (
     content:
       locale === "en" && result.contentEn ? result.contentEn : result.contentDe,
   };
+
+  artist.content.forEach((element) => {
+    if (element._type === "imageGallery") {
+      element.images.forEach(async (image) => {
+        image.urlPreview = getImageUrl(image, 400);
+        image.urlPreviewBlur = await getPlaceholderImage(image);
+        image.url = getImageUrl(image, 1000);
+        image.urlBlur = await getPlaceholderImage(image);
+      });
+    }
+  });
+
+  return artist;
 };
