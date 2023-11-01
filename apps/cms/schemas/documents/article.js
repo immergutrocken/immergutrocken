@@ -1,6 +1,6 @@
 import { RiArticleLine } from "react-icons/ri";
 import { GiFiles } from "react-icons/gi";
-import { slug } from "../fields/slug";
+import slug from "../fields/slug";
 import image from "../fields/image";
 import blockContent from "../fields/blockContent";
 import contactForm from "../fields/contactForm";

@@ -1,11 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import client from "../../lib/shared/mailjetClient";
 import sha256 from "crypto-js/sha256";
-
-interface IData {
-  ID: string | number;
-  IsUnsubscribed: boolean;
-}
+import { ContactSubscription, LibraryResponse } from "node-mailjet";
 
 const addEmailAddressToContactList = async (
   req: NextApiRequest,
@@ -15,12 +11,13 @@ const addEmailAddressToContactList = async (
   const fixedEmail = eMailAddress.replace(" ", "+");
 
   if (sha256(fixedEmail).toString() === sha) {
-    const listRecipient = await client.get("listrecipient").request({
-      ContactEmail: fixedEmail,
-    });
+    const listRecipientResponse: LibraryResponse<ContactSubscription.GetListRecipientResponse> =
+      await client.get("listrecipient").request({
+        ContactEmail: fixedEmail,
+      });
 
-    if (listRecipient.body.Count !== 0) {
-      const data = listRecipient.body.Data[0] as IData;
+    if (listRecipientResponse.body.Data.length !== 0) {
+      const data = listRecipientResponse.body.Data[0];
 
       if (!data.IsUnsubscribed) {
         res.status(200).json({});

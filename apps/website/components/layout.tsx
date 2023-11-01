@@ -54,8 +54,11 @@ const Layout = ({
             >
               {newsList.map((news, index) => (
                 <span key={index}>
-                  <NextLink href={`/article/${news.slug}`}>
-                    <a className="mx-2 sm:mx-4">{news.title}</a>
+                  <NextLink
+                    href={`/article/${news.slug}`}
+                    className="mx-2 sm:mx-4"
+                  >
+                    {news.title}
                   </NextLink>
                   {index === newsList.length - 1 ? "" : "•"}
                 </span>
@@ -80,11 +83,9 @@ const Layout = ({
               href={router.asPath}
               locale={router.locale === "de" ? "en" : "de"}
             >
-              <a>
-                <Bubble className="text-xl sm:text-3xl font-important">
-                  {router.locale === "de" ? "en" : "de"}
-                </Bubble>
-              </a>
+              <Bubble className="text-xl sm:text-3xl font-important">
+                {router.locale === "de" ? "en" : "de"}
+              </Bubble>
             </NextLink>
           </div>
         </div>

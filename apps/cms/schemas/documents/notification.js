@@ -1,7 +1,6 @@
 import { RiNotification2Line } from "react-icons/ri";
-import supportedLanguages from "../../config/supportedLanguages";
-import Tabs from "sanity-plugin-tabs";
 import blockContent from "../fields/blockContent";
+import localizedTabs from "./localizedTabs";
 
 const fields = [
   {
@@ -11,38 +10,13 @@ const fields = [
   },
   { ...blockContent, validation: (Rule) => Rule.required() },
 ];
-
-const buildFields = () => {
-  const languagedFields = [];
-  supportedLanguages.forEach((lang) => {
-    const langObject = {
-      type: "object",
-      name: lang.id,
-      title: lang.title,
-      fieldset: lang.id + "-tab",
-      fields: fields,
-    };
-    languagedFields.push(langObject);
-  });
-  return languagedFields;
-};
-
 export default {
   type: "document",
   name: "notification",
   title: "Benachrichtigungen",
   icon: RiNotification2Line,
   fields: [
-    {
-      name: "languages",
-      type: "object",
-      inputComponent: Tabs,
-      fieldsets: supportedLanguages.map((lang) => ({
-        name: lang.id + "-tab",
-        title: lang.title,
-      })),
-      fields: buildFields(),
-    },
+    localizedTabs(fields),
     {
       type: "date",
       name: "startDate",

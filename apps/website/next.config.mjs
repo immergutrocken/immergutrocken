@@ -1,4 +1,6 @@
-module.exports = {
+import withPlaiceholder from "@plaiceholder/next";
+
+const config = {
   images: {
     domains: ["cdn.sanity.io"],
     dangerouslyAllowSVG: true,
@@ -8,3 +10,5 @@ module.exports = {
     defaultLocale: "de",
   },
 };
+
+export default withPlaiceholder(config);

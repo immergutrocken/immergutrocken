@@ -45,8 +45,8 @@ const LightBox = ({
           <div className="relative w-full h-1/2">
             <NextImage
               src={images[imageIndex].url}
-              layout="fill"
-              objectFit="contain"
+              style={{ fill: "responsive", objectFit: "contain" }}
+              fill={true}
               alt={images[imageIndex].alt}
               placeholder="blur"
               blurDataURL={images[imageIndex].urlBlur}
