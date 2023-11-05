@@ -37,6 +37,7 @@ const ImageGallery = (props: ImageGalleryProps): JSX.Element => {
               <NextImage
                 src={image.urlPreview}
                 style={{ fill: "responsive", objectFit: "cover" }}
+                fill={true}
                 placeholder="blur"
                 blurDataURL={image.urlPreviewBlur}
                 alt={image.alt}

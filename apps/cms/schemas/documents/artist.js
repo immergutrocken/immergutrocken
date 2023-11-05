@@ -4,10 +4,10 @@ import {
   FaGlobe,
   FaInstagram,
   FaSpotify,
-  FaTwitter,
+  FaXTwitter,
   FaVimeo,
   FaYoutube,
-} from "react-icons/fa";
+} from "react-icons/fa6";
 import { RiMusic2Line } from "react-icons/ri";
 import { SiTiktok } from "react-icons/si";
 import blockContent from "../fields/blockContent";
@@ -129,14 +129,14 @@ export default {
                 case "Website":
                   media = FaGlobe;
                   break;
-                case "Youtube":
+                case "YouTube":
                   media = FaYoutube;
                   break;
                 case "Facebook":
                   media = FaFacebook;
                   break;
                 case "Twitter":
-                  media = FaTwitter;
+                  media = FaXTwitter;
                   break;
                 case "Instagram":
                   media = FaInstagram;
