@@ -15,7 +15,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "turbo": "^1.10.15"
+    "turbo": "^1.10.16"
   },
   "packageManager": "npm@10.1.0"
 }
