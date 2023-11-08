@@ -76,7 +76,7 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
             <Button
               size="small"
               click={() => {
-                setShow(true);
+                setShow(false);
                 localStorage.setItem(key, accepted);
               }}
             >
