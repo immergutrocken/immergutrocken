@@ -65,7 +65,7 @@
     "stylelint": "^15.11.0",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^34.0.0",
-    "stylelint-config-standard-scss": "^11.0.0",
+    "stylelint-config-standard-scss": "^11.1.0",
     "stylelint-prettier": "^4.0.2",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
