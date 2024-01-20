@@ -76,7 +76,7 @@ const Layout = ({
           <div className="flex gap-2 right-2 top-12 sm:right-4 sm:top-16 sm:gap-4">
             {ticketshopUrl && (
               <Link href={ticketshopUrl} className="hover:no-underline">
-                <Button className="!bg-tertiary">{t("ticket-shop")}</Button>
+                <Button className="!bg-rot">{t("ticket-shop")}</Button>
               </Link>
             )}
             <NextLink
