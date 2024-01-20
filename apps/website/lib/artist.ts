@@ -8,7 +8,7 @@ import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
 export interface IArtistLink {
   title: string;
   slug: string;
-  category: ArtistCategory;
+  category: ArtistCategory | undefined;
 }
 
 export interface IArtist {

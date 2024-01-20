@@ -1,6 +1,7 @@
 import groq from "groq";
 import { NotificationDisplayCategory } from "./enums/notificationDisplayCategory";
 import sanityClient from "./shared/sanityClient";
+import { Locale } from "./enums/locals.enum";
 
 export interface INotification {
   title: string;
@@ -36,11 +37,11 @@ export const getNotificationList = async (
     }}`;
   const result = await sanityClient.fetch(query);
   return result.map((item) => ({
-    title: locale === "en" && item.titleEn ? item.titleEn : item.titleDe,
+    title: locale === Locale.EN && item.titleEn ? item.titleEn : item.titleDe,
     startDate: item.startDate,
     endDate: item.endDate,
     display: item.display,
     content:
-      locale === "en" && item.contentEn ? item.contentEn : item.contentDe,
+      locale === Locale.EN && item.contentEn ? item.contentEn : item.contentDe,
   }));
 };

@@ -16,6 +16,8 @@ import { getPartnerList, IPartner } from "../lib/partner";
 import NextHead from "next/head";
 import { NextSeo } from "next-seo";
 import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { Locale } from "../lib/enums/locals.enum";
+import { SanityImage } from "../lib/shared/sanityImageUrl";
 
 interface MerchProps {
   description: [];
@@ -31,7 +33,7 @@ interface MerchProps {
 }
 
 export const getStaticProps = async ({
-  locale,
+  locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<MerchProps>> => {
   const merch = await getMerch(locale);
   return {
@@ -63,7 +65,9 @@ const Merch = ({
   products,
 }: MerchProps): JSX.Element => {
   const [showLightbox, setShowLightbox] = useState(false);
-  const [currentLightboxImages, setCurrentLightboxImages] = useState([]);
+  const [currentLightboxImages, setCurrentLightboxImages] = useState<
+    SanityImage[]
+  >([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   return (
@@ -144,15 +148,17 @@ const Merch = ({
           })}
         </div>
       </div>
-      {showLightbox && (
-        <LightBox
-          images={currentLightboxImages}
-          imageIndex={currentImageIndex}
-          show={showLightbox}
-          onShow={setShowLightbox}
-          onCurrentImageIndexChange={setCurrentImageIndex}
-        ></LightBox>
-      )}
+      <>
+        {showLightbox && (
+          <LightBox
+            images={currentLightboxImages}
+            imageIndex={currentImageIndex}
+            show={showLightbox}
+            onShow={setShowLightbox}
+            onCurrentImageIndexChange={setCurrentImageIndex}
+          ></LightBox>
+        )}
+      </>
     </Layout>
   );
 };
