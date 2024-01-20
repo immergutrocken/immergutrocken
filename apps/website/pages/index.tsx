@@ -16,6 +16,7 @@ import { useState } from "react";
 import Label from "../components/shared/label";
 import { NextSeo } from "next-seo";
 import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { Locale } from "../lib/enums/locals.enum";
 
 interface HomeProps {
   newsLinkList: INewsLink[];
@@ -31,7 +32,7 @@ interface HomeProps {
 }
 
 export const getStaticProps = async ({
-  locale,
+  locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> => {
   return {
     props: {
@@ -51,7 +52,9 @@ export const getStaticProps = async ({
 };
 
 export default function Home(props: HomeProps): JSX.Element {
-  const [filterCategory, setFilterCategory] = useState<ArtistCategory>(null);
+  const [filterCategory, setFilterCategory] = useState<ArtistCategory | null>(
+    null
+  );
   const t = useTranslations("Home");
   const showNewsList = false;
 

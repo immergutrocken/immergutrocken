@@ -36,10 +36,10 @@ export interface IMenuItem {
     de: string;
     en: string;
   };
-  url?: string;
-  slug?: string;
-  documentType?: string;
-  submenuItems?: IMenuItem[];
+  url?: string | null;
+  slug?: string | null;
+  documentType?: string | null;
+  submenuItems?: IMenuItem[] | null;
 }
 
 const typeMapping = new Map<string, MenuItemType>([
@@ -74,6 +74,8 @@ const buildMenuItems = (
           url: entry.url ?? null,
         };
       case MenuItemType.SUBMENU:
+        if (!submenu)
+          throw new Error(`Submenu with id ${entry._ref} not found`);
         return {
           title: submenu.displayName,
           type: type,
