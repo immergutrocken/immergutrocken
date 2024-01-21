@@ -62,14 +62,14 @@ const Menu = ({
 
   return (
     <div
-      className={`w-full px-2 overflow-y-auto sm:w-auto sm:px-12 bg-secondary sm:border-r-2 border-primary fixed z-20 left-0 h-full pb-6 font-important ${displayClass}`}
+      className={`w-full px-2 overflow-y-auto sm:w-auto sm:px-12 bg-gelb sm:border-r-2 border-primary fixed z-20 left-0 h-full pb-6 font-important ${displayClass}`}
     >
       <Bubble className="absolute top-3 right-3" onClick={() => onClose()}>
         <em className="fas fa-times text-secondary"></em>
       </Bubble>
       <div className="flex justify-center gap-4 mt-12 sm:mt-20">
         <NextLink href="/">
-          <Bubble className="!bg-[#ffef09]">
+          <Bubble className="!bg-gruen">
             <EuterIcon className="h-6 sm:h-8"></EuterIcon>
           </Bubble>
         </NextLink>
