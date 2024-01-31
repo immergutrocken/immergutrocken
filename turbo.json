@@ -13,6 +13,7 @@
     },
     "test:ci": {
       "outputs": ["dist/**", "build/**"]
-    }
+    },
+    "lint": {}
   }
 }

@@ -9,6 +9,7 @@ import NextHead from "next/head";
 import NextLink from "next/link";
 import { getNewsLinkList, INewsLink } from "../lib/news";
 import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { Locale } from "../lib/enums/locals.enum";
 
 interface Custom404Props {
   notificationList: INotification[];
@@ -22,7 +23,7 @@ interface Custom404Props {
 }
 
 export const getStaticProps = async ({
-  locale,
+  locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<Custom404Props>> => {
   return {
     props: {

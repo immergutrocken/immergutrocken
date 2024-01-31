@@ -44,8 +44,6 @@ yarn-error.log*
 # sanity
 apps/cms/public
 
-.vscode
-
 # turbo
 .turbo
 build/**

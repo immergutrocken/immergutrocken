@@ -21,6 +21,7 @@ import {
   getGeneralSettings,
   IGeneralSettings,
 } from "../../lib/general-settings";
+import { Locale } from "../../lib/enums/locals.enum";
 
 interface ArticleParams extends ParsedUrlQuery {
   slug: string;
@@ -53,13 +54,14 @@ export const getStaticPaths = async (): Promise<
 
 export const getStaticProps = async ({
   params,
-  locale,
+  locale = Locale.DE,
 }: GetStaticPropsContext<ArticleParams>): Promise<
   GetStaticPropsResult<ArticleProps>
 > => {
   let article: IArticle;
   try {
-    article = await getArticle(params.slug, locale);
+    if (params?.slug == null) throw new Error("No slug provided");
+    article = await getArticle(params?.slug, locale);
   } catch {
     return {
       notFound: true,
