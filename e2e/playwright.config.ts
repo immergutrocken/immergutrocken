@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
+import { AUTH_FILE_PATH } from './support/constants';
 
 dotenv.config();
 
@@ -34,7 +35,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json'
+        storageState: AUTH_FILE_PATH
       },
     },
 
