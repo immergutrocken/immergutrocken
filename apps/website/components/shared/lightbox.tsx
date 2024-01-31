@@ -2,15 +2,11 @@ import { useRouter } from "next/router";
 import Bubble from "./bubble";
 import Label from "./label";
 import NextImage from "next/image";
+import { SanityImage } from "../../lib/shared/sanityImageUrl";
 
 interface LightBoxProps {
-  images: {
-    url: string;
-    urlBlur: string;
-    alt: string;
-    credits: string;
-  }[];
-  imageIndex: number;
+  images: SanityImage[];
+  imageIndex: number | null;
   show: boolean;
   onShow: (boolean) => void;
   onCurrentImageIndexChange: (number) => void;

@@ -25,6 +25,7 @@ import { IMenuItem, getMenu } from "../../lib/menu";
 import { INewsLink, getNewsLinkList } from "../../lib/news";
 import { INotification, getNotificationList } from "../../lib/notification";
 import { IPartner, getPartnerList } from "../../lib/partner";
+import { Locale } from "../../lib/enums/locals.enum";
 
 interface ArtistParams extends ParsedUrlQuery {
   slug: string;
@@ -67,12 +68,13 @@ export const getStaticPaths = async (): Promise<
 
 export const getStaticProps = async ({
   params,
-  locale,
+  locale = Locale.DE,
 }: GetStaticPropsContext<ArtistParams>): Promise<
   GetStaticPropsResult<ArtistProps>
 > => {
   let artist: IArtist;
   try {
+    if (params?.slug == null) throw new Error("No slug provided");
     artist = await getArtist(params.slug, locale);
   } catch {
     return {
@@ -184,27 +186,29 @@ const Artist = ({
                 <span className="text-left font-important">{author}</span>
               </>
             )}
-            {generalSettings.isPerformanceDetailsVisible && performance?.stage && (
-              <>
-                <Label className="text-right">{t("stage").toString()}</Label>
-                <span className="text-left font-important">
-                  {performance.stage}
-                </span>
-              </>
-            )}
-            {generalSettings.isPerformanceDetailsVisible && performance?.time && (
-              <>
-                <Label className="text-right">{t("time").toString()}</Label>
-                <span className="text-left font-important">
-                  {performanceDate.toLocaleString(router.locale, {
-                    weekday: "long",
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}{" "}
-                  {router.locale === "de" ? "Uhr" : ""}
-                </span>
-              </>
-            )}
+            {generalSettings.isPerformanceDetailsVisible &&
+              performance?.stage && (
+                <>
+                  <Label className="text-right">{t("stage").toString()}</Label>
+                  <span className="text-left font-important">
+                    {performance.stage}
+                  </span>
+                </>
+              )}
+            {generalSettings.isPerformanceDetailsVisible &&
+              performance?.time && (
+                <>
+                  <Label className="text-right">{t("time").toString()}</Label>
+                  <span className="text-left font-important">
+                    {performanceDate?.toLocaleString(router.locale, {
+                      weekday: "long",
+                      hour: "numeric",
+                      minute: "numeric",
+                    })}{" "}
+                    {router.locale === "de" ? "Uhr" : ""}
+                  </span>
+                </>
+              )}
           </div>
           <div className="flex flex-row flex-wrap justify-center mt-3 sm:mt-6">
             {socialMedia.map((element, index) => (

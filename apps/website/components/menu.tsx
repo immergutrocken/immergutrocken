@@ -15,10 +15,11 @@ interface MenuProps {
 const buildMenuItem = (
   item: IMenuItem,
   onClose: () => void,
-  locale: string
+  locale: string | undefined
 ): JSX.Element => {
   switch (item.type) {
     case MenuItemType.EXTERNAL_LINK:
+      if (item.url == null) throw new Error("External link must have a url");
       return (
         <Link href={item.url} click={() => onClose()}>
           {locale === "de" ? item.title.de : item.title.en}
@@ -39,7 +40,7 @@ const buildMenuItem = (
       return (
         <>
           <div>{locale === "de" ? item.title.de : item.title.en}</div>
-          {item.submenuItems.map((subMenuItem, index) => (
+          {item.submenuItems?.map((subMenuItem, index) => (
             <div className="text-lg sm:text-3xl" key={index}>
               {buildMenuItem(subMenuItem, onClose, locale)}
             </div>

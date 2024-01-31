@@ -10,6 +10,12 @@ export interface SanityImage {
     y: number;
   };
   asset: SanityImageSource;
+  urlPreview: string;
+  urlPreviewBlur: string;
+  url: string;
+  urlBlur: string;
+  alt: string;
+  credits: string;
 }
 
 const builder = imageUrlBuilder(client);
@@ -20,8 +26,8 @@ const urlFor = (source: SanityImageSource): ImageUrlBuilder => {
 
 export const getImageUrl = (
   { hotspot, asset }: SanityImage,
-  height: number = null,
-  width: number = null
+  height: number | null = null,
+  width: number | null = null
 ): string =>
   hotspot
     ? getUrlFor(asset, height, width)

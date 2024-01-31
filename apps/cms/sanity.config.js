@@ -5,6 +5,7 @@ import { media } from "sanity-plugin-media";
 import schema from "./schemas/schema";
 import deskStructure from "./deskStructure";
 import { ImmergutLogo } from "./components/immergutLogo";
+import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
 
 const getConfig = () => {
   if (import.meta.env.DEV)
@@ -21,6 +22,7 @@ const getConfig = () => {
           }),
           visionTool(),
           media(),
+          vercelDeployTool(),
         ],
         tools: (prev) => {
           if (import.meta.env.DEV) {
@@ -49,6 +51,7 @@ const getConfig = () => {
           }),
           visionTool(),
           media(),
+          vercelDeployTool(),
         ],
         tools: (prev) => {
           if (import.meta.env.DEV) {
@@ -77,6 +80,7 @@ const getConfig = () => {
           }),
           visionTool(),
           media(),
+          vercelDeployTool(),
         ],
         tools: (prev) => {
           if (import.meta.env.DEV) {
@@ -105,6 +109,7 @@ const getConfig = () => {
             structure: deskStructure,
           }),
           media(),
+          vercelDeployTool(),
         ],
         schema: {
           types: schema,

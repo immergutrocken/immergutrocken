@@ -8,7 +8,7 @@ import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
 export interface IArtistLink {
   title: string;
   slug: string;
-  category: ArtistCategory;
+  category: ArtistCategory | undefined;
 }
 
 export interface IArtist {
@@ -61,15 +61,17 @@ export const getArtistLinkList = async (
     'categories': artists[]->category
   }`;
   const result = await client.fetch(query);
-  return result[0].slugs.map(
-    (slug: string, index: number): IArtistLink => ({
-      title:
-        locale === "en" && result[0].titlesEn[index]
-          ? result[0].titlesEn[index]
-          : result[0].titlesDe[index],
-      slug: slug,
-      category: categoryMapping.get(result[0].categories[index]),
-    })
+  return (
+    result[0].slugs?.map(
+      (slug: string, index: number): IArtistLink => ({
+        title:
+          locale === "en" && result[0].titlesEn[index]
+            ? result[0].titlesEn[index]
+            : result[0].titlesDe[index],
+        slug: slug,
+        category: categoryMapping.get(result[0].categories[index]),
+      })
+    ) ?? []
   );
 };
 

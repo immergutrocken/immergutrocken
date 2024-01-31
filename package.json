@@ -7,14 +7,15 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
-    "test:ci": "turbo run test:ci"
+    "test:ci": "turbo run test:ci",
+    "lint": "turbo run lint"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "devDependencies": {
-    "turbo": "^1.10.15"
+    "turbo": "^1.11.3"
   },
   "packageManager": "npm@10.1.0"
 }
