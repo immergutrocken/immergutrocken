@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start-record": "ts-node ./support/start-for-record.ts",
-    "start-signin": "ts-node ./support/start-for-signin.ts"
+    "start-signin": "ts-node ./support/start-for-signin.ts",
+    "postinstall": "npx playwright install"
   },
   "dependencies": {
     "dotenv": "^16.3.1"
