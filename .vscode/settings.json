@@ -1,3 +1,12 @@
 {
-  "tailwindCSS.classAttributes": ["className", ".*Styles", ".*Classes"]
+  "tailwindCSS.classAttributes": [
+    "className",
+    ".*Styles",
+    ".*Classes",
+    ".*Class",
+    ".*Style"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  }
 }

@@ -9,23 +9,24 @@ import NextHead from "next/head";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+
 import Content from "../../components/block-content/content";
 import Layout from "../../components/layout";
 import Bubble from "../../components/shared/bubble";
 import Label from "../../components/shared/label";
 import Link from "../../components/shared/link";
-import { IArtist, getArtist, getArtistList } from "../../lib/artist";
+import { getArtist, getArtistList, IArtist } from "../../lib/artist";
+import { Locale } from "../../lib/enums/locals.enum";
 import PartnerCategory from "../../lib/enums/partnerCategory.enum";
 import { SocialMedia } from "../../lib/enums/socialMedia.enum";
 import {
-  IGeneralSettings,
   getGeneralSettings,
+  IGeneralSettings,
 } from "../../lib/general-settings";
-import { IMenuItem, getMenu } from "../../lib/menu";
-import { INewsLink, getNewsLinkList } from "../../lib/news";
-import { INotification, getNotificationList } from "../../lib/notification";
-import { IPartner, getPartnerList } from "../../lib/partner";
-import { Locale } from "../../lib/enums/locals.enum";
+import { getMenu, IMenuItem } from "../../lib/menu";
+import { getNewsLinkList, INewsLink } from "../../lib/news";
+import { getNotificationList, INotification } from "../../lib/notification";
+import { getPartnerList, IPartner } from "../../lib/partner";
 
 interface ArtistParams extends ParsedUrlQuery {
   slug: string;
@@ -215,7 +216,7 @@ const Artist = ({
               <Link
                 href={element.url}
                 key={index}
-                className="mb-3 mr-2 sm:mr-3 sm:mb-2"
+                className="mb-3 mr-2 sm:mr-3 sm:mb-2 hover:no-underline"
               >
                 <Bubble>
                   <em className={iconMapping.get(element.type)}></em>

@@ -1,18 +1,19 @@
-import Notification from "./notification";
-import { INotification } from "../lib/notification";
-import { NotificationDisplayCategory } from "../lib/enums/notificationDisplayCategory";
-import Footer from "./footer";
-import { IPartner } from "../lib/partner";
-import React, { useState } from "react";
-import Menu from "./menu";
-import Bubble from "./shared/bubble";
-import { IMenuItem } from "../lib/menu";
-import Button from "./shared/button";
-import { useRouter } from "next/router";
-import NextLink from "next/link";
 import { useTranslations } from "next-intl";
-import Link from "./shared/link";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+import { NotificationDisplayCategory } from "../lib/enums/notificationDisplayCategory";
+import { IMenuItem } from "../lib/menu";
 import { INewsLink } from "../lib/news";
+import { INotification } from "../lib/notification";
+import { IPartner } from "../lib/partner";
+import Footer from "./footer";
+import Menu from "./menu";
+import Notification from "./notification";
+import Bubble from "./shared/bubble";
+import Button from "./shared/button";
+import Link from "./shared/link";
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -82,6 +83,7 @@ const Layout = ({
             <NextLink
               href={router.asPath}
               locale={router.locale === "de" ? "en" : "de"}
+              className="hover:no-underline"
             >
               <Bubble className="text-xl sm:text-3xl font-important">
                 {router.locale === "de" ? "en" : "de"}
