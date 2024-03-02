@@ -44,7 +44,7 @@ const NewsletterRegistration = (): JSX.Element => {
         <input
           className={`${
             isValid ? "" : styles.invalid
-          } w-56 sm:w-96 text-lg sm:text-3xl bg-secondary border-2 border-primary rounded-full px-3 sm:px-6 focus:outline-none font-important`}
+          } w-56 sm:w-96 text-lg sm:text-3xl bg-secondary border-2 border-gruen rounded-full px-3 sm:px-6 focus:outline-none font-important`}
           placeholder={t("your-email-address").toString()}
           value={eMailAddress}
           type="email"

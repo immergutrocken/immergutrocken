@@ -75,7 +75,7 @@ const Menu = ({
             animate={{ width: "100%" }}
             transition={{ duration: 0.3 }}
             exit={{ width: 0 }}
-            className={`overflow-y-auto bg-secondary sm:border-r-2 border-primary h-full font-important`}
+            className={`overflow-y-auto bg-gelb sm:border-r-2 border-primary h-full font-important`}
           >
             <AnimatePresence onExitComplete={() => onClose()}>
               {showContent && (
@@ -94,7 +94,7 @@ const Menu = ({
                   </Bubble>
                   <div className="flex justify-center gap-4 mt-12 sm:mt-20">
                     <NextLink href="/" onClick={() => setShowContent(false)}>
-                      <Bubble className="!bg-[#ffef09]">
+                      <Bubble className="!bg-gruen">
                         <EuterIcon className="h-6 sm:h-8"></EuterIcon>
                       </Bubble>
                     </NextLink>
