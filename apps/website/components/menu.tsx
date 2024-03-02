@@ -66,7 +66,7 @@ const Menu = ({
   return (
     <AnimatePresence onExitComplete={() => setShowContent(false)}>
       {showMenu && (
-        <div className={`w-full sm:w-[512px] fixed z-20 left-0 h-full`}>
+        <div className={`w-full sm:w-[512px] fixed z-20 left-0 top-0 bottom-0`}>
           <motion.div
             onAnimationComplete={() => {
               setShowContent(true);
@@ -80,7 +80,7 @@ const Menu = ({
             <AnimatePresence onExitComplete={() => onClose()}>
               {showContent && (
                 <motion.div
-                  className={`w-full px-2 sm:w-auto sm:px-12 h-full`}
+                  className={`w-full px-2 sm:w-auto sm:px-12`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
