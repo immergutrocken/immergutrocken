@@ -1,10 +1,11 @@
+import { useTranslations } from "next-intl";
+
+import socialMedia from "../lib/models/socialMedia";
 import { IPartner } from "../lib/partner";
+import NewsletterRegistration from "./newsletterRegistration";
+import Partner from "./partner";
 import Bubble from "./shared/bubble";
 import Link from "./shared/link";
-import Partner from "./partner";
-import socialMedia from "../lib/models/socialMedia";
-import NewsletterRegistration from "./newsletterRegistration";
-import { useTranslations } from "next-intl";
 
 interface FooterProps {
   sponsorList: IPartner[];
@@ -26,7 +27,7 @@ const Footer = ({
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
         {socialMedia.map((element, index) => (
-          <Link href={element.url} key={index}>
+          <Link href={element.url} key={index} className="hover:no-underline">
             <Bubble>
               <em className={`fab fa-${element.brandLogo}`}></em>
             </Bubble>

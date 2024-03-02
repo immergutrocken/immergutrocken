@@ -1,22 +1,23 @@
-import NextHead from "next/head";
-import NextImage from "next/image";
-import { getNewsLinkList, INewsLink } from "../lib/news";
-import { getPartnerList, IPartner } from "../lib/partner";
-import PartnerCategory from "../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../lib/menu";
-import { getArtistLinkList, IArtistLink } from "../lib/artist";
-import NextLink from "next/link";
-import Layout from "../components/layout";
-import { getNotificationList, INotification } from "../lib/notification";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { useTranslations } from "next-intl";
-import { ArtistCategory } from "../lib/enums/artistCategory.enum";
-import Button from "../components/shared/button";
-import { useState } from "react";
-import Label from "../components/shared/label";
 import { NextSeo } from "next-seo";
-import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import NextLink from "next/link";
+import { useState } from "react";
+
+import Layout from "../components/layout";
+import Button from "../components/shared/button";
+import Label from "../components/shared/label";
+import { getArtistLinkList, IArtistLink } from "../lib/artist";
+import { ArtistCategory } from "../lib/enums/artistCategory.enum";
 import { Locale } from "../lib/enums/locals.enum";
+import PartnerCategory from "../lib/enums/partnerCategory.enum";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { getMenu, IMenuItem } from "../lib/menu";
+import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getNotificationList, INotification } from "../lib/notification";
+import { getPartnerList, IPartner } from "../lib/partner";
 
 interface HomeProps {
   newsLinkList: INewsLink[];

@@ -23,6 +23,7 @@
     "@types/gtag.js": "^0.0.18",
     "@types/node-mailjet": "^3.3.12",
     "crypto-js": "^4.2.0",
+    "framer-motion": "^11.0.3",
     "groq": "^3.26.1",
     "next": "^14.1.0",
     "next-intl": "^3.5.2",

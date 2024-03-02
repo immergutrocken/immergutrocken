@@ -1,4 +1,5 @@
 import groq from "groq";
+
 import client from "./shared/sanityClient";
 
 export interface INewsLink {

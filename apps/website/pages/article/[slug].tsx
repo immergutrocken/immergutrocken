@@ -3,25 +3,26 @@ import {
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next";
+import { useTranslations } from "next-intl";
+import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
 import { ParsedUrlQuery } from "querystring";
-import { getArticle, getArticleSlugList, IArticle } from "../../lib/article";
+
+import Content from "../../components/block-content/content";
 import Layout from "../../components/layout";
 import Label from "../../components/shared/label";
-import NextImage from "next/image";
-import NextHead from "next/head";
-import Content from "../../components/block-content/content";
-import { getNotificationList, INotification } from "../../lib/notification";
-import { useTranslations } from "next-intl";
-import { getPartnerList, IPartner } from "../../lib/partner";
+import { getArticle, getArticleSlugList, IArticle } from "../../lib/article";
+import { Locale } from "../../lib/enums/locals.enum";
 import PartnerCategory from "../../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../../lib/menu";
-import { getNewsLinkList, INewsLink } from "../../lib/news";
-import { NextSeo } from "next-seo";
 import {
   getGeneralSettings,
   IGeneralSettings,
 } from "../../lib/general-settings";
-import { Locale } from "../../lib/enums/locals.enum";
+import { getMenu, IMenuItem } from "../../lib/menu";
+import { getNewsLinkList, INewsLink } from "../../lib/news";
+import { getNotificationList, INotification } from "../../lib/notification";
+import { getPartnerList, IPartner } from "../../lib/partner";
 
 interface ArticleParams extends ParsedUrlQuery {
   slug: string;
@@ -141,12 +142,12 @@ const Article = ({
         </div>
         <div className="px-4 pb-5 pt-14 sm:pt-32 sm:pb-5">
           <h1 className="text-4xl sm:text-7xl font-important">{title}</h1>
-          <div className="flex flex-row mt-5 space-x-4 sm:mt-8 sm:text-3xl">
+          <div className="flex flex-row items-center mt-5 space-x-4 sm:mt-8 sm:text-3xl">
             <Label>{t("photo").toString()}</Label>
             <span className="font-important">{banner.credits}</span>
           </div>
           {author && (
-            <div className="flex flex-row mt-2 space-x-4 sm:mt-4 sm:text-3xl">
+            <div className="flex flex-row items-center mt-2 space-x-4 sm:mt-4 sm:text-3xl">
               <Label>{t("text").toString()}</Label>
               <span className="font-important">{author}</span>
             </div>
