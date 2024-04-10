@@ -1,24 +1,36 @@
-import { useTranslations } from "next-intl";
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/router';
 
-import socialMedia from "../lib/models/socialMedia";
-import { IPartner } from "../lib/partner";
-import NewsletterRegistration from "./newsletterRegistration";
-import Partner from "./partner";
-import Bubble from "./shared/bubble";
-import Link from "./shared/link";
+import { IGeneralSettings } from '../lib/general-settings';
+import socialMedia from '../lib/models/socialMedia';
+import { IPartner } from '../lib/partner';
+import NewsletterRegistration from './newsletterRegistration';
+import Partner from './partner';
+import Bubble from './shared/bubble';
+import Link from './shared/link';
 
 interface FooterProps {
   sponsorList: IPartner[];
   mediaPartnerList: IPartner[];
   additionalList: IPartner[];
+  generalSettings: IGeneralSettings;
 }
 
 const Footer = ({
   sponsorList,
   mediaPartnerList,
   additionalList,
+  generalSettings,
 }: FooterProps): JSX.Element => {
   const t = useTranslations("Footer");
+  const router = useRouter();
+
+  const startDate = new Date(generalSettings.countdown.festivalStartDate);
+  const endDate = new Date(generalSettings.countdown.festivalEndDate);
+  const difference = startDate.getTime() - new Date().getTime();
+  let days = Math.ceil(difference / (1000 * 3600 * 24));
+  days = days < 0 ? 0 : days;
+  const startAndEndDateString = `${startDate.toLocaleDateString(router.locale, {day: "numeric", month: "numeric"})} - ${endDate.toLocaleDateString(router.locale)}`;
 
   return (
     <>
@@ -42,7 +54,7 @@ const Footer = ({
         />
         <Partner label={t("supported-by").toString()} list={additionalList} />
       </div>
-      <div className="w-full max-w-3xl px-3 pb-6 mx-auto mt-8 text-center sm:pb-10 font-content">
+      <div className="w-full max-w-3xl px-3 pb-12 mx-auto mt-8 text-center sm:pb-20 font-content">
         <p>
           Immergut Festival / Am Bürgerseeweg 28 / 17235 Neustrelitz
           <br />
@@ -60,6 +72,9 @@ const Footer = ({
           </Link>
         </p>
       </div>
+      {generalSettings.countdown.showCountdown && <div className="fixed bottom-0 flex justify-center w-full py-1 text-lg border-t-2 sm:text-4xl bg-secondary border-primary font-important">
+        {startAndEndDateString} ... noch {days} Tag{days !== 1 ? "e" : ""}!
+      </div>}
     </>
   );
 };

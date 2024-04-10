@@ -1,19 +1,20 @@
-import { useTranslations } from "next-intl";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useTranslations } from 'next-intl';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-import { NotificationDisplayCategory } from "../lib/enums/notificationDisplayCategory";
-import { IMenuItem } from "../lib/menu";
-import { INewsLink } from "../lib/news";
-import { INotification } from "../lib/notification";
-import { IPartner } from "../lib/partner";
-import Footer from "./footer";
-import Menu from "./menu";
-import Notification from "./notification";
-import Bubble from "./shared/bubble";
-import Button from "./shared/button";
-import Link from "./shared/link";
+import { NotificationDisplayCategory } from '../lib/enums/notificationDisplayCategory';
+import { IGeneralSettings } from '../lib/general-settings';
+import { IMenuItem } from '../lib/menu';
+import { INewsLink } from '../lib/news';
+import { INotification } from '../lib/notification';
+import { IPartner } from '../lib/partner';
+import Footer from './footer';
+import Menu from './menu';
+import Notification from './notification';
+import Bubble from './shared/bubble';
+import Button from './shared/button';
+import Link from './shared/link';
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -25,6 +26,7 @@ interface LayoutProps {
   newsList: INewsLink[];
   ticketshopUrl: string;
   showNewsList?: boolean;
+  generalSettings: IGeneralSettings;
 }
 
 const Layout = ({
@@ -37,6 +39,7 @@ const Layout = ({
   newsList,
   ticketshopUrl,
   showNewsList = true,
+  generalSettings,
 }: LayoutProps): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
@@ -105,6 +108,7 @@ const Layout = ({
           sponsorList={sponsorList}
           mediaPartnerList={mediaPartnerList}
           additionalList={additionalList}
+          generalSettings={generalSettings}
         />
         <div className="fixed bottom-0 z-20 w-full">
           {notifcationList

@@ -1,23 +1,24 @@
-import { GetStaticPropsContext, GetStaticPropsResult } from "next";
-import Image from "next/image";
-import { useState } from "react";
-import Content from "../components/block-content/content";
-import Layout from "../components/layout";
-import Bubble from "../components/shared/bubble";
-import Label from "../components/shared/label";
-import LightBox from "../components/shared/lightbox";
-import PartnerCategory from "../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../lib/menu";
-import { getMerch } from "../lib/merch";
-import { IProduct } from "../lib/models/product.interface";
-import { getNewsLinkList, INewsLink } from "../lib/news";
-import { getNotificationList, INotification } from "../lib/notification";
-import { getPartnerList, IPartner } from "../lib/partner";
-import NextHead from "next/head";
-import { NextSeo } from "next-seo";
-import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
-import { Locale } from "../lib/enums/locals.enum";
-import { SanityImage } from "../lib/shared/sanityImageUrl";
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { NextSeo } from 'next-seo';
+import NextHead from 'next/head';
+import Image from 'next/image';
+import { useState } from 'react';
+
+import Content from '../components/block-content/content';
+import Layout from '../components/layout';
+import Bubble from '../components/shared/bubble';
+import Label from '../components/shared/label';
+import LightBox from '../components/shared/lightbox';
+import { Locale } from '../lib/enums/locals.enum';
+import PartnerCategory from '../lib/enums/partnerCategory.enum';
+import { getGeneralSettings, IGeneralSettings } from '../lib/general-settings';
+import { getMenu, IMenuItem } from '../lib/menu';
+import { getMerch } from '../lib/merch';
+import { IProduct } from '../lib/models/product.interface';
+import { getNewsLinkList, INewsLink } from '../lib/news';
+import { getNotificationList, INotification } from '../lib/notification';
+import { getPartnerList, IPartner } from '../lib/partner';
+import { SanityImage } from '../lib/shared/sanityImageUrl';
 
 interface MerchProps {
   description: [];
@@ -80,6 +81,7 @@ const Merch = ({
       newsList={newsLinkList}
       showNewsList={true}
       ticketshopUrl={generalSettings.ticketshopUrl}
+      generalSettings={generalSettings}
     >
       <NextSeo
         title={"Merch &minus; " + generalSettings.websiteTitle}

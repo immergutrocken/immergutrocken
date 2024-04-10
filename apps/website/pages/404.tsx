@@ -1,15 +1,16 @@
-import { GetStaticPropsContext, GetStaticPropsResult } from "next";
-import { useTranslations } from "use-intl";
-import Layout from "../components/layout";
-import PartnerCategory from "../lib/enums/partnerCategory.enum";
-import { getMenu, IMenuItem } from "../lib/menu";
-import { getNotificationList, INotification } from "../lib/notification";
-import { getPartnerList, IPartner } from "../lib/partner";
-import NextHead from "next/head";
-import NextLink from "next/link";
-import { getNewsLinkList, INewsLink } from "../lib/news";
-import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
-import { Locale } from "../lib/enums/locals.enum";
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import NextHead from 'next/head';
+import NextLink from 'next/link';
+import { useTranslations } from 'use-intl';
+
+import Layout from '../components/layout';
+import { Locale } from '../lib/enums/locals.enum';
+import PartnerCategory from '../lib/enums/partnerCategory.enum';
+import { getGeneralSettings, IGeneralSettings } from '../lib/general-settings';
+import { getMenu, IMenuItem } from '../lib/menu';
+import { getNewsLinkList, INewsLink } from '../lib/news';
+import { getNotificationList, INotification } from '../lib/notification';
+import { getPartnerList, IPartner } from '../lib/partner';
 
 interface Custom404Props {
   notificationList: INotification[];
@@ -60,6 +61,7 @@ const Custom404 = ({
       menuItems={menuItems}
       newsList={newsList}
       ticketshopUrl={generalSettings.ticketshopUrl}
+      generalSettings={generalSettings}
     >
       <NextHead>
         <title>{generalSettings.websiteTitle}</title>

@@ -1,28 +1,21 @@
-import {
-  GetStaticPathsResult,
-  GetStaticPropsContext,
-  GetStaticPropsResult,
-} from "next";
-import { useTranslations } from "next-intl";
-import { NextSeo } from "next-seo";
-import NextHead from "next/head";
-import NextImage from "next/image";
-import { ParsedUrlQuery } from "querystring";
+import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { useTranslations } from 'next-intl';
+import { NextSeo } from 'next-seo';
+import NextHead from 'next/head';
+import NextImage from 'next/image';
+import { ParsedUrlQuery } from 'querystring';
 
-import Content from "../../components/block-content/content";
-import Layout from "../../components/layout";
-import Label from "../../components/shared/label";
-import { getArticle, getArticleSlugList, IArticle } from "../../lib/article";
-import { Locale } from "../../lib/enums/locals.enum";
-import PartnerCategory from "../../lib/enums/partnerCategory.enum";
-import {
-  getGeneralSettings,
-  IGeneralSettings,
-} from "../../lib/general-settings";
-import { getMenu, IMenuItem } from "../../lib/menu";
-import { getNewsLinkList, INewsLink } from "../../lib/news";
-import { getNotificationList, INotification } from "../../lib/notification";
-import { getPartnerList, IPartner } from "../../lib/partner";
+import Content from '../../components/block-content/content';
+import Layout from '../../components/layout';
+import Label from '../../components/shared/label';
+import { getArticle, getArticleSlugList, IArticle } from '../../lib/article';
+import { Locale } from '../../lib/enums/locals.enum';
+import PartnerCategory from '../../lib/enums/partnerCategory.enum';
+import { getGeneralSettings, IGeneralSettings } from '../../lib/general-settings';
+import { getMenu, IMenuItem } from '../../lib/menu';
+import { getNewsLinkList, INewsLink } from '../../lib/news';
+import { getNotificationList, INotification } from '../../lib/notification';
+import { getPartnerList, IPartner } from '../../lib/partner';
 
 interface ArticleParams extends ParsedUrlQuery {
   slug: string;
@@ -109,6 +102,7 @@ const Article = ({
       menuItems={menuItems}
       newsList={newsList}
       ticketshopUrl={generalSettings.ticketshopUrl}
+      generalSettings={generalSettings}
     >
       <NextSeo
         title={`${title} &minus; ${generalSettings.websiteTitle}`}
