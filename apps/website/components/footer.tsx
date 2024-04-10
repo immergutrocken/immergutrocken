@@ -72,7 +72,7 @@ const Footer = ({
           </Link>
         </p>
       </div>
-      {generalSettings.countdown.showCountdown && <div className="fixed bottom-0 flex justify-center w-full py-1 text-lg border-t-2 sm:text-4xl bg-secondary border-primary font-important">
+      {generalSettings.countdown.showCountdown && <div className="fixed bottom-0 flex justify-center w-full py-1 text-lg border-t-2 sm:text-4xl bg-gelb border-primary font-important">
         {startAndEndDateString} ... noch {days} Tag{days !== 1 ? "e" : ""}!
       </div>}
     </>
