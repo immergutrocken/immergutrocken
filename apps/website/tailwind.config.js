@@ -13,6 +13,9 @@ module.exports = {
       invert: {
         partner: "0",
       },
+      screens: {
+        "3xl": "1700px"
+      },
     },
     fontFamily: {
       content: ["Ludwig-Normal"],
