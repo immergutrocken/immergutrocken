@@ -6,6 +6,7 @@ import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const router = useRouter();
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       />
       <Component {...pageProps} />
       <Analytics />
+      <SpeedInsights />
     </NextIntlClientProvider>
   );
 }
