@@ -1,32 +1,25 @@
-import {
-  GetStaticPathsResult,
-  GetStaticPropsContext,
-  GetStaticPropsResult,
-} from "next";
-import { useTranslations } from "next-intl";
-import { NextSeo } from "next-seo";
-import NextHead from "next/head";
-import NextImage from "next/image";
-import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
+import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { useTranslations } from 'next-intl';
+import { NextSeo } from 'next-seo';
+import NextHead from 'next/head';
+import NextImage from 'next/image';
+import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 
-import Content from "../../components/block-content/content";
-import Layout from "../../components/layout";
-import Bubble from "../../components/shared/bubble";
-import Label from "../../components/shared/label";
-import Link from "../../components/shared/link";
-import { getArtist, getArtistList, IArtist } from "../../lib/artist";
-import { Locale } from "../../lib/enums/locals.enum";
-import PartnerCategory from "../../lib/enums/partnerCategory.enum";
-import { SocialMedia } from "../../lib/enums/socialMedia.enum";
-import {
-  getGeneralSettings,
-  IGeneralSettings,
-} from "../../lib/general-settings";
-import { getMenu, IMenuItem } from "../../lib/menu";
-import { getNewsLinkList, INewsLink } from "../../lib/news";
-import { getNotificationList, INotification } from "../../lib/notification";
-import { getPartnerList, IPartner } from "../../lib/partner";
+import Content from '../../components/block-content/content';
+import Layout from '../../components/layout';
+import Bubble from '../../components/shared/bubble';
+import Label from '../../components/shared/label';
+import Link from '../../components/shared/link';
+import { getArtist, getArtistList, IArtist } from '../../lib/artist';
+import { Locale } from '../../lib/enums/locals.enum';
+import PartnerCategory from '../../lib/enums/partnerCategory.enum';
+import { SocialMedia } from '../../lib/enums/socialMedia.enum';
+import { getGeneralSettings, IGeneralSettings } from '../../lib/general-settings';
+import { getMenu, IMenuItem } from '../../lib/menu';
+import { getNewsLinkList, INewsLink } from '../../lib/news';
+import { getNotificationList, INotification } from '../../lib/notification';
+import { getPartnerList, IPartner } from '../../lib/partner';
 
 interface ArtistParams extends ParsedUrlQuery {
   slug: string;
@@ -103,7 +96,7 @@ const iconMapping = new Map<SocialMedia, string>([
   [SocialMedia.WEBSITE, "fas fa-globe"],
   [SocialMedia.YOUTUBE, "fab fa-youtube"],
   [SocialMedia.FACEBOOK, "fab fa-facebook-f"],
-  [SocialMedia.TWITTER, "fab fa-twitter"],
+  [SocialMedia.TWITTER, "fab fa-x-twitter"],
   [SocialMedia.INSTAGRAM, "fab fa-instagram"],
   [SocialMedia.VIMEO, "fab fa-vimeo"],
   [SocialMedia.TIKTOK, "fab fa-tiktok"],
