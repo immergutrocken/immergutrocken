@@ -132,6 +132,7 @@ const Artist = ({
       menuItems={menuItems}
       newsList={newsList}
       ticketshopUrl={generalSettings.ticketshopUrl}
+      generalSettings={generalSettings}
     >
       <NextSeo
         title={`${title} &minus; ${generalSettings.websiteTitle}`}

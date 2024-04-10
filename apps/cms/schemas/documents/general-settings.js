@@ -67,6 +67,30 @@ export default {
       name: "isPerformanceDetailsVisible",
       type: "boolean",
     },
+    {
+      title: "Countdown",
+      name: "countdown",
+      type: "object",
+      fields: [{
+      title: "Soll der Countdown angezeigt werden?",
+      name: "showCountdown",
+      type: "boolean",
+      description: "Zeigt den Countdown im Footer an",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      title: "Startdatum des Festivals",
+      name: "festivalStartDate",
+      type: "date",
+      validation: (Rule) => Rule.custom(validateCountdownDate),
+    },
+    {
+      title: "Enddatum des Festivals",
+      name: "festivalEndDate",
+      type: "date",
+      validation: (Rule) => Rule.custom(validateCountdownDate),
+    }]
+    }
   ],
   preview: {
     prepare() {
@@ -75,4 +99,12 @@ export default {
       };
     },
   },
+};
+
+const validateCountdownDate = (date, context) => {
+  if (context.document.countdown.showCountdown && !date) {
+    return "Datum muss angegeben werden, wenn Countdown aktiviert ist";
+  }
+
+  return true;
 };

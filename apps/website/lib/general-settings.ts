@@ -1,7 +1,9 @@
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import groq from "groq";
-import client from "./shared/sanityClient";
-import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
+import groq from 'groq';
+
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
+
+import client from './shared/sanityClient';
+import { getImageUrl, getPlaceholderImage } from './shared/sanityImageUrl';
 
 export interface IGeneralSettings {
   websiteTitle: string;
@@ -27,6 +29,11 @@ export interface IGeneralSettings {
   additionalTextAfterArtists: string;
   isPerformanceDetailsVisible: boolean;
   ticketshopUrl: string;
+  countdown: {
+    showCountdown: boolean;
+    festivalStartDate: string;
+    festivalEndDate: string;
+  }
 }
 
 export const getGeneralSettings = async (
@@ -43,7 +50,8 @@ export const getGeneralSettings = async (
     'additionalTextAfterArtistsDe': languages.de.additionalTextAfterArtists,
     'additionalTextAfterArtistsEn': languages.en.additionalTextAfterArtists,
     'isPerformanceDetailsVisible': isPerformanceDetailsVisible,
-    'ticketshopUrl': ticketshopUrl
+    'ticketshopUrl': ticketshopUrl,
+    'countdown': countdown
   }`;
   const result = (await client.fetch(query))[0];
   const bannerDesktop =
@@ -55,6 +63,7 @@ export const getGeneralSettings = async (
       ? result.bannerMobileDe
       : result.bannerMobileEn ?? result.bannerMobileDe;
   return {
+    ...result,
     websiteTitle:
       locale === "de"
         ? result.websiteTitleDe
@@ -78,6 +87,5 @@ export const getGeneralSettings = async (
         : result.additionalTextAfterArtistsEn ??
           result.additionalTextAfterArtistsDe,
     isPerformanceDetailsVisible: result.isPerformanceDetailsVisible ?? false,
-    ticketshopUrl: result.ticketshopUrl,
   };
 };
