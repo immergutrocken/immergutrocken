@@ -1,20 +1,22 @@
-import { useTranslations } from 'next-intl';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useTranslations } from "next-intl";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-import { NotificationDisplayCategory } from '../lib/enums/notificationDisplayCategory';
-import { IGeneralSettings } from '../lib/general-settings';
-import { IMenuItem } from '../lib/menu';
-import { INewsLink } from '../lib/news';
-import { INotification } from '../lib/notification';
-import { IPartner } from '../lib/partner';
-import Footer from './footer';
-import Menu from './menu';
-import Notification from './notification';
-import Bubble from './shared/bubble';
-import Button from './shared/button';
-import Link from './shared/link';
+import { track } from "@vercel/analytics/react";
+
+import { NotificationDisplayCategory } from "../lib/enums/notificationDisplayCategory";
+import { IGeneralSettings } from "../lib/general-settings";
+import { IMenuItem } from "../lib/menu";
+import { INewsLink } from "../lib/news";
+import { INotification } from "../lib/notification";
+import { IPartner } from "../lib/partner";
+import Footer from "./footer";
+import Menu from "./menu";
+import Notification from "./notification";
+import Bubble from "./shared/bubble";
+import Button from "./shared/button";
+import Link from "./shared/link";
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -80,7 +82,12 @@ const Layout = ({
           <div className="flex gap-2 right-2 top-12 sm:right-4 sm:top-16 sm:gap-4">
             {ticketshopUrl && (
               <Link href={ticketshopUrl} className="hover:no-underline">
-                <Button className="!bg-tertiary">{t("ticket-shop")}</Button>
+                <Button
+                  className="!bg-tertiary"
+                  click={() => track("Kartenladen (Header)")}
+                >
+                  {t("ticket-shop")}
+                </Button>
               </Link>
             )}
             <NextLink
