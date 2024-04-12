@@ -3,6 +3,8 @@ import { useRouter } from "next/dist/client/router";
 import NextLink from "next/link";
 import { useState } from "react";
 
+import { track } from "@vercel/analytics/react";
+
 import { MenuItemType } from "../lib/enums/menuItemType.enum";
 import { IMenuItem } from "../lib/menu";
 import Bubble from "./shared/bubble";
@@ -24,7 +26,17 @@ const buildMenuItem = (
     case MenuItemType.EXTERNAL_LINK:
       if (item.url == null) throw new Error("External link must have a url");
       return (
-        <Link href={item.url} click={() => onClose()}>
+        <Link
+          href={item.url}
+          click={() => {
+            if (
+              item.title.de === "Kartenladen" ||
+              item.title.en === "ticket shop"
+            )
+              track("Kartenladen (Menü)");
+            onClose();
+          }}
+        >
           {locale === "de" ? item.title.de : item.title.en}
         </Link>
       );
