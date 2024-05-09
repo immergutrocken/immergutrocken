@@ -1,6 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import sha256 from "crypto-js/sha256";
-import client from "../../lib/shared/mailjetClient";
+import sha256 from 'crypto-js/sha256';
+import { NextApiRequest, NextApiResponse } from 'next';
+
+import client from '../../lib/shared/mailjetClient';
 
 interface IBody {
   origin: string;
