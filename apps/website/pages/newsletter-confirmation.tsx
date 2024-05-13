@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
-import { useEffect, useState } from "react";
 import NextHead from "next/head";
+import { useEffect, useState } from "react";
 
 const NewsletterConfirmation = (): JSX.Element => {
   const {

@@ -30,7 +30,7 @@ const Footer = ({
   const difference = startDate.getTime() - new Date().getTime();
   let days = Math.ceil(difference / (1000 * 3600 * 24));
   days = days < 0 ? 0 : days;
-  const startAndEndDateString = `${startDate.toLocaleDateString(router.locale, {day: "numeric", month: "numeric"})} - ${endDate.toLocaleDateString(router.locale)}`;
+  const startAndEndDateString = `${startDate.toLocaleDateString(router.locale, { day: "numeric", month: "numeric" })} - ${endDate.toLocaleDateString(router.locale)}`;
 
   return (
     <>
@@ -72,9 +72,11 @@ const Footer = ({
           </Link>
         </p>
       </div>
-      {generalSettings.countdown.showCountdown && <div className="fixed bottom-0 flex justify-center w-full py-1 text-lg border-t-2 sm:text-4xl bg-gelb border-primary font-important">
-        {startAndEndDateString} ... noch {days} Tag{days !== 1 ? "e" : ""}!
-      </div>}
+      {generalSettings.countdown.showCountdown && (
+        <div className="fixed bottom-0 flex justify-center w-full py-1 text-lg border-t-2 sm:text-4xl bg-gelb border-primary font-important">
+          {startAndEndDateString} ... noch {days} Tag{days !== 1 ? "e" : ""}!
+        </div>
+      )}
     </>
   );
 };

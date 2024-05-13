@@ -1,8 +1,9 @@
-import { useState } from "react";
-import Button from "./shared/button";
-import styles from "../styles/newsletterRegistration.module.scss";
-import * as gtag from "../lib/gtag";
-import { useTranslations } from "next-intl";
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
+import styles from '../styles/newsletterRegistration.module.scss';
+import Badge from './badges/badge';
+import Button from './shared/button';
 
 const NewsletterRegistration = (): JSX.Element => {
   const [eMailAddress, setEMailAddress] = useState("");
@@ -22,12 +23,6 @@ const NewsletterRegistration = (): JSX.Element => {
         }),
       }).then(() => {
         setEMailAddress("");
-        gtag.event({
-          action: "newsletter_registration",
-          category: "Newsletter",
-          label: "",
-          value: "",
-        });
         setSuccess(true);
       });
     } else {
@@ -36,25 +31,31 @@ const NewsletterRegistration = (): JSX.Element => {
   };
 
   return (
-    <>
-      <h2 className="text-3xl text-center sm:text-6xl font-important">
-        {t("newsletter")}
-      </h2>
-      <div className="flex flex-row justify-center mt-2 space-x-2">
-        <input
-          className={`${
-            isValid ? "" : styles.invalid
-          } w-56 sm:w-96 text-lg sm:text-3xl bg-secondary border-2 border-gruen rounded-full px-3 sm:px-6 focus:outline-none font-important`}
-          placeholder={t("your-email-address").toString()}
-          value={eMailAddress}
-          type="email"
-          onChange={(event) => setEMailAddress(event.target.value)}
-        />
-        <Button click={() => handleClick()} success={success}>
-          Ok
-        </Button>
+    <div className="flex flex-col lg:flex-row">
+      <div className="flex justify-center flex-1 lg:justify-end">
+        <Badge />
       </div>
-    </>
+      <div className="mt-8 lg:mt-0">
+        <h2 className="text-3xl text-center sm:text-6xl font-important">
+          {t("newsletter")}
+        </h2>
+        <div className="flex flex-row justify-center mt-2 space-x-2">
+          <input
+            className={`${
+              isValid ? "" : styles.invalid
+            } w-56 sm:w-96 text-lg sm:text-3xl bg-secondary border-2 border-gruen rounded-full px-3 sm:px-6 focus:outline-none font-important`}
+            placeholder={t("your-email-address").toString()}
+            value={eMailAddress}
+            type="email"
+            onChange={(event) => setEMailAddress(event.target.value)}
+          />
+          <Button click={() => handleClick()} success={success}>
+            Ok
+          </Button>
+        </div>
+      </div>
+      <div className="flex-1"></div>
+    </div>
   );
 };
 
