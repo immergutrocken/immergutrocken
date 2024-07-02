@@ -1,10 +1,11 @@
-import BlockContent from "@sanity/block-content-to-react";
-import AlignCenter from "./alignCenter";
-import BlockExpander from "./expander";
-import ImageGallery from "./image-gallery";
-import InternalLink from "./internalLink";
-import Youtube from "./youtube";
-import ExternalLink from "./externalLink";
+import BlockContent from '@sanity/block-content-to-react';
+
+import AlignCenter from './alignCenter';
+import BlockExpander from './expander';
+import ExternalLink from './externalLink';
+import ImageGallery from './image-gallery';
+import InternalLink from './internalLink';
+import Youtube from './youtube';
 
 export const serializers = {
   types: {
