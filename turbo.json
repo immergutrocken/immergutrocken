@@ -1,18 +1,32 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "tasks": {
     "dev": {
-      "outputs": ["dist/**", "build/**"]
+      "outputs": [
+        "dist/**",
+        "build/**"
+      ]
     },
     "build": {
-      "outputs": ["public/**", ".next/**"],
-      "dependsOn": ["^build"]
+      "outputs": [
+        "public/**",
+        ".next/**"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
-      "outputs": ["dist/**", "build/**"]
+      "outputs": [
+        "dist/**",
+        "build/**"
+      ]
     },
     "test:ci": {
-      "outputs": ["dist/**", "build/**"]
+      "outputs": [
+        "dist/**",
+        "build/**"
+      ]
     },
     "lint": {}
   }
