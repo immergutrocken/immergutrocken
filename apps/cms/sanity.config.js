@@ -1,14 +1,14 @@
-import { defineConfig } from "sanity";
-import { deskTool } from "sanity/desk";
 import { visionTool } from "@sanity/vision";
+import { defineConfig } from "sanity";
 import { media } from "sanity-plugin-media";
-import schema from "./schemas/schema";
-import deskStructure from "./deskStructure";
-import { ImmergutLogo } from "./components/immergutLogo";
 import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
+import { structureTool } from "sanity/structure";
+import { ImmergutLogo } from "./components/immergutLogo";
+import deskStructure from "./deskStructure";
+import schema from "./schemas/schema";
 
 const getConfig = () => {
-  if (import.meta.env.DEV)
+  if (import.meta.env.DEV) {
     return [
       {
         title: "DEV - Immergutrocken",
@@ -17,7 +17,7 @@ const getConfig = () => {
         name: "development",
         basePath: "/dev",
         plugins: [
-          deskTool({
+          structureTool({
             structure: deskStructure,
           }),
           visionTool(),
@@ -46,7 +46,7 @@ const getConfig = () => {
         name: "staging",
         basePath: "/staging",
         plugins: [
-          deskTool({
+          structureTool({
             structure: deskStructure,
           }),
           visionTool(),
@@ -75,7 +75,7 @@ const getConfig = () => {
         name: "production",
         basePath: "/production",
         plugins: [
-          deskTool({
+          structureTool({
             structure: deskStructure,
           }),
           visionTool(),
@@ -98,14 +98,14 @@ const getConfig = () => {
         },
       },
     ];
-  else
+  } else {
     return [
       {
         title: "Immergutrocken",
         projectId: "05hvmwlk",
         dataset: process.env.SANITY_STUDIO_DATASET,
         plugins: [
-          deskTool({
+          structureTool({
             structure: deskStructure,
           }),
           media(),
@@ -121,6 +121,7 @@ const getConfig = () => {
         },
       },
     ];
+  }
 };
 
 export default defineConfig(getConfig());
