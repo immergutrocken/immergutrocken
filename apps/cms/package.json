@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
-    "build": "SANITY_STUDIO_API_DATASET=$SANITY_DATASET sanity build public -y"
+    "build": "sanity build public -y"
   },
   "keywords": [
     "sanity"
