@@ -13,7 +13,7 @@ const getConfig = () => {
     return [
       {
         title: "DEV - Immergutrocken",
-        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        projectId: process.env.SANITY_STUDIO_PROJECT_ID,
         dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT,
         name: "development",
         basePath: "/dev",
@@ -42,7 +42,7 @@ const getConfig = () => {
       },
       {
         title: "PREVIEW - Immergutrocken",
-        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        projectId: process.env.SANITY_STUDIO_PROJECT_ID,
         dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW,
         name: "preview",
         basePath: "/preview",
@@ -71,7 +71,7 @@ const getConfig = () => {
       },
       {
         title: "PRODUCTION - Immergutrocken",
-        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        projectId: process.env.SANITY_STUDIO_PROJECT_ID,
         dataset: process.env.SANITY_STUDIO_DATASET_PRODUCTION,
         name: "production",
         basePath: "/production",
@@ -103,7 +103,7 @@ const getConfig = () => {
     return [
       {
         title: "Immergutrocken",
-        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        projectId: process.env.SANITY_STUDIO_PROJECT_ID,
         dataset: process.env.SANITY_STUDIO_DATASET,
         plugins: [
           structureTool({
