@@ -7,7 +7,7 @@
     "build": {
       "outputs": ["public/**", ".next/**"],
       "dependsOn": ["^build"],
-      "env": ["MAILJET_*"]
+      "env": ["MAILJET_*", "SANITY_STUDIO_*"]
     },
     "test": {
       "outputs": ["dist/**", "build/**"]
