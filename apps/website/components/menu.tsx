@@ -1,15 +1,15 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/dist/client/router";
-import NextLink from "next/link";
-import { useState } from "react";
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/dist/client/router';
+import NextLink from 'next/link';
+import { useState } from 'react';
 
-import { track } from "@vercel/analytics/react";
+import { track } from '@vercel/analytics/react';
 
-import { MenuItemType } from "../lib/enums/menuItemType.enum";
-import { IMenuItem } from "../lib/menu";
-import Bubble from "./shared/bubble";
-import EuterIcon from "./shared/euter-icon";
-import Link from "./shared/link";
+import { MenuItemType } from '../lib/enums/menuItemType.enum';
+import { IMenuItem } from '../lib/menu';
+import Bubble from './shared/bubble';
+import EuterIcon from './shared/euter-icon';
+import Link from './shared/link';
 
 interface MenuProps {
   onClose: () => void;
@@ -106,8 +106,8 @@ const Menu = ({
                   </Bubble>
                   <div className="flex justify-center gap-4 mt-12 sm:mt-20">
                     <NextLink href="/" onClick={() => setShowContent(false)}>
-                      <Bubble className="!bg-[#ffef09]">
-                        <EuterIcon className="h-6 sm:h-8"></EuterIcon>
+                      <Bubble className="!bg-tertiary">
+                        <EuterIcon className="h-6 sm:h-9 fill-secondary"></EuterIcon>
                       </Bubble>
                     </NextLink>
                   </div>

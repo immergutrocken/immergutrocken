@@ -99,7 +99,6 @@ const getConfig = () => {
       },
     ];
   } else {
-    console.log("PRODUCTION", process.env.SANITY_STUDIO_DATASET);
     return [
       {
         title: "Immergutrocken",
