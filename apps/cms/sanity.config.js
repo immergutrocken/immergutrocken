@@ -7,13 +7,14 @@ import { ImmergutLogo } from "./components/immergutLogo";
 import deskStructure from "./deskStructure";
 import schema from "./schemas/schema";
 
+// TODO make this typesafe and more DRY
 const getConfig = () => {
   if (import.meta.env.DEV) {
     return [
       {
         title: "DEV - Immergutrocken",
-        projectId: "05hvmwlk",
-        dataset: "development",
+        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT,
         name: "development",
         basePath: "/dev",
         plugins: [
@@ -40,11 +41,11 @@ const getConfig = () => {
         },
       },
       {
-        title: "STAGING - Immergutrocken",
-        projectId: "05hvmwlk",
-        dataset: "staging",
-        name: "staging",
-        basePath: "/staging",
+        title: "PREVIEW - Immergutrocken",
+        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW,
+        name: "preview",
+        basePath: "/preview",
         plugins: [
           structureTool({
             structure: deskStructure,
@@ -70,8 +71,8 @@ const getConfig = () => {
       },
       {
         title: "PRODUCTION - Immergutrocken",
-        projectId: "05hvmwlk",
-        dataset: "production",
+        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
+        dataset: process.env.SANITY_STUDIO_DATASET_PRODUCTION,
         name: "production",
         basePath: "/production",
         plugins: [
@@ -102,7 +103,7 @@ const getConfig = () => {
     return [
       {
         title: "Immergutrocken",
-        projectId: "05hvmwlk",
+        projectId: process.env.SANITY_STUDIO_IGR_PROJECT_ID,
         dataset: process.env.SANITY_STUDIO_DATASET,
         plugins: [
           structureTool({
