@@ -1,2 +1,2 @@
-process.env.SANITY_PROJECT_ID = "test";
-process.env.SANITY_DATASET = "test";
+process.env.SANITY_STUDIO_PROJECT_ID = "test";
+process.env.SANITY_STUDIO_DATASET = "test";
