@@ -39,7 +39,7 @@
     "@next/eslint-plugin-next": "^14.1.0",
     "@plaiceholder/next": "^3.0.0",
     "@testing-library/jest-dom": "^6.3.0",
-    "@testing-library/react": "^14.1.2",
+    "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^22.1.0",
     "@types/react": "^18.2.48",
