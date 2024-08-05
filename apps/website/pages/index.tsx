@@ -35,6 +35,10 @@ interface HomeProps {
 export const getStaticProps = async ({
   locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> => {
+  const messages = await import(`../messages/${locale}.json`).then(
+    (module) => module.default
+  );
+
   return {
     props: {
       newsLinkList: await getNewsLinkList(locale),
@@ -46,7 +50,7 @@ export const getStaticProps = async ({
       notificationList: await getNotificationList(locale),
       newsList: await getNewsLinkList(locale),
       generalSettings: await getGeneralSettings(locale),
-      messages: require(`../messages/${locale}.json`),
+      messages: messages,
     },
     revalidate: 1,
   };

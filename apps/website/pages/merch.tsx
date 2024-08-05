@@ -37,6 +37,10 @@ export const getStaticProps = async ({
   locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<MerchProps>> => {
   const merch = await getMerch(locale);
+  const messages = await import(`../messages/${locale}.json`).then(
+    (module) => module.default
+  );
+
   return {
     props: {
       newsLinkList: await getNewsLinkList(locale),
@@ -46,7 +50,7 @@ export const getStaticProps = async ({
       menuItems: await getMenu(),
       notificationList: await getNotificationList(locale),
       generalSettings: await getGeneralSettings(locale),
-      messages: require(`../messages/${locale}.json`),
+      messages: messages,
       description: merch?.description ?? [],
       products: merch?.productList ?? [],
     },
