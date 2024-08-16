@@ -76,6 +76,10 @@ export const getStaticProps = async ({
     };
   }
 
+  const messages = await import(`../../messages/${locale}.json`).then(
+    (module) => module.default
+  );
+
   return {
     props: {
       ...artist,
@@ -86,7 +90,7 @@ export const getStaticProps = async ({
       menuItems: await getMenu(),
       newsList: await getNewsLinkList(locale),
       generalSettings: await getGeneralSettings(locale),
-      messages: require(`../../messages/${locale}.json`),
+      messages: messages,
     },
     revalidate: 1,
   };
