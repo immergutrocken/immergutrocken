@@ -1,8 +1,9 @@
 import { RiMenuAddLine } from "react-icons/ri";
-import localeString from "../fields/localeString";
+
 import externalLink from "../fields/externalLink";
-import internalLink from "../fields/internalLink";
 import { withTitle } from "../fields/fieldExtender";
+import internalLink from "../fields/internalLink";
+import localeString from "../fields/localeString";
 
 export default {
   title: "Menü",

@@ -1,26 +1,32 @@
-import image from "./image";
-import youtube from "../components/youtube";
 import {
-  FaHighlighter,
-  FaAlignLeft,
-  FaAlignRight,
-  FaAlignCenter,
-  FaAlignJustify,
-} from "react-icons/fa";
-import imageGallery from "../components/imageGallery";
-import link from "./link";
-import externalLink from "./externalLink";
-import { withCTA } from "./fieldExtender";
-import internalLink from "./internalLink";
+    FaAlignCenter, FaAlignJustify, FaAlignLeft, FaAlignRight, FaHighlighter
+} from 'react-icons/fa';
 
-const HighlightRender = (props) => (
+import imageGallery from '../components/imageGallery';
+import youtube from '../components/youtube';
+import externalLink from './externalLink';
+import { withCTA } from './fieldExtender';
+import image from './image';
+import internalLink from './internalLink';
+import link from './link';
+
+const HighlightRender = (props: { children: JSX.Element }): JSX.Element => (
   <span style={{ backgroundColor: "yellow" }}>{props.children}</span>
 );
 
-const AlignRender = (align) => (props) =>
+const AlignRender =
   (
+    align:
+      | "start"
+      | "end"
+      | "left"
+      | "right"
+      | "center"
+      | "justify"
+      | "match-parent"
+  ) =>
+  (props: { children: JSX.Element }) => (
     <div
-      class="test"
       style={{
         textAlign: align,
       }}
@@ -29,8 +35,9 @@ const AlignRender = (align) => (props) =>
     </div>
   );
 
-const ColorRender = (color) => (props) =>
-  <span style={{ color: color }}>{props.children}</span>;
+const ColorRender = (color: string) => (props: { children: JSX.Element }) => (
+  <span style={{ color: color }}>{props.children}</span>
+);
 
 export default {
   title: "Inhalt",
@@ -111,7 +118,7 @@ export default {
     {
       ...image,
       title: "Bild",
-      fields: [...image.fields, link(["article"])],
+      fields: [...(image.fields ?? []), link(["article"])],
     },
     imageGallery,
   ],
