@@ -1,8 +1,11 @@
-import getYouTubeId from "get-youtube-id";
-import YouTube from "react-youtube";
-import { FaYoutube } from "react-icons/fa";
+import getYouTubeId from 'get-youtube-id';
+import { FaYoutube } from 'react-icons/fa';
+import YouTube from 'react-youtube';
 
-const Preview = (props) => {
+const Preview = (props: {
+  url: string;
+  renderDefault: (props: unknown) => JSX.Element;
+}) => {
   const { url, renderDefault } = props;
   const id = getYouTubeId(url);
   return (
