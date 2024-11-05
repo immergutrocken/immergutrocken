@@ -1,12 +1,18 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pnpm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    open-pull-requests-limit: 10
+  - package-ecosystem: "pnpm"
     directory: "/apps/website"
     schedule:
       interval: "weekly"
       day: "friday"
     open-pull-requests-limit: 10
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pnpm"
     directory: "/apps/cms"
     schedule:
       interval: "weekly"
