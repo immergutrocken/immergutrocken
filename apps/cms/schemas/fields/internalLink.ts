@@ -8,12 +8,12 @@ export default (...references: string[]) =>
     name: "internalLink",
     icon: HiOutlineLink,
     fields: [
-      {
+      defineField({
         name: "reference",
         type: "reference",
         title: "Reference",
         to: references.map((reference) => ({ type: reference })),
-      },
+      }),
       defineField({
         type: "url",
         name: "url",

@@ -1,8 +1,8 @@
 import { FaImage } from 'react-icons/fa';
-import { defineField, defineType } from 'sanity';
+import { defineField } from 'sanity';
 
 export const getImage = (isMetaDataRequired = true) =>
-  defineType({
+  defineField({
     name: "image",
     type: "image",
     title: "Bild",

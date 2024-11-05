@@ -1,19 +1,21 @@
-import { RiGiftLine } from "react-icons/ri";
-import externalLink from "../fields/externalLink";
-import image from "../fields/image";
+import { RiGiftLine } from 'react-icons/ri';
+import { defineField, defineType } from 'sanity';
 
-export default {
+import externalLink from '../fields/externalLink';
+import image from '../fields/image';
+
+export default defineType({
   type: "document",
   name: "partner",
   title: "Partner",
   icon: RiGiftLine,
   fields: [
-    {
+    defineField({
       type: "string",
       name: "title",
       title: "Titel",
-    },
-    {
+    }),
+    defineField({
       type: "string",
       name: "category",
       title: "Kategorie",
@@ -25,31 +27,31 @@ export default {
         ],
         layout: "dropdown",
       },
-    },
-    {
+    }),
+    defineField({
       ...image,
       name: "logo",
       title: "Logo",
       fields: [
-        ...image.fields,
-        {
+        ...(image.fields ?? []),
+        defineField({
           type: "number",
           name: "height",
           title: "Höhe",
           description: "in Pixel",
-          validation: (Rule) => Rule.required().integer().positive(),
-        },
-        {
+          validation: (rule) => rule.required().integer().positive(),
+        }),
+        defineField({
           type: "number",
           name: "width",
           title: "Breite",
           description: "in Pixel",
-          validation: (Rule) => Rule.required().integer().positive(),
-        },
+          validation: (rule) => rule.required().integer().positive(),
+        }),
       ],
-      validation: (Rule) => Rule.required(),
-    },
-    { ...externalLink, title: "Link" },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({ ...externalLink, title: "Link" }),
   ],
   preview: {
     select: {
@@ -57,4 +59,4 @@ export default {
       media: "logo",
     },
   },
-};
+});

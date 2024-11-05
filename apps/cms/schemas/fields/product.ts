@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField } from 'sanity';
 
 import localizedTabs from '../documents/localizedTabs';
 import blockContent from './blockContent';
@@ -25,7 +25,7 @@ const localizedFields = [
   }),
 ];
 
-export default defineType({
+export default defineField({
   title: "Produkt",
   type: "object",
   name: "product",

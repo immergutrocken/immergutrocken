@@ -1,92 +1,80 @@
-export default {
+import { defineArrayMember, defineField, defineType } from 'sanity';
+
+const getPartnerReferenceArray = (options: {
+  category: string;
+  name: string;
+  title: string;
+}) =>
+  defineField({
+    type: "array",
+    name: options.name,
+    title: options.title,
+    of: [
+      defineArrayMember({
+        type: "reference",
+        to: [{ type: "partner" }],
+        options: {
+          filter: "category == $category",
+          filterParams: {
+            category: options.category,
+          },
+        },
+      }),
+    ],
+  });
+
+export default defineType({
   name: "sortings",
   type: "document",
   title: "Sortierungen",
-  __experimental_actions: ["create", "update", /*'delete',*/ "publish"],
   fields: [
-    {
+    defineField({
       type: "array",
       name: "artists",
       title: "Künstler",
       options: {
-        modal: "popover",
+        modal: { type: "popover" },
       },
       of: [
-        {
+        defineArrayMember({
           type: "reference",
           to: [{ type: "artist" }],
-        },
+        }),
       ],
-    },
-    {
+    }),
+    defineField({
       type: "array",
       name: "news",
       title: "News",
       options: {
-        modal: "popover",
+        modal: { type: "popover" },
       },
       of: [
-        {
+        defineArrayMember({
           type: "reference",
           to: [{ type: "article" }],
           options: {
             filter: "isNews == $isNews",
             filterParams: { isNews: true },
           },
-        },
+        }),
       ],
-    },
-    {
-      type: "array",
+    }),
+    getPartnerReferenceArray({
+      category: "sponsor",
       name: "sponsors",
       title: "Sponsoren",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "partner" }],
-          options: {
-            filter: "category == $category",
-            filterParams: {
-              category: "sponsor",
-            },
-          },
-        },
-      ],
-    },
-    {
-      type: "array",
+    }),
+    getPartnerReferenceArray({
+      category: "media-partner",
       name: "mediaPartner",
       title: "Medienpartner",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "partner" }],
-          options: {
-            filter: "category == $category",
-            filterParams: {
-              category: "media-partner",
-            },
-          },
-        },
-      ],
-    },
-    {
-      type: "array",
+    }),
+    getPartnerReferenceArray({
+      category: "additional",
       name: "additionalPartner",
       title: "Andere Partner (Außerdem)",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "partner" }],
-          options: {
-            filter: "category == $category",
-            filterParams: {
-              category: "additional",
-            },
-          },
-        },
-      ],
-    },
+    }),
   ],
   preview: {
     prepare() {
@@ -95,4 +83,4 @@ export default {
       };
     },
   },
-};
+});

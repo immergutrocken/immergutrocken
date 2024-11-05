@@ -1,68 +1,63 @@
 import {
-  FaCompactDisc,
-  FaFacebook,
-  FaGlobe,
-  FaInstagram,
-  FaSpotify,
-  FaXTwitter,
-  FaVimeo,
-  FaYoutube,
-} from "react-icons/fa6";
-import { RiMusic2Line } from "react-icons/ri";
-import { SiTiktok } from "react-icons/si";
-import blockContent from "../fields/blockContent";
-import externalLink from "../fields/externalLink";
-import image from "../fields/image";
-import slug from "../fields/slug";
-import localizedTabs from "./localizedTabs";
+    FaCompactDisc, FaFacebook, FaGlobe, FaInstagram, FaSpotify, FaVimeo, FaXTwitter, FaYoutube
+} from 'react-icons/fa6';
+import { RiMusic2Line } from 'react-icons/ri';
+import { SiTiktok } from 'react-icons/si';
+import { defineArrayMember, defineField, defineType } from 'sanity';
+
+import blockContent from '../fields/blockContent';
+import externalLink from '../fields/externalLink';
+import image from '../fields/image';
+import slug from '../fields/slug';
+import localizedTabs from './localizedTabs';
 
 const fields = [
-  {
+  defineField({
     type: "string",
     name: "title",
     title: "Titel",
-    validation: (Rule) => Rule.required(),
-  },
-  {
+    validation: (rule) => rule.required(),
+  }),
+  defineField({
     type: "string",
     name: "subtitle",
     title: "Untertitel",
-  },
-  {
+  }),
+  defineField({
     ...image,
     title: "Banner",
     name: "banner",
-    validation: (Rule) => Rule.required(),
-  },
-  {
+    validation: (rule) => rule.required(),
+  }),
+  defineField({
     ...blockContent,
     of: [...blockContent.of],
-    validation: (Rule) => Rule.required(),
-  },
+    validation: (rule) => rule.required(),
+  }),
 ];
 
-const performanceGroup = {
+const performanceGroup = defineField({
   title: "Auftritt",
   name: "performance",
   type: "object",
   fields: [
-    {
+    defineField({
       title: "Bühne",
       name: "stage",
       type: "string",
       options: {
         list: ["Waldbühne", "Zeltbühne", "Birkenhain", "Wortbühne"],
       },
-    },
-    {
+    }),
+    defineField({
       title: "Zeit",
       name: "time",
       type: "datetime",
-    },
+    }),
   ],
-};
+});
 
-export default {
+export default defineType({
   type: "document",
   name: "artist",
   title: "Künstler*in",
@@ -70,12 +65,12 @@ export default {
   fields: [
     localizedTabs(fields),
     slug,
-    {
+    defineField({
       title: "Autor",
       name: "author",
       type: "string",
-    },
-    {
+    }),
+    defineField({
       type: "string",
       name: "category",
       title: "Kategorie",
@@ -86,19 +81,19 @@ export default {
         ],
         layout: "dropdown",
       },
-      validation: (Rule) => Rule.required(),
-    },
-    {
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       type: "array",
       name: "socialMedia",
       title: "Social Media",
       of: [
-        {
+        defineArrayMember({
           type: "object",
           name: "link",
           title: "Social Media Link",
           fields: [
-            {
+            defineField({
               type: "string",
               name: "medium",
               title: "Soziales Medium",
@@ -115,7 +110,7 @@ export default {
                   { title: "Label", value: "Label" },
                 ],
               },
-            },
+            }),
             externalLink,
           ],
           preview: {
@@ -162,9 +157,9 @@ export default {
               };
             },
           },
-        },
+        }),
       ],
-    },
+    }),
     performanceGroup,
   ],
   preview: {
@@ -174,4 +169,4 @@ export default {
       media: "languages.de.banner",
     },
   },
-};
+});

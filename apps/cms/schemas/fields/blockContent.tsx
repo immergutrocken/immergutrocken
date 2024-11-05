@@ -1,6 +1,7 @@
 import {
     FaAlignCenter, FaAlignJustify, FaAlignLeft, FaAlignRight, FaHighlighter
 } from 'react-icons/fa';
+import { defineArrayMember, defineField } from 'sanity';
 
 import imageGallery from '../components/imageGallery';
 import youtube from '../components/youtube';
@@ -39,12 +40,12 @@ const ColorRender = (color: string) => (props: { children: JSX.Element }) => (
   <span style={{ color: color }}>{props.children}</span>
 );
 
-export default {
+export default defineField({
   title: "Inhalt",
   name: "content",
   type: "array",
   of: [
-    {
+    defineArrayMember({
       type: "block",
       styles: [
         { title: "Normal", value: "normal" },
@@ -113,13 +114,13 @@ export default {
           withCTA(internalLink("article", "artist")),
         ],
       },
-    },
+    }),
     youtube,
-    {
+    defineArrayMember({
       ...image,
       title: "Bild",
       fields: [...(image.fields ?? []), link(["article"])],
-    },
+    }),
     imageGallery,
   ],
-};
+});

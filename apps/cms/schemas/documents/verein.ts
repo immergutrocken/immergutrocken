@@ -1,24 +1,25 @@
-import { slug } from "../fields/slug";
-import { getImage } from "../fields/image";
-import blockContent from "../fields/blockContent";
-import expander from "../fields/expander";
-import localizedTabs from "./localizedTabs";
+import { defineField, defineType } from 'sanity';
+
+import blockContent from '../fields/blockContent';
+import expander from '../fields/expander';
+import { getImage } from '../fields/image';
+import localizedTabs from './localizedTabs';
 
 const fields = [
-  {
+  defineField({
     type: "string",
     name: "title",
     title: "Titel",
-    validation: (Rule) => Rule.required(),
-  },
-  {
+    validation: (rule) => rule.required(),
+  }),
+  defineField({
     ...blockContent,
     of: [...blockContent.of, expander],
-    validation: (Rule) => Rule.required(),
-  },
+    validation: (rule) => rule.required(),
+  }),
 ];
 
-export default {
+export default defineType({
   type: "document",
   name: "verein",
   title: "Verein",
@@ -58,4 +59,4 @@ export default {
       };
     },
   },
-};
+});

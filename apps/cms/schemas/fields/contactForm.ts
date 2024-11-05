@@ -1,7 +1,7 @@
 import { RiContactsFill } from 'react-icons/ri';
-import { defineField, defineType } from 'sanity';
+import { defineField } from 'sanity';
 
-export default defineType({
+export default defineField({
   type: "object",
   name: "contactForm",
   title: "Kontakt Formular",

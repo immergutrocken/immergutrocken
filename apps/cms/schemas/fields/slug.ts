@@ -8,7 +8,7 @@ export const slug = (source: string | Path | SlugSourceFn | undefined) =>
     options: {
       source: source,
     },
-    validation: (Rule) => Rule.required(),
+    validation: (rule) => rule.required(),
   });
 
 export default slug("languages.de.title");

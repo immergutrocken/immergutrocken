@@ -16,7 +16,7 @@ const buildFields = (fields: any[]) =>
 export default (fields: any[]) =>
   defineField({
     name: "languages",
-    title: " ",
+    title: "",
     type: "object",
     groups: supportedLanguages.map((lang) => ({
       name: lang.id,

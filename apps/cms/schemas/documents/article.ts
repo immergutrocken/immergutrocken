@@ -1,53 +1,55 @@
-import { RiArticleLine } from "react-icons/ri";
-import { GiFiles } from "react-icons/gi";
-import slug from "../fields/slug";
-import image from "../fields/image";
-import blockContent from "../fields/blockContent";
-import contactForm from "../fields/contactForm";
-import expander from "../fields/expander";
-import localizedTabs from "./localizedTabs";
+import { GiFiles } from 'react-icons/gi';
+import { RiArticleLine } from 'react-icons/ri';
+import { defineArrayMember, defineField, defineType } from 'sanity';
+
+import blockContent from '../fields/blockContent';
+import contactForm from '../fields/contactForm';
+import expander from '../fields/expander';
+import image from '../fields/image';
+import slug from '../fields/slug';
+import localizedTabs from './localizedTabs';
 
 const fields = [
-  {
+  defineField({
     type: "string",
     name: "title",
     title: "Titel",
-    validation: (Rule) => Rule.required(),
-  },
-  {
+    validation: (rule) => rule.required(),
+  }),
+  defineField({
     type: "string",
     name: "subtitle",
     title: "Untertitel",
-  },
-  {
+  }),
+  defineField({
     ...image,
     title: "Banner",
     name: "banner",
     validation: (Rule) => Rule.required(),
-  },
-  {
+  }),
+  defineField({
     ...blockContent,
     of: [
       ...blockContent.of,
       contactForm,
       expander,
-      {
+      defineArrayMember({
         type: "object",
         name: "articleGallery",
         title: "Artikel Galerie",
         icon: GiFiles,
         fields: [
-          {
+          defineField({
             type: "array",
             name: "articles",
             title: "Artikel",
             of: [
-              {
+              defineArrayMember({
                 type: "reference",
                 to: [{ type: "article" }],
-              },
+              }),
             ],
-          },
+          }),
         ],
         preview: {
           select: {
@@ -65,13 +67,13 @@ const fields = [
             };
           },
         },
-      },
+      }),
     ],
-    validation: (Rule) => Rule.required(),
-  },
+    validation: (rule) => rule.required(),
+  }),
 ];
 
-export default {
+export default defineType({
   type: "document",
   name: "article",
   icon: RiArticleLine,
@@ -83,7 +85,7 @@ export default {
       title: "Open Graph Beschreibung",
       name: "ogDescription",
       type: "string",
-      validation: (Rule) => Rule.required().max(120),
+      validation: (rule) => rule.required().max(120),
       description: "Wird für die Vorschau von Links benutzt",
     },
     {
@@ -107,4 +109,4 @@ export default {
   initialValue: {
     isNews: true,
   },
-};
+});
