@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install modules
         run: pnpm install
       - name: Run tests
