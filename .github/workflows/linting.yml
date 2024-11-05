@@ -11,6 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install modules
-        run: npm install
+        run: pnpm install
       - name: Run linting
-        run: npm run lint;
+        run: pnpm run lint;
