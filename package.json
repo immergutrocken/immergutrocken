@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -19,9 +20,11 @@
     "apps/*",
     "packages/*"
   ],
+  "dependencies": {
+    "turbo": "2.3.0"
+  },
   "devDependencies": {
-    "turbo": "^2.2.3",
-    "vercel": "^37.14.0"
+    "vercel": "39.0.2"
   },
   "packageManager": "pnpm@9.12.3"
 }

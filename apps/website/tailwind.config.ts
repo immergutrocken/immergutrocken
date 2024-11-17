@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from "tailwindcss";
+
+const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -14,7 +16,7 @@ module.exports = {
         partner: "0",
       },
       screens: {
-        "3xl": "1700px"
+        "3xl": "1700px",
       },
     },
     fontFamily: {
@@ -25,3 +27,5 @@ module.exports = {
   },
   plugins: [],
 };
+
+export default config;
