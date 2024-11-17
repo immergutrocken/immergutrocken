@@ -1,7 +1,13 @@
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import groq from "groq";
+
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+
 import client from "./shared/sanityClient";
-import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
+import {
+  getImageUrl,
+  getPlaceholderImage,
+  SanityImage,
+} from "./shared/sanityImageUrl";
 
 export interface IArticle {
   title: string;
@@ -15,17 +21,18 @@ export interface IArticle {
   author: string;
   ogDescription: string;
   content: [];
+  slug: string;
 }
 
 export const getArticleSlugList = async (): Promise<string[]> => {
   const query = groq`*[_type == 'article']{'slug': slug.current}`;
   const result = await client.fetch(query);
-  return result.map((element) => element.slug);
+  return result.map((element: IArticle) => element.slug);
 };
 
 export const getArticle = async (
   slug: string,
-  locale: string
+  locale: string,
 ): Promise<IArticle> => {
   const query = groq`
   *
@@ -104,16 +111,18 @@ export const getArticle = async (
       locale === "en" && result.contentEn ? result.contentEn : result.contentDe,
   };
 
-  article.content.forEach((element) => {
-    if (element._type === "imageGallery") {
-      element.images.forEach(async (image) => {
-        image.urlPreview = getImageUrl(image, 400);
-        image.urlPreviewBlur = await getPlaceholderImage(image);
-        image.url = getImageUrl(image, 1000);
-        image.urlBlur = await getPlaceholderImage(image);
-      });
-    }
-  });
+  article.content.forEach(
+    (element: { _type: string; images: SanityImage[] }) => {
+      if (element._type === "imageGallery") {
+        element.images.forEach(async (image: SanityImage) => {
+          image.urlPreview = getImageUrl(image, 400);
+          image.urlPreviewBlur = await getPlaceholderImage(image);
+          image.url = getImageUrl(image, 1000);
+          image.urlBlur = await getPlaceholderImage(image);
+        });
+      }
+    },
+  );
 
   return article;
 };

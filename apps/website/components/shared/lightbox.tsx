@@ -1,15 +1,16 @@
+import NextImage from "next/image";
 import { useRouter } from "next/router";
+
+import { SanityImage } from "../../lib/shared/sanityImageUrl";
 import Bubble from "./bubble";
 import Label from "./label";
-import NextImage from "next/image";
-import { SanityImage } from "../../lib/shared/sanityImageUrl";
 
 interface LightBoxProps {
   images: SanityImage[];
   imageIndex: number | null;
   show: boolean;
-  onShow: (boolean) => void;
-  onCurrentImageIndexChange: (number) => void;
+  onShow: (newValue: boolean) => void;
+  onCurrentImageIndexChange: (newValue: number | null) => void;
 }
 
 const LightBox = ({
@@ -23,12 +24,12 @@ const LightBox = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 bg-secondary w-screen h-screen z-10 ${
+      className={`fixed left-0 top-0 z-10 h-screen w-screen bg-secondary ${
         show ? "flex justify-center" : "hidden"
       }`}
     >
       <Bubble
-        className="absolute top-10 right-2 md:right-9 md:top-14"
+        className="absolute right-2 top-10 md:right-9 md:top-14"
         onClick={() => {
           onShow(false);
           onCurrentImageIndexChange(null);
@@ -37,8 +38,8 @@ const LightBox = ({
         <em className="fas fa-times"></em>
       </Bubble>
       {imageIndex != null && (
-        <div className="flex flex-col justify-center w-full h-full mx-5 sm:max-w-4xl sm:mx-8">
-          <div className="relative w-full h-1/2">
+        <div className="mx-5 flex h-full w-full flex-col justify-center sm:mx-8 sm:max-w-4xl">
+          <div className="relative h-1/2 w-full">
             <NextImage
               src={images[imageIndex].url}
               style={{ fill: "responsive", objectFit: "contain" }}
@@ -50,7 +51,7 @@ const LightBox = ({
             {images.length > 1 && (
               <>
                 <Bubble
-                  className="absolute -mt-4 top-1/2 sm:-mt-7 -left-4 md:-left-7"
+                  className="absolute -left-4 top-1/2 -mt-4 sm:-mt-7 md:-left-7"
                   onClick={() => {
                     if (imageIndex === 0) {
                       onCurrentImageIndexChange(images.length - 1);
@@ -62,7 +63,7 @@ const LightBox = ({
                   <em className="fas fa-long-arrow-alt-left"></em>
                 </Bubble>
                 <Bubble
-                  className="absolute -mt-4 top-1/2 sm:-mt-7 -right-4 md:-right-7"
+                  className="absolute -right-4 top-1/2 -mt-4 sm:-mt-7 md:-right-7"
                   onClick={() => {
                     if (imageIndex === images.length - 1) {
                       onCurrentImageIndexChange(0);
@@ -77,7 +78,7 @@ const LightBox = ({
             )}
           </div>
 
-          <div className="flex flex-row items-center justify-end w-full h-8 mt-3 space-x-3 font-important">
+          <div className="mt-3 flex h-8 w-full flex-row items-center justify-end space-x-3 font-important">
             {images[imageIndex].credits && (
               <>
                 <Label>{router.locale === "de" ? "Foto" : "Photo"}</Label>

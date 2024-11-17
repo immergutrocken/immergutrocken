@@ -1,24 +1,24 @@
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { NextSeo } from 'next-seo';
-import NextHead from 'next/head';
-import Image from 'next/image';
-import { useState } from 'react';
+import { GetStaticPropsContext, GetStaticPropsResult } from "next";
+import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import Image from "next/image";
+import { useState } from "react";
 
-import Content from '../components/block-content/content';
-import Layout from '../components/layout';
-import Bubble from '../components/shared/bubble';
-import Label from '../components/shared/label';
-import LightBox from '../components/shared/lightbox';
-import { Locale } from '../lib/enums/locals.enum';
-import PartnerCategory from '../lib/enums/partnerCategory.enum';
-import { getGeneralSettings, IGeneralSettings } from '../lib/general-settings';
-import { getMenu, IMenuItem } from '../lib/menu';
-import { getMerch } from '../lib/merch';
-import { IProduct } from '../lib/models/product.interface';
-import { getNewsLinkList, INewsLink } from '../lib/news';
-import { getNotificationList, INotification } from '../lib/notification';
-import { getPartnerList, IPartner } from '../lib/partner';
-import { SanityImage } from '../lib/shared/sanityImageUrl';
+import Content from "../components/block-content/content";
+import Layout from "../components/layout";
+import Bubble from "../components/shared/bubble";
+import Label from "../components/shared/label";
+import LightBox from "../components/shared/lightbox";
+import { Locale } from "../lib/enums/locals.enum";
+import PartnerCategory from "../lib/enums/partnerCategory.enum";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { getMenu, IMenuItem } from "../lib/menu";
+import { getMerch } from "../lib/merch";
+import { IProduct } from "../lib/models/product.interface";
+import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getNotificationList, INotification } from "../lib/notification";
+import { getPartnerList, IPartner } from "../lib/partner";
+import { SanityImage } from "../lib/shared/sanityImageUrl";
 
 interface MerchProps {
   description: [];
@@ -38,7 +38,7 @@ export const getStaticProps = async ({
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<MerchProps>> => {
   const merch = await getMerch(locale);
   const messages = await import(`../messages/${locale}.json`).then(
-    (module) => module.default
+    (module) => module.default,
   );
 
   return {
@@ -73,7 +73,7 @@ const Merch = ({
   const [currentLightboxImages, setCurrentLightboxImages] = useState<
     SanityImage[]
   >([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(0);
 
   return (
     <Layout
@@ -104,12 +104,12 @@ const Merch = ({
       </NextHead>
       <div className="flex flex-col items-center px-4 pt-24 sm:px-8 sm:pt-36">
         <div>
-          <h1 className="self-start text-4xl sm:text-7xl font-important">
+          <h1 className="self-start font-important text-4xl sm:text-7xl">
             Merch
           </h1>
           <Content content={description} />
         </div>
-        <div className="flex flex-wrap gap-4 mt-10 sm:gap-8 place-content-center max-w-[1296px]">
+        <div className="mt-10 flex max-w-[1296px] flex-wrap place-content-center gap-4 sm:gap-8">
           {products.map((product, index) => {
             return (
               <div className="w-1/5 min-w-[300px] max-w-[300px]" key={index}>
@@ -142,10 +142,10 @@ const Merch = ({
                     <em className="fas fa-expand-alt"></em>
                   </Bubble>
                 </div>
-                <h2 className="text-base sm:text-2xl font-important">
+                <h2 className="font-important text-base sm:text-2xl">
                   {product.title}
                 </h2>
-                <div className="flex mt-2 mb-2">
+                <div className="mb-2 mt-2 flex">
                   <Label>{product.category}</Label>
                 </div>
                 <Content content={product.description} />
