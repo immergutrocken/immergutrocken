@@ -1,8 +1,10 @@
+import { getPlaiceholder } from "plaiceholder";
+
 import imageUrlBuilder from "@sanity/image-url";
-import client from "./sanityClient";
 import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { getPlaiceholder } from "plaiceholder";
+
+import { sanityClient } from "./sanityClient";
 
 export interface SanityImage {
   hotspot: {
@@ -18,7 +20,7 @@ export interface SanityImage {
   credits: string;
 }
 
-const builder = imageUrlBuilder(client);
+const builder = imageUrlBuilder(sanityClient);
 
 const urlFor = (source: SanityImageSource): ImageUrlBuilder => {
   return builder.image(source);
@@ -27,7 +29,7 @@ const urlFor = (source: SanityImageSource): ImageUrlBuilder => {
 export const getImageUrl = (
   { hotspot, asset }: SanityImage,
   height: number | null = null,
-  width: number | null = null
+  width: number | null = null,
 ): string =>
   hotspot
     ? getUrlFor(asset, height, width)
@@ -40,7 +42,7 @@ export const getImageUrl = (
 const getUrlFor = (
   asset: SanityImageSource,
   height: number | null,
-  width: number | null
+  width: number | null,
 ): ImageUrlBuilder => {
   let result = urlFor(asset);
 
@@ -62,12 +64,12 @@ export const getPlaceholderImage = ({
           .crop("focalpoint")
           .focalPoint(hotspot.x, hotspot.y)
           .url()
-      : urlFor(asset).height(10).width(10).fit("crop").crop("center").url()
+      : urlFor(asset).height(10).width(10).fit("crop").crop("center").url(),
   );
 
 const getBase64Image = async (src: string): Promise<string> => {
   const buffer = await fetch(src).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
+    Buffer.from(await res.arrayBuffer()),
   );
 
   const { ...plaiceholder } = await getPlaiceholder(buffer, { size: 10 });

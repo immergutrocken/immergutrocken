@@ -5,7 +5,7 @@ import { SanityImage } from "../../lib/shared/sanityImageUrl";
 import Bubble from "../shared/bubble";
 import LightBox from "../shared/lightbox";
 
-interface ImageGalleryProps {
+export interface ImageGalleryProps {
   node: {
     images: SanityImage[];
   };

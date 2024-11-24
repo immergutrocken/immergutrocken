@@ -1,7 +1,7 @@
-import sha256 from 'crypto-js/sha256';
-import { NextApiRequest, NextApiResponse } from 'next';
+import sha256 from "crypto-js/sha256";
+import { NextApiRequest, NextApiResponse } from "next";
 
-import client from '../../lib/shared/mailjetClient';
+import { mailjetClient } from "../../lib/shared/mailjetClient";
 
 interface IBody {
   origin: string;
@@ -10,14 +10,14 @@ interface IBody {
 
 const sendOptinEmail = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const body = JSON.parse(req.body) as IBody;
   const link = `${body.origin}/newsletter-confirmation?email=${
     body.eMailAddress
   }&sha=${sha256(body.eMailAddress)}`;
 
-  const request = client.post("send", { version: "v3.1" }).request({
+  const request = mailjetClient.post("send", { version: "v3.1" }).request({
     Messages: [
       {
         From: {

@@ -1,12 +1,12 @@
-import sha256 from 'crypto-js/sha256';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { Contact, ContactSubscription, LibraryResponse } from 'node-mailjet';
+import sha256 from "crypto-js/sha256";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Contact, ContactSubscription, LibraryResponse } from "node-mailjet";
 
-import client from '../../lib/shared/mailjetClient';
+import { mailjetClient } from "../../lib/shared/mailjetClient";
 
 const addEmailAddressToContactList = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const { eMailAddress, sha } = JSON.parse(req.body);
   const fixedEmail = eMailAddress.replace(" ", "+");
@@ -14,19 +14,22 @@ const addEmailAddressToContactList = async (
   if (sha256(fixedEmail).toString() === sha) {
     const listId = Number.parseInt(process.env.MAILJET_LIST_ID ?? "");
     const contactResponse: LibraryResponse<Contact.GetContactResponse> =
-      await client.get("contact", { version: "v3" }).id(fixedEmail).request();
+      await mailjetClient
+        .get("contact", { version: "v3" })
+        .id(fixedEmail)
+        .request();
 
     const contact = contactResponse.body.Data.find(
-      (data) => data.Email === fixedEmail
+      (data) => data.Email === fixedEmail,
     );
 
     const listRecipientResponse: LibraryResponse<ContactSubscription.GetListRecipientResponse> =
-      await client.get("listrecipient").request({
+      await mailjetClient.get("listrecipient").request({
         Contact: contact?.ID,
       });
 
     const listRecipient = listRecipientResponse.body.Data.find(
-      (data) => data.ListID === listId
+      (data) => data.ListID === listId,
     );
 
     if (listRecipient && contact?.ID === listRecipient.ContactID) {
@@ -35,7 +38,7 @@ const addEmailAddressToContactList = async (
         return;
       }
 
-      client
+      mailjetClient
         .put("listrecipient")
         .id(listRecipient.ID)
         .request({
@@ -49,7 +52,7 @@ const addEmailAddressToContactList = async (
           res.status(500).json(error);
         });
     } else {
-      client
+      mailjetClient
         .post("listrecipient")
         .request({
           ContactID: contact?.ID,

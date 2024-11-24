@@ -1,10 +1,11 @@
 import groq from "groq";
+
 import { IMerch } from "./models/merch.interface";
-import client from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanityClient";
 import {
-  SanityImage,
   getImageUrl,
   getPlaceholderImage,
+  SanityImage,
 } from "./shared/sanityImageUrl";
 
 export const getMerch = async (locale: string): Promise<IMerch> => {
@@ -17,7 +18,7 @@ export const getMerch = async (locale: string): Promise<IMerch> => {
         "images": images[]
       }
     }`;
-  const result: IMerch = (await client.fetch(query))[0];
+  const result: IMerch = (await sanityClient.fetch(query))[0];
 
   if (!result) {
     return Promise.reject("No merch found");
@@ -31,7 +32,7 @@ export const getMerch = async (locale: string): Promise<IMerch> => {
         image.urlPreview = getImageUrl(
           image,
           imageSizePreview,
-          imageSizePreview
+          imageSizePreview,
         );
         image.urlPreviewBlur = await getPlaceholderImage(image);
       }

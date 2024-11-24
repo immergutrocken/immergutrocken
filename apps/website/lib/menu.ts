@@ -1,6 +1,7 @@
 import groq from "groq";
+
 import { MenuItemType } from "./enums/menuItemType.enum";
-import client from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanityClient";
 
 interface ISanityMenu {
   _id: string;
@@ -50,13 +51,13 @@ const typeMapping = new Map<string, MenuItemType>([
 
 const buildMenuItems = (
   menu: ISanityMenu,
-  data: ISanityMenu[]
+  data: ISanityMenu[],
 ): IMenuItem[] => {
   return menu.menuEntries.map((entry): IMenuItem => {
     const type = typeMapping.get(entry._type);
     const submenu = data.find((menu) => menu._id === entry._ref);
     const ref = menu.menuEntryRefs.find(
-      (ref) => ref?._id === entry.reference?._ref
+      (ref) => ref?._id === entry.reference?._ref,
     );
     switch (type) {
       case MenuItemType.EXTERNAL_LINK:
@@ -98,7 +99,7 @@ export const getMenu = async (): Promise<IMenuItem[]> => {
     _id,
     'menuEntryRefs': menuEntries[].reference->{_id, _type, slug}
   }`;
-  const data = await client.fetch(query);
+  const data = await sanityClient.fetch(query);
   const mainMenu = data.find((menu: ISanityMenu) => menu.isMainMenu === true);
   const menuItems = buildMenuItems(mainMenu, data);
   return menuItems;

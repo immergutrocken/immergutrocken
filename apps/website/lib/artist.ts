@@ -4,7 +4,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { ArtistCategory } from "./enums/artistCategory.enum";
 import { SocialMedia } from "./enums/socialMedia.enum";
-import client from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanityClient";
 import {
   getImageUrl,
   getPlaceholderImage,
@@ -66,7 +66,7 @@ export const getArtistLinkList = async (
     'slugs': artists[]->slug.current,
     'categories': artists[]->category
   }`;
-  const result = await client.fetch(query);
+  const result = await sanityClient.fetch(query);
   return (
     result[0].slugs?.map(
       (slug: string, index: number): IArtistLink => ({
@@ -83,7 +83,7 @@ export const getArtistLinkList = async (
 
 export const getArtistList = async (): Promise<{ slug: string }[]> => {
   const query = groq`*[_type == 'artist']{'slug': slug.current}`;
-  return client.fetch(query);
+  return sanityClient.fetch(query);
 };
 
 export const getArtist = async (
@@ -121,7 +121,7 @@ export const getArtist = async (
       }
     }
   }`;
-  const result = (await client.fetch(query))[0];
+  const result = (await sanityClient.fetch(query))[0];
 
   const artist: IArtist = {
     ...result,

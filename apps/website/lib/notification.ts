@@ -2,11 +2,11 @@ import groq from "groq";
 
 import { Locale } from "./enums/locals.enum";
 import { NotificationDisplayCategory } from "./enums/notificationDisplayCategory";
-import sanityClient from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanityClient";
 
 export interface INotification {
   title: string;
-  content: [];
+  content: unknown[];
   display: NotificationDisplayCategory;
   startDate: Date;
   endDate: Date;
