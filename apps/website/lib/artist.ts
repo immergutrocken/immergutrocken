@@ -1,9 +1,15 @@
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import groq from "groq";
+
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+
 import { ArtistCategory } from "./enums/artistCategory.enum";
 import { SocialMedia } from "./enums/socialMedia.enum";
-import client from "./shared/sanityClient";
-import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
+import { sanityClient } from "./shared/sanity-client";
+import {
+  getImageUrl,
+  getPlaceholderImage,
+  SanityImage,
+} from "./shared/sanity-image-url";
 
 export interface IArtistLink {
   title: string;
@@ -50,7 +56,7 @@ const socialMediaMapping = new Map<string, SocialMedia>([
 ]);
 
 export const getArtistLinkList = async (
-  locale: string
+  locale: string,
 ): Promise<IArtistLink[]> => {
   const query = groq`
   *
@@ -60,7 +66,7 @@ export const getArtistLinkList = async (
     'slugs': artists[]->slug.current,
     'categories': artists[]->category
   }`;
-  const result = await client.fetch(query);
+  const result = await sanityClient.fetch(query);
   return (
     result[0].slugs?.map(
       (slug: string, index: number): IArtistLink => ({
@@ -70,19 +76,19 @@ export const getArtistLinkList = async (
             : result[0].titlesDe[index],
         slug: slug,
         category: categoryMapping.get(result[0].categories[index]),
-      })
+      }),
     ) ?? []
   );
 };
 
 export const getArtistList = async (): Promise<{ slug: string }[]> => {
   const query = groq`*[_type == 'artist']{'slug': slug.current}`;
-  return client.fetch(query);
+  return sanityClient.fetch(query);
 };
 
 export const getArtist = async (
   slug: string,
-  locale: string
+  locale: string,
 ): Promise<IArtist> => {
   const query = groq`
   *[_type == 'artist' && slug.current == '${slug}']{
@@ -115,9 +121,9 @@ export const getArtist = async (
       }
     }
   }`;
-  const result = (await client.fetch(query))[0];
+  const result = (await sanityClient.fetch(query))[0];
 
-  const artist = {
+  const artist: IArtist = {
     ...result,
     title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
     banner: {
@@ -125,24 +131,28 @@ export const getArtist = async (
       url: getImageUrl(result.banner, 1000, 1000),
       urlWithBlur: await getPlaceholderImage(result.banner),
     },
-    socialMedia: result.socialMedia.map((element) => ({
-      type: socialMediaMapping.get(element.medium),
-      url: element.link.url,
-    })),
+    socialMedia: result.socialMedia.map(
+      (element: { medium: string; link: { url: string } }) => ({
+        type: socialMediaMapping.get(element.medium),
+        url: element.link.url,
+      }),
+    ),
     content:
       locale === "en" && result.contentEn ? result.contentEn : result.contentDe,
   };
 
-  artist.content.forEach((element) => {
-    if (element._type === "imageGallery") {
-      element.images.forEach(async (image) => {
-        image.urlPreview = getImageUrl(image, 400);
-        image.urlPreviewBlur = await getPlaceholderImage(image);
-        image.url = getImageUrl(image, 1000);
-        image.urlBlur = await getPlaceholderImage(image);
-      });
-    }
-  });
+  artist.content.forEach(
+    (element: { _type: string; images: SanityImage[] }) => {
+      if (element._type === "imageGallery") {
+        element.images.forEach(async (image: SanityImage) => {
+          image.urlPreview = getImageUrl(image, 400);
+          image.urlPreviewBlur = await getPlaceholderImage(image);
+          image.url = getImageUrl(image, 1000);
+          image.urlBlur = await getPlaceholderImage(image);
+        });
+      }
+    },
+  );
 
   return artist;
 };

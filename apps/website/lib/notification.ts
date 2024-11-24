@@ -1,18 +1,19 @@
 import groq from "groq";
-import { NotificationDisplayCategory } from "./enums/notificationDisplayCategory";
-import sanityClient from "./shared/sanityClient";
+
 import { Locale } from "./enums/locals.enum";
+import { NotificationDisplayCategory } from "./enums/notificationDisplayCategory";
+import { sanityClient } from "./shared/sanity-client";
 
 export interface INotification {
   title: string;
-  content: [];
+  content: unknown[];
   display: NotificationDisplayCategory;
   startDate: Date;
   endDate: Date;
 }
 
 export const getNotificationList = async (
-  locale: string
+  locale: string,
 ): Promise<INotification[]> => {
   const query = groq`*[_type == "notification"]{
     "titleDe": languages.de.title,
@@ -36,12 +37,23 @@ export const getNotificationList = async (
     },
     }}`;
   const result = await sanityClient.fetch(query);
-  return result.map((item) => ({
-    title: locale === Locale.EN && item.titleEn ? item.titleEn : item.titleDe,
-    startDate: item.startDate,
-    endDate: item.endDate,
-    display: item.display,
-    content:
-      locale === Locale.EN && item.contentEn ? item.contentEn : item.contentDe,
-  }));
+  return result.map(
+    (
+      item: INotification & {
+        titleEn: string;
+        titleDe: string;
+        contentEn: [];
+        contentDe: [];
+      },
+    ) => ({
+      title: locale === Locale.EN && item.titleEn ? item.titleEn : item.titleDe,
+      startDate: item.startDate,
+      endDate: item.endDate,
+      display: item.display,
+      content:
+        locale === Locale.EN && item.contentEn
+          ? item.contentEn
+          : item.contentDe,
+    }),
+  );
 };

@@ -1,21 +1,25 @@
 import NextImage from "next/image";
 import { useState } from "react";
+
+import { SanityImage } from "../../lib/shared/sanity-image-url";
 import Bubble from "../shared/bubble";
 import LightBox from "../shared/lightbox";
 
-interface ImageGalleryProps {
+export interface ImageGalleryProps {
   node: {
-    images;
+    images: SanityImage[];
   };
 }
 
 const ImageGallery = (props: ImageGalleryProps): JSX.Element => {
   const [showLightbox, setShowLightbox] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(
+    null,
+  );
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-6 mt-9">
+      <div className="mt-9 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-6">
         {props.node.images.map((image, index) => (
           <div
             className="relative cursor-pointer"

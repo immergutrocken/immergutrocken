@@ -1,12 +1,14 @@
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import ImageGallery from "../../../components/block-content/image-gallery";
+
+import ImageGallery, {
+  ImageGalleryProps,
+} from "../../../components/block-content/image-gallery";
 
 jest.mock("../../../components/shared/lightbox", () => "Lightbox");
 
 describe("Image Gallery", () => {
   it("renders correctly", () => {
-    const props = {
+    const props: ImageGalleryProps = {
       node: {
         images: [
           {
@@ -14,6 +16,13 @@ describe("Image Gallery", () => {
             urlPreviewBlur: "https://example.com/image.jpg",
             alt: "alt",
             credits: "credits",
+            url: "https://example.com/image.jpg",
+            urlBlur: "https://example.com/image.jpg",
+            hotspot: {
+              x: 0,
+              y: 0,
+            },
+            asset: {},
           },
         ],
       },

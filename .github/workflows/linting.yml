@@ -2,15 +2,19 @@ name: linting
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   run-linting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
       - name: Install modules
-        run: npm install
+        run: bun install
       - name: Run linting
-        run: npm run lint;
+        run: bun run lint;

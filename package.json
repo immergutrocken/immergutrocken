@@ -3,19 +3,28 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "vercel:pull-env-website": "vercel env pull --environment=development --yes --cwd apps/website",
+    "vercel:pull-env-cms": "vercel env pull --environment=development --yes --cwd apps/cms",
+    "vercel:login": "vercel login",
+    "vercel:link-website": "vercel link --cwd apps/website",
+    "vercel:link-cms": "vercel link --cwd apps/cms"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "devDependencies": {
-    "turbo": "^1.11.3"
+  "dependencies": {
+    "turbo": "2.3.0"
   },
-  "packageManager": "npm@10.1.0"
+  "devDependencies": {
+    "vercel": "39.0.2"
+  },
+  "packageManager": "bun@1.1.36"
 }

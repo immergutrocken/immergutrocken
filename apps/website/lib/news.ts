@@ -1,6 +1,6 @@
 import groq from "groq";
 
-import client from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 
 export interface INewsLink {
   title: string;
@@ -15,7 +15,7 @@ export const getNewsLinkList = async (locale: string): Promise<INewsLink[]> => {
     'titleEn': news[]-> languages.en.title,
     'slug': news[]->slug.current
     }`;
-  const result = await client.fetch(query);
+  const result = await sanityClient.fetch(query);
   const newsLinkList = result[0].slug.map(
     (slug: string, index: number): INewsLink => ({
       title:
@@ -23,7 +23,7 @@ export const getNewsLinkList = async (locale: string): Promise<INewsLink[]> => {
           ? result[0].titleEn[index]
           : result[0].titleDe[index],
       slug: slug,
-    })
+    }),
   );
   return newsLinkList;
 };

@@ -1,4 +1,4 @@
-import { SanityImage } from "../shared/sanityImageUrl";
+import { SanityImage } from "../shared/sanity-image-url";
 
 export interface IProduct {
   title: string;

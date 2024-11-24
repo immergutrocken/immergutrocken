@@ -1,9 +1,9 @@
-import groq from 'groq';
+import groq from "groq";
 
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import client from './shared/sanityClient';
-import { getImageUrl, getPlaceholderImage } from './shared/sanityImageUrl';
+import { sanityClient } from "./shared/sanity-client";
+import { getImageUrl, getPlaceholderImage } from "./shared/sanity-image-url";
 
 export interface IGeneralSettings {
   websiteTitle: string;
@@ -33,11 +33,11 @@ export interface IGeneralSettings {
     showCountdown: boolean;
     festivalStartDate: string;
     festivalEndDate: string;
-  }
+  };
 }
 
 export const getGeneralSettings = async (
-  locale: string
+  locale: string,
 ): Promise<IGeneralSettings> => {
   const query = groq`*[_type == 'generalSettings'] {
     'websiteTitleDe': languages.de.websiteTitle,
@@ -53,21 +53,21 @@ export const getGeneralSettings = async (
     'ticketshopUrl': ticketshopUrl,
     'countdown': countdown
   }`;
-  const result = (await client.fetch(query))[0];
+  const result = (await sanityClient.fetch(query))[0];
   const bannerDesktop =
     locale === "de"
       ? result.bannerDesktopDe
-      : result.bannerDesktopEn ?? result.bannerDesktopDe;
+      : (result.bannerDesktopEn ?? result.bannerDesktopDe);
   const bannerMobile =
     locale === "de"
       ? result.bannerMobileDe
-      : result.bannerMobileEn ?? result.bannerMobileDe;
+      : (result.bannerMobileEn ?? result.bannerMobileDe);
   return {
     ...result,
     websiteTitle:
       locale === "de"
         ? result.websiteTitleDe
-        : result.websiteTitleEn ?? result.websiteTitleDe,
+        : (result.websiteTitleEn ?? result.websiteTitleDe),
     bannerDesktop: {
       ...bannerDesktop,
       url: getImageUrl(bannerDesktop),
@@ -84,8 +84,8 @@ export const getGeneralSettings = async (
     additionalTextAfterArtists:
       locale === "de"
         ? result.additionalTextAfterArtistsDe
-        : result.additionalTextAfterArtistsEn ??
-          result.additionalTextAfterArtistsDe,
+        : (result.additionalTextAfterArtistsEn ??
+          result.additionalTextAfterArtistsDe),
     isPerformanceDetailsVisible: result.isPerformanceDetailsVisible ?? false,
   };
 };

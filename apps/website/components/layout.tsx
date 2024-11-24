@@ -48,14 +48,14 @@ const Layout = ({
   const t = useTranslations("Layout");
 
   return (
-    <div className="text-primary bg-secondary">
-      <header className="fixed top-0 z-10 flex flex-col w-full">
+    <div className="bg-secondary text-primary">
+      <header className="fixed top-0 z-10 flex w-full flex-col">
         {showNewsList && (
-          <div className="flex w-full py-1 text-lg border-b-2 bg-secondary border-primary flex-nowrap sm:text-4xl font-important">
+          <div className="flex w-full flex-nowrap border-b-2 border-primary bg-secondary py-1 font-important text-lg sm:text-4xl">
             <span className="flex items-center px-1 sm:px-2">{t("news")}:</span>
             <div
               className={
-                "flex flex-nowrap overflow-x-auto overflow-y-hidden whitespace-nowrap w-full scrollbar"
+                "scrollbar flex w-full flex-nowrap overflow-x-auto overflow-y-hidden whitespace-nowrap"
               }
             >
               {newsList.map((news, index) => (
@@ -72,14 +72,14 @@ const Layout = ({
             </div>
           </div>
         )}
-        <div className="flex justify-between mx-2 mt-2 sm:mt-4 sm:mx-4">
+        <div className="mx-2 mt-2 flex justify-between sm:mx-4 sm:mt-4">
           <Bubble
             className="left-2 top-12 sm:left-4 sm:top-16"
             onClick={() => setShowMenu(true)}
           >
             <em className="fas fa-bars text-secondary"></em>
           </Bubble>
-          <div className="flex gap-2 right-2 top-12 sm:right-4 sm:top-16 sm:gap-4">
+          <div className="right-2 top-12 flex gap-2 sm:right-4 sm:top-16 sm:gap-4">
             {ticketshopUrl && (
               <Link href={ticketshopUrl} className="hover:no-underline">
                 <Button
@@ -95,7 +95,7 @@ const Layout = ({
               locale={router.locale === "de" ? "en" : "de"}
               className="hover:no-underline"
             >
-              <Bubble className="text-xl sm:text-3xl font-important">
+              <Bubble className="font-important text-xl sm:text-3xl">
                 {router.locale === "de" ? "en" : "de"}
               </Bubble>
             </NextLink>
@@ -121,7 +121,7 @@ const Layout = ({
           {notifcationList
             ?.filter(
               (notification) =>
-                notification.display === NotificationDisplayCategory.FOOTER
+                notification.display === NotificationDisplayCategory.FOOTER,
             )
             .map((notification, index) => (
               <Notification notification={notification} key={index} />
@@ -130,7 +130,7 @@ const Layout = ({
         {notifcationList
           ?.filter(
             (notification) =>
-              notification.display === NotificationDisplayCategory.POP_UP
+              notification.display === NotificationDisplayCategory.POP_UP,
           )
           .map((notification, index) => (
             <Notification
