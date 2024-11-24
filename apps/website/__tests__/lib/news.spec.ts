@@ -4,7 +4,7 @@ import client from "../../lib/shared/sanityClient";
 jest.mock("@sanity/client");
 
 describe("News", () => {
-  xit("getNewsList", () => {
+  it("getNewsList", () => {
     getNewsLinkList("de");
     expect(client.fetch).toHaveBeenCalled();
   });
