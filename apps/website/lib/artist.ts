@@ -4,12 +4,12 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { ArtistCategory } from "./enums/artistCategory.enum";
 import { SocialMedia } from "./enums/socialMedia.enum";
-import { sanityClient } from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 import {
   getImageUrl,
   getPlaceholderImage,
   SanityImage,
-} from "./shared/sanityImageUrl";
+} from "./shared/sanity-image-url";
 
 export interface IArtistLink {
   title: string;

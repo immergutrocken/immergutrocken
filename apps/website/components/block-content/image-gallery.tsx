@@ -1,7 +1,7 @@
 import NextImage from "next/image";
 import { useState } from "react";
 
-import { SanityImage } from "../../lib/shared/sanityImageUrl";
+import { SanityImage } from "../../lib/shared/sanity-image-url";
 import Bubble from "../shared/bubble";
 import LightBox from "../shared/lightbox";
 

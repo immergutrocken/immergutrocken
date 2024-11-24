@@ -2,7 +2,7 @@ import sha256 from "crypto-js/sha256";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Contact, ContactSubscription, LibraryResponse } from "node-mailjet";
 
-import { mailjetClient } from "../../lib/shared/mailjetClient";
+import { mailjetClient } from "../../lib/shared/mailjet-client";
 
 const addEmailAddressToContactList = async (
   req: NextApiRequest,

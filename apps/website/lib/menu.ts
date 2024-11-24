@@ -1,7 +1,7 @@
 import groq from "groq";
 
 import { MenuItemType } from "./enums/menuItemType.enum";
-import { sanityClient } from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 
 interface ISanityMenu {
   _id: string;

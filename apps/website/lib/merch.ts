@@ -1,12 +1,12 @@
 import groq from "groq";
 
 import { IMerch } from "./models/merch.interface";
-import { sanityClient } from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 import {
   getImageUrl,
   getPlaceholderImage,
   SanityImage,
-} from "./shared/sanityImageUrl";
+} from "./shared/sanity-image-url";
 
 export const getMerch = async (locale: string): Promise<IMerch> => {
   const query = groq`*[_type == "merch"]{

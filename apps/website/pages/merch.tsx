@@ -18,7 +18,7 @@ import { IProduct } from "../lib/models/product.interface";
 import { getNewsLinkList, INewsLink } from "../lib/news";
 import { getNotificationList, INotification } from "../lib/notification";
 import { getPartnerList, IPartner } from "../lib/partner";
-import { SanityImage } from "../lib/shared/sanityImageUrl";
+import { SanityImage } from "../lib/shared/sanity-image-url";
 
 interface MerchProps {
   description: [];

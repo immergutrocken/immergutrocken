@@ -1,7 +1,7 @@
 import { Locale } from "../../lib/enums/locals.enum";
 import { NotificationDisplayCategory } from "../../lib/enums/notificationDisplayCategory";
 import { getNotificationList, INotification } from "../../lib/notification";
-import { sanityClient } from "../../lib/shared/sanityClient";
+import { sanityClient } from "../../lib/shared/sanity-client";
 
 jest.mock("@sanity/client", () => ({
   createClient: jest.fn(() => ({

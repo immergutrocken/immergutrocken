@@ -2,8 +2,8 @@ import groq from "groq";
 
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { sanityClient } from "./shared/sanityClient";
-import { getImageUrl, getPlaceholderImage } from "./shared/sanityImageUrl";
+import { sanityClient } from "./shared/sanity-client";
+import { getImageUrl, getPlaceholderImage } from "./shared/sanity-image-url";
 
 export interface IGeneralSettings {
   websiteTitle: string;

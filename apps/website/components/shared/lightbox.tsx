@@ -1,7 +1,7 @@
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 
-import { SanityImage } from "../../lib/shared/sanityImageUrl";
+import { SanityImage } from "../../lib/shared/sanity-image-url";
 import Bubble from "./bubble";
 import Label from "./label";
 

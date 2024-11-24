@@ -1,6 +1,6 @@
 import { Locale } from "../../lib/enums/locals.enum";
 import { getNewsLinkList } from "../../lib/news";
-import { sanityClient } from "../../lib/shared/sanityClient";
+import { sanityClient } from "../../lib/shared/sanity-client";
 
 jest.mock("@sanity/client", () => ({
   createClient: () => ({

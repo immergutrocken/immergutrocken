@@ -3,8 +3,8 @@ import groq from "groq";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import PartnerCategory from "./enums/partnerCategory.enum";
-import { sanityClient } from "./shared/sanityClient";
-import { getImageUrl, SanityImage } from "./shared/sanityImageUrl";
+import { sanityClient } from "./shared/sanity-client";
+import { getImageUrl, SanityImage } from "./shared/sanity-image-url";
 
 export interface IPartner {
   link: string;

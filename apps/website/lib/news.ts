@@ -1,6 +1,6 @@
 import groq from "groq";
 
-import { sanityClient } from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 
 export interface INewsLink {
   title: string;

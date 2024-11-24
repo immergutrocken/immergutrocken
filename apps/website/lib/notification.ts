@@ -2,7 +2,7 @@ import groq from "groq";
 
 import { Locale } from "./enums/locals.enum";
 import { NotificationDisplayCategory } from "./enums/notificationDisplayCategory";
-import { sanityClient } from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 
 export interface INotification {
   title: string;

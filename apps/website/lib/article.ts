@@ -2,12 +2,12 @@ import groq from "groq";
 
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { sanityClient } from "./shared/sanityClient";
+import { sanityClient } from "./shared/sanity-client";
 import {
   getImageUrl,
   getPlaceholderImage,
   SanityImage,
-} from "./shared/sanityImageUrl";
+} from "./shared/sanity-image-url";
 
 export interface IArticle {
   title: string;
