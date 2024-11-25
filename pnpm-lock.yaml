@@ -177,8 +177,8 @@ importers:
         specifier: 5.0.0
         version: 5.0.0(eslint@8.57.1)
       groq:
-        specifier: 3.64.1
-        version: 3.64.1
+        specifier: 3.64.3
+        version: 3.64.3
       husky:
         specifier: 9.1.7
         version: 9.1.7
