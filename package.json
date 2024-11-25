@@ -26,5 +26,5 @@
   "devDependencies": {
     "vercel": "39.1.1"
   },
-  "packageManager": "bun@1.1.36"
+  "packageManager": "pnpm@9.12.3"
 }
