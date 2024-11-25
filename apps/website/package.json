@@ -16,7 +16,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "6.6.0",
+    "@fortawesome/fontawesome-free": "6.7.1",
     "@sanity/block-content-to-react": "3.0.0",
     "@sanity/client": "6.22.4",
     "@sanity/image-url": "1.1.0",
