@@ -3,7 +3,8 @@ on:
   pull_request:
     paths:
       - "package.json"
-      - "package-lock.json"
+      - "apps/cms/package.json"
+      - "apps/website/package.json"
 
 jobs:
   update-bun-lockb:
