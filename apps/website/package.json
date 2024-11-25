@@ -63,7 +63,7 @@
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-preset-env": "10.1.0",
     "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.6.8",
+    "prettier-plugin-tailwindcss": "0.6.9",
     "react-test-renderer": "18.3.1",
     "sass": "1.81.0",
     "sharp": "0.33.5",
