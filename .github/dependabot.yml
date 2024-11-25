@@ -7,7 +7,7 @@ updates:
       day: "friday"
     open-pull-requests-limit: 10
     post-update-hooks:
-      command: "pnpm install"
+      - command: "pnpm install"
   - package-ecosystem: "npm"
     directory: "/apps/website"
     schedule:
@@ -15,7 +15,7 @@ updates:
       day: "friday"
     open-pull-requests-limit: 10
     post-update-hooks:
-      command: "pnpm install"
+      - command: "pnpm install"
   - package-ecosystem: "npm"
     directory: "/apps/cms"
     schedule:
@@ -23,4 +23,4 @@ updates:
       day: "friday"
     open-pull-requests-limit: 10
     post-update-hooks:
-      command: "pnpm install"
+      - command: "pnpm install"
