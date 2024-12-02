@@ -10,7 +10,7 @@ const config: Config = {
       colors: {
         primary: "#000",
         secondary: "#FFF",
-        tertiary: "#98CE58",
+        tertiary: "#FF4800",
       },
       invert: {
         partner: "0",
