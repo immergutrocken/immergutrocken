@@ -103,55 +103,55 @@ const Merch = ({
         <title>{"Merch - " + generalSettings.websiteTitle}</title>
       </NextHead>
       <div className="flex flex-col items-center px-4 pt-24 sm:px-8 sm:pt-36">
-        <div>
+        <div className="max-w-[1296px]">
           <h1 className="self-start font-important text-4xl sm:text-7xl">
             Merch
           </h1>
           <Content content={description} />
-        </div>
-        <div className="mt-10 flex max-w-[1296px] flex-wrap place-content-center gap-4 sm:gap-8">
-          {products.map((product, index) => {
-            return (
-              <div className="w-1/5 min-w-[300px] max-w-[300px]" key={index}>
-                <div
-                  className="relative cursor-pointer"
-                  onClick={() => {
-                    setShowLightbox(true);
-                    setCurrentLightboxImages(product.images);
-                    setCurrentImageIndex(0);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "enter") {
+          <div className="mt-10 flex flex-wrap place-content-center gap-4 sm:gap-8">
+            {products.map((product, index) => {
+              return (
+                <div className="w-1/5 min-w-[300px] max-w-[300px]" key={index}>
+                  <div
+                    className="relative cursor-pointer"
+                    onClick={() => {
                       setShowLightbox(true);
                       setCurrentLightboxImages(product.images);
                       setCurrentImageIndex(0);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <Image
-                    src={product.images[0].urlPreview}
-                    width={300}
-                    height={300}
-                    alt={product.title}
-                    placeholder="blur"
-                    blurDataURL={product.images[0].urlPreviewBlur}
-                  ></Image>
-                  <Bubble className="absolute right-1 top-1" size="small">
-                    <em className="fas fa-expand-alt"></em>
-                  </Bubble>
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "enter") {
+                        setShowLightbox(true);
+                        setCurrentLightboxImages(product.images);
+                        setCurrentImageIndex(0);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <Image
+                      src={product.images[0].urlPreview}
+                      width={300}
+                      height={300}
+                      alt={product.title}
+                      placeholder="blur"
+                      blurDataURL={product.images[0].urlPreviewBlur}
+                    ></Image>
+                    <Bubble className="absolute right-1 top-1" size="small">
+                      <em className="fas fa-expand-alt"></em>
+                    </Bubble>
+                  </div>
+                  <h2 className="font-important text-base sm:text-2xl">
+                    {product.title}
+                  </h2>
+                  <div className="mb-2 mt-2 flex">
+                    <Label>{product.category}</Label>
+                  </div>
+                  <Content content={product.description} />
                 </div>
-                <h2 className="font-important text-base sm:text-2xl">
-                  {product.title}
-                </h2>
-                <div className="mb-2 mt-2 flex">
-                  <Label>{product.category}</Label>
-                </div>
-                <Content content={product.description} />
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
       <>
