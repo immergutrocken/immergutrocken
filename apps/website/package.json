@@ -27,7 +27,7 @@
     "crypto-js": "4.2.0",
     "framer-motion": "11.11.17",
     "next": "15.0.3",
-    "next-intl": "3.25.1",
+    "next-intl": "3.26.0",
     "next-seo": "6.6.0",
     "node-mailjet": "6.0.6",
     "react": "18.3.1",
