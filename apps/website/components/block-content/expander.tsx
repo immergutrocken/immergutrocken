@@ -10,7 +10,7 @@ interface BlockExpanderProps {
 
 const BlockExpander = (props: BlockExpanderProps): JSX.Element => {
   return (
-    <div className="text-xl font-important sm:text-3xl">
+    <div className="font-important text-xl sm:text-3xl">
       <Expander className="max-w-full" title={props.node.title}>
         <div className="font-content">
           <Content content={props.node.content} />

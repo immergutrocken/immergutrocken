@@ -16,13 +16,13 @@ const Expander = ({
   return (
     <div className={className}>
       <button
-        className="inline-flex items-center justify-start max-w-full cursor-pointer focus:outline-none"
+        className="inline-flex max-w-full cursor-pointer items-center justify-start focus:outline-none"
         onClick={() => setCollapsed(!collapsed)}
         title={title}
       >
         <span className="truncate">{title}</span>
         <em
-          className={`ml-2 fas fa-caret-${
+          className={`fas ml-2 fa-caret-${
             collapsed ? "down" : "up"
           } text-primary`}
         ></em>

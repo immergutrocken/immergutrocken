@@ -1,25 +1,32 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { useTranslations } from 'next-intl';
-import { NextSeo } from 'next-seo';
-import NextHead from 'next/head';
-import NextImage from 'next/image';
-import { useRouter } from 'next/router';
-import { ParsedUrlQuery } from 'querystring';
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from "next";
+import { useTranslations } from "next-intl";
+import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 
-import Content from '../../components/block-content/content';
-import Layout from '../../components/layout';
-import Bubble from '../../components/shared/bubble';
-import Label from '../../components/shared/label';
-import Link from '../../components/shared/link';
-import { getArtist, getArtistList, IArtist } from '../../lib/artist';
-import { Locale } from '../../lib/enums/locals.enum';
-import PartnerCategory from '../../lib/enums/partnerCategory.enum';
-import { SocialMedia } from '../../lib/enums/socialMedia.enum';
-import { getGeneralSettings, IGeneralSettings } from '../../lib/general-settings';
-import { getMenu, IMenuItem } from '../../lib/menu';
-import { getNewsLinkList, INewsLink } from '../../lib/news';
-import { getNotificationList, INotification } from '../../lib/notification';
-import { getPartnerList, IPartner } from '../../lib/partner';
+import Content from "../../components/block-content/content";
+import Layout from "../../components/layout";
+import Bubble from "../../components/shared/bubble";
+import Label from "../../components/shared/label";
+import Link from "../../components/shared/link";
+import { getArtist, getArtistList, IArtist } from "../../lib/artist";
+import { Locale } from "../../lib/enums/locals.enum";
+import PartnerCategory from "../../lib/enums/partnerCategory.enum";
+import { SocialMedia } from "../../lib/enums/socialMedia.enum";
+import {
+  getGeneralSettings,
+  IGeneralSettings,
+} from "../../lib/general-settings";
+import { getMenu, IMenuItem } from "../../lib/menu";
+import { getNewsLinkList, INewsLink } from "../../lib/news";
+import { getNotificationList, INotification } from "../../lib/notification";
+import { getPartnerList, IPartner } from "../../lib/partner";
 
 interface ArtistParams extends ParsedUrlQuery {
   slug: string;
@@ -54,7 +61,7 @@ export const getStaticPaths = async (): Promise<
             slug: item.slug,
           },
           locale: "en",
-        }))
+        })),
       ),
     fallback: "blocking",
   };
@@ -77,7 +84,7 @@ export const getStaticProps = async ({
   }
 
   const messages = await import(`../../messages/${locale}.json`).then(
-    (module) => module.default
+    (module) => module.default,
   );
 
   return {
@@ -155,7 +162,7 @@ const Artist = ({
       </NextHead>
       <div className="grid h-full grid-cols-1 lg:grid-cols-2 lg:space-x-5 lg:px-6 lg:pt-6">
         <div
-          className={`relative top-9 lg:sticky lg:top-0 lg:max-h-screen lg:h-full flex items-center`}
+          className={`relative top-9 flex items-center lg:sticky lg:top-0 lg:h-full lg:max-h-screen`}
         >
           <NextImage
             src={banner.url}
@@ -166,11 +173,11 @@ const Artist = ({
             blurDataURL={banner.urlWithBlur}
           />
         </div>
-        <div className="px-4 pb-5 pt-14 sm:pt-32 sm:pb-5">
-          <h1 className="text-4xl text-center sm:text-7xl font-important">
+        <div className="px-4 pb-5 pt-14 sm:pb-5 sm:pt-32">
+          <h1 className="text-center font-important text-4xl sm:text-7xl">
             {title}
           </h1>
-          <div className="grid items-center grid-cols-2 mt-5 sm:mt-8 sm:text-3xl gap-x-4 gap-y-2">
+          <div className="mt-5 grid grid-cols-2 items-center gap-x-4 gap-y-2 sm:mt-8 sm:text-3xl">
             {author && (
               <>
                 <Label className="text-right">{t("photo").toString()}</Label>
@@ -209,12 +216,12 @@ const Artist = ({
                 </>
               )}
           </div>
-          <div className="flex flex-row flex-wrap justify-center mt-3 sm:mt-6">
+          <div className="mt-3 flex flex-row flex-wrap justify-center sm:mt-6">
             {socialMedia.map((element, index) => (
               <Link
                 href={element.url}
                 key={index}
-                className="mb-3 mr-2 sm:mr-3 sm:mb-2 hover:no-underline"
+                className="mb-3 mr-2 hover:no-underline sm:mb-2 sm:mr-3"
               >
                 <Bubble>
                   <em className={iconMapping.get(element.type)}></em>

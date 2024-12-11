@@ -1,21 +1,28 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { useTranslations } from 'next-intl';
-import { NextSeo } from 'next-seo';
-import NextHead from 'next/head';
-import NextImage from 'next/image';
-import { ParsedUrlQuery } from 'querystring';
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from "next";
+import { useTranslations } from "next-intl";
+import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import { ParsedUrlQuery } from "querystring";
 
-import Content from '../../components/block-content/content';
-import Layout from '../../components/layout';
-import Label from '../../components/shared/label';
-import { getArticle, getArticleSlugList, IArticle } from '../../lib/article';
-import { Locale } from '../../lib/enums/locals.enum';
-import PartnerCategory from '../../lib/enums/partnerCategory.enum';
-import { getGeneralSettings, IGeneralSettings } from '../../lib/general-settings';
-import { getMenu, IMenuItem } from '../../lib/menu';
-import { getNewsLinkList, INewsLink } from '../../lib/news';
-import { getNotificationList, INotification } from '../../lib/notification';
-import { getPartnerList, IPartner } from '../../lib/partner';
+import Content from "../../components/block-content/content";
+import Layout from "../../components/layout";
+import Label from "../../components/shared/label";
+import { getArticle, getArticleSlugList, IArticle } from "../../lib/article";
+import { Locale } from "../../lib/enums/locals.enum";
+import PartnerCategory from "../../lib/enums/partnerCategory.enum";
+import {
+  getGeneralSettings,
+  IGeneralSettings,
+} from "../../lib/general-settings";
+import { getMenu, IMenuItem } from "../../lib/menu";
+import { getNewsLinkList, INewsLink } from "../../lib/news";
+import { getNotificationList, INotification } from "../../lib/notification";
+import { getPartnerList, IPartner } from "../../lib/partner";
 
 interface ArticleParams extends ParsedUrlQuery {
   slug: string;
@@ -63,7 +70,7 @@ export const getStaticProps = async ({
   }
 
   const messages = await import(`../../messages/${locale}.json`).then(
-    (module) => module.default
+    (module) => module.default,
   );
 
   return {
@@ -127,7 +134,7 @@ const Article = ({
       </NextHead>
       <div className="grid h-full grid-cols-1 sm:grid-cols-2 sm:space-x-5 sm:px-6 sm:pt-6">
         <div
-          className={`relative top-9 sm:sticky sm:top-0 sm:max-h-screen sm:h-full flex items-center`}
+          className={`relative top-9 flex items-center sm:sticky sm:top-0 sm:h-full sm:max-h-screen`}
         >
           <NextImage
             src={banner.url}
@@ -138,14 +145,14 @@ const Article = ({
             blurDataURL={banner.urlWithBlur}
           />
         </div>
-        <div className="px-4 pb-5 pt-14 sm:pt-32 sm:pb-5">
-          <h1 className="text-4xl sm:text-7xl font-important">{title}</h1>
-          <div className="flex flex-row items-center mt-5 space-x-4 sm:mt-8 sm:text-3xl">
+        <div className="px-4 pb-5 pt-14 sm:pb-5 sm:pt-32">
+          <h1 className="font-important text-4xl sm:text-7xl">{title}</h1>
+          <div className="mt-5 flex flex-row items-center space-x-4 sm:mt-8 sm:text-3xl">
             <Label>{t("photo").toString()}</Label>
             <span className="font-important">{banner.credits}</span>
           </div>
           {author && (
-            <div className="flex flex-row items-center mt-2 space-x-4 sm:mt-4 sm:text-3xl">
+            <div className="mt-2 flex flex-row items-center space-x-4 sm:mt-4 sm:text-3xl">
               <Label>{t("text").toString()}</Label>
               <span className="font-important">{author}</span>
             </div>

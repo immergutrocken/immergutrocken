@@ -8,7 +8,7 @@ const NewsletterConfirmation = (): JSX.Element => {
   } = useRouter();
 
   const [state, setState] = useState<"loading" | "failed" | "success">(
-    "loading"
+    "loading",
   );
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -31,7 +31,7 @@ const NewsletterConfirmation = (): JSX.Element => {
   });
 
   return (
-    <div className="flex flex-row items-center justify-center h-screen text-3xl text-center px-7">
+    <div className="flex h-screen flex-row items-center justify-center px-7 text-center text-3xl">
       <NextHead>
         <link rel="icon" href="/favicon.ico" />
         <title>Newsletter Anmeldung - Immergut Festival</title>

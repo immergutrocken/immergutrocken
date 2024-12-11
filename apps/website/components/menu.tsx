@@ -1,15 +1,15 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/dist/client/router';
-import NextLink from 'next/link';
-import { useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/dist/client/router";
+import NextLink from "next/link";
+import { useState } from "react";
 
-import { track } from '@vercel/analytics/react';
+import { track } from "@vercel/analytics/react";
 
-import { MenuItemType } from '../lib/enums/menuItemType.enum';
-import { IMenuItem } from '../lib/menu';
-import Bubble from './shared/bubble';
-import EuterIcon from './shared/euter-icon';
-import Link from './shared/link';
+import { MenuItemType } from "../lib/enums/menuItemType.enum";
+import { IMenuItem } from "../lib/menu";
+import Bubble from "./shared/bubble";
+import EuterIcon from "./shared/euter-icon";
+import Link from "./shared/link";
 
 interface MenuProps {
   onClose: () => void;
@@ -20,7 +20,7 @@ interface MenuProps {
 const buildMenuItem = (
   item: IMenuItem,
   onClose: () => void,
-  locale: string | undefined
+  locale: string | undefined,
 ): JSX.Element => {
   switch (item.type) {
     case MenuItemType.EXTERNAL_LINK:
@@ -78,7 +78,7 @@ const Menu = ({
   return (
     <AnimatePresence onExitComplete={() => setShowContent(false)}>
       {showMenu && (
-        <div className={`w-full sm:w-[512px] fixed z-20 left-0 top-0 bottom-0`}>
+        <div className={`fixed bottom-0 left-0 top-0 z-20 w-full sm:w-[512px]`}>
           <motion.div
             onAnimationComplete={() => {
               setShowContent(true);
@@ -87,7 +87,7 @@ const Menu = ({
             animate={{ width: "100%" }}
             transition={{ duration: 0.3 }}
             exit={{ width: 0 }}
-            className={`overflow-y-auto bg-secondary sm:border-r-2 border-primary h-full font-important`}
+            className={`h-full overflow-y-auto border-primary bg-secondary font-important sm:border-r-2`}
           >
             <AnimatePresence onExitComplete={() => onClose()}>
               {showContent && (
@@ -99,39 +99,39 @@ const Menu = ({
                   transition={{ duration: 0.3 }}
                 >
                   <Bubble
-                    className="absolute top-3 right-3"
+                    className="absolute right-3 top-3"
                     onClick={() => setShowContent(false)}
                   >
                     <em className="fas fa-times text-secondary"></em>
                   </Bubble>
-                  <div className="flex justify-center gap-4 mt-12 sm:mt-20">
+                  <div className="mt-12 flex justify-center gap-4 sm:mt-20">
                     <NextLink href="/" onClick={() => setShowContent(false)}>
                       <Bubble className="!bg-tertiary">
-                        <EuterIcon className="h-6 sm:h-9 fill-secondary"></EuterIcon>
+                        <EuterIcon className="h-6 fill-secondary sm:h-9"></EuterIcon>
                       </Bubble>
                     </NextLink>
                   </div>
                   <div className="mt-4 sm:mt-6">
                     {items.map((item, index) => (
                       <div
-                        className="text-3xl text-center sm:text-6xl"
+                        className="text-center text-3xl sm:text-6xl"
                         key={index}
                       >
                         {buildMenuItem(
                           item,
                           () => setShowContent(false),
-                          router.locale
+                          router.locale,
                         )}
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-center gap-4 mt-4">
+                  <div className="mt-4 flex justify-center gap-4">
                     <NextLink
                       href={router.asPath}
                       locale={router.locale === "de" ? "en" : "de"}
                       className="mb-6 hover:no-underline"
                     >
-                      <Bubble className="text-xl sm:text-3xl font-important">
+                      <Bubble className="font-important text-xl sm:text-3xl">
                         {router.locale === "de" ? "en" : "de"}
                       </Bubble>
                     </NextLink>

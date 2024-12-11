@@ -21,7 +21,7 @@ const Bubble = ({
 
   return (
     <button
-      className={`bg-primary rounded-full flex justify-center items-center cursor-pointer sm:transition-transform sm:duration-300 sm:ease-in-out sm:transform sm:hover:scale-110 focus:outline-none text-secondary ${className} ${sizeClasses}`}
+      className={`flex cursor-pointer items-center justify-center rounded-full bg-primary text-secondary focus:outline-none sm:transform sm:transition-transform sm:duration-300 sm:ease-in-out sm:hover:scale-110 ${className} ${sizeClasses}`}
       onClick={() => onClick()}
     >
       {children}
