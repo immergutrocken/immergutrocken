@@ -42,8 +42,8 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
   const buildFooterNotification = (): JSX.Element => (
     <>
       {show && (
-        <div className={`bg-secondary border-t-2 border-primary p-3 sm:pt-6`}>
-          <div className="text-3xl sm:text-6xl font-important">
+        <div className={`border-t-2 border-primary bg-secondary p-3 sm:pt-6`}>
+          <div className="font-important text-3xl sm:text-6xl">
             {notification.title}
           </div>
           <div className="font-content">
@@ -69,16 +69,16 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
     <>
       {show && (
         <div
-          className={`fixed top-0 left-0 z-20 bg-gray-600 bg-opacity-25 w-full h-full flex justify-center`}
+          className={`fixed left-0 top-0 z-20 flex h-full w-full justify-center bg-gray-600 bg-opacity-25`}
         >
-          <div className="self-center p-5 mx-2 border-2 rounded-lg w-100 sm:w-2/3 xl:w-1/2 bg-secondary font-important border-primary">
-            <div className="text-3xl text-center sm:text-6xl">
+          <div className="w-100 mx-2 self-center rounded-lg border-2 border-primary bg-secondary p-5 font-important sm:w-2/3 xl:w-1/2">
+            <div className="text-center text-3xl sm:text-6xl">
               {notification.title}
             </div>
             <div className="font-content">
               <Content content={notification.content} />
             </div>
-            <div className="flex justify-end mt-5">
+            <div className="mt-5 flex justify-end">
               <Button
                 size="small"
                 click={() => {

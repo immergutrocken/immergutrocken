@@ -1,23 +1,23 @@
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { useTranslations } from 'next-intl';
-import { NextSeo } from 'next-seo';
-import NextHead from 'next/head';
-import NextImage from 'next/image';
-import NextLink from 'next/link';
-import { useState } from 'react';
+import { GetStaticPropsContext, GetStaticPropsResult } from "next";
+import { useTranslations } from "next-intl";
+import { NextSeo } from "next-seo";
+import NextHead from "next/head";
+import NextImage from "next/image";
+import NextLink from "next/link";
+import { useState } from "react";
 
-import Layout from '../components/layout';
-import Button from '../components/shared/button';
-import Label from '../components/shared/label';
-import { getArtistLinkList, IArtistLink } from '../lib/artist';
-import { ArtistCategory } from '../lib/enums/artistCategory.enum';
-import { Locale } from '../lib/enums/locals.enum';
-import PartnerCategory from '../lib/enums/partnerCategory.enum';
-import { getGeneralSettings, IGeneralSettings } from '../lib/general-settings';
-import { getMenu, IMenuItem } from '../lib/menu';
-import { getNewsLinkList, INewsLink } from '../lib/news';
-import { getNotificationList, INotification } from '../lib/notification';
-import { getPartnerList, IPartner } from '../lib/partner';
+import Layout from "../components/layout";
+import Button from "../components/shared/button";
+import Label from "../components/shared/label";
+import { getArtistLinkList, IArtistLink } from "../lib/artist";
+import { ArtistCategory } from "../lib/enums/artistCategory.enum";
+import { Locale } from "../lib/enums/locals.enum";
+import PartnerCategory from "../lib/enums/partnerCategory.enum";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { getMenu, IMenuItem } from "../lib/menu";
+import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getNotificationList, INotification } from "../lib/notification";
+import { getPartnerList, IPartner } from "../lib/partner";
 
 interface HomeProps {
   newsLinkList: INewsLink[];
@@ -36,7 +36,7 @@ export const getStaticProps = async ({
   locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> => {
   const messages = await import(`../messages/${locale}.json`).then(
-    (module) => module.default
+    (module) => module.default,
   );
 
   return {
@@ -58,7 +58,7 @@ export const getStaticProps = async ({
 
 export default function Home(props: HomeProps): JSX.Element {
   const [filterCategory, setFilterCategory] = useState<ArtistCategory | null>(
-    null
+    null,
   );
   const t = useTranslations("Home");
   const showNewsList = false;
@@ -89,7 +89,7 @@ export default function Home(props: HomeProps): JSX.Element {
           ],
         }}
       />
-      <div className={`block sm:hidden${showNewsList ? " pt-9" : ""}`}>
+      <div className={`block sm:hidden${showNewsList ? "pt-9" : ""}`}>
         <NextImage
           src={props.generalSettings.bannerMobile.url}
           width={1800}
@@ -102,7 +102,7 @@ export default function Home(props: HomeProps): JSX.Element {
           alt="Banner"
         />
       </div>
-      <div className={`hidden sm:block${showNewsList ? " sm:pt-10" : ""}`}>
+      <div className={`hidden sm:block${showNewsList ? "sm:pt-10" : ""}`}>
         <NextImage
           src={props.generalSettings.bannerDesktop.url}
           height={1336}
@@ -115,14 +115,14 @@ export default function Home(props: HomeProps): JSX.Element {
           alt="Banner"
         />
       </div>
-      <div className="flex justify-center mt-4 sm:mt-6">
+      <div className="mt-4 flex justify-center sm:mt-6">
         {props.generalSettings.showNewsAsPrimaryContent && (
           <Label>{t("news")}</Label>
         )}
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
             {props.artistLinkList.some(
-              (link) => link.category === ArtistCategory.MUSIC
+              (link) => link.category === ArtistCategory.MUSIC,
             ) && (
               <Button
                 className="mx-2"
@@ -130,7 +130,7 @@ export default function Home(props: HomeProps): JSX.Element {
                   setFilterCategory(
                     filterCategory === ArtistCategory.MUSIC
                       ? null
-                      : ArtistCategory.MUSIC
+                      : ArtistCategory.MUSIC,
                   )
                 }
                 active={
@@ -143,7 +143,7 @@ export default function Home(props: HomeProps): JSX.Element {
               </Button>
             )}
             {props.artistLinkList.some(
-              (link) => link.category === ArtistCategory.READING
+              (link) => link.category === ArtistCategory.READING,
             ) && (
               <Button
                 className="mx-2"
@@ -151,7 +151,7 @@ export default function Home(props: HomeProps): JSX.Element {
                   setFilterCategory(
                     filterCategory === ArtistCategory.READING
                       ? null
-                      : ArtistCategory.READING
+                      : ArtistCategory.READING,
                   )
                 }
                 active={
@@ -166,7 +166,7 @@ export default function Home(props: HomeProps): JSX.Element {
           </>
         )}
       </div>
-      <div className="flex flex-row flex-wrap justify-center mt-4 text-3xl text-center sm:mt-6 sm:text-5xl font-important">
+      <div className="mt-4 flex flex-row flex-wrap justify-center text-center font-important text-3xl sm:mt-6 sm:text-5xl">
         {!props.generalSettings.showNewsAsPrimaryContent && (
           <>
             {props.artistLinkList.map((link, index, array) => (
@@ -175,7 +175,7 @@ export default function Home(props: HomeProps): JSX.Element {
                   href={`/artist/${link.slug}`}
                   className={`mx-2 sm:mx-5${
                     filterCategory != null && link.category !== filterCategory
-                      ? " text-gray-300"
+                      ? "text-gray-300"
                       : ""
                   }`}
                 >

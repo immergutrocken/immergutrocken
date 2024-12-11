@@ -1,16 +1,16 @@
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import NextHead from 'next/head';
-import NextLink from 'next/link';
-import { useTranslations } from 'use-intl';
+import { GetStaticPropsContext, GetStaticPropsResult } from "next";
+import NextHead from "next/head";
+import NextLink from "next/link";
+import { useTranslations } from "use-intl";
 
-import Layout from '../components/layout';
-import { Locale } from '../lib/enums/locals.enum';
-import PartnerCategory from '../lib/enums/partnerCategory.enum';
-import { getGeneralSettings, IGeneralSettings } from '../lib/general-settings';
-import { getMenu, IMenuItem } from '../lib/menu';
-import { getNewsLinkList, INewsLink } from '../lib/news';
-import { getNotificationList, INotification } from '../lib/notification';
-import { getPartnerList, IPartner } from '../lib/partner';
+import Layout from "../components/layout";
+import { Locale } from "../lib/enums/locals.enum";
+import PartnerCategory from "../lib/enums/partnerCategory.enum";
+import { getGeneralSettings, IGeneralSettings } from "../lib/general-settings";
+import { getMenu, IMenuItem } from "../lib/menu";
+import { getNewsLinkList, INewsLink } from "../lib/news";
+import { getNotificationList, INotification } from "../lib/notification";
+import { getPartnerList, IPartner } from "../lib/partner";
 
 interface Custom404Props {
   notificationList: INotification[];
@@ -27,7 +27,7 @@ export const getStaticProps = async ({
   locale = Locale.DE,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<Custom404Props>> => {
   const messages = await import(`../messages/${locale}.json`).then(
-    (module) => module.default
+    (module) => module.default,
   );
 
   return {
@@ -71,8 +71,8 @@ const Custom404 = ({
         <title>{generalSettings.websiteTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </NextHead>
-      <div className="pt-20 text-center px-7">
-        <h1 className="text-3xl font-important">{t("title")}</h1>
+      <div className="px-7 pt-20 text-center">
+        <h1 className="font-important text-3xl">{t("title")}</h1>
         <p className="font-content">
           {t("text-part-1")}
           <br />

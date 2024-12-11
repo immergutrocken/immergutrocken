@@ -12,7 +12,7 @@ interface InternalLinkProps {
 
 const buildChildren = (
   isCTA: boolean,
-  children: JSX.Element | string
+  children: JSX.Element | string,
 ): JSX.Element | string => {
   if (isCTA) return <Button size="small">{children}</Button>;
   else return children;

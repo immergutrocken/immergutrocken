@@ -1,8 +1,8 @@
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-import styles from '../styles/newsletterRegistration.module.scss';
-import Button from './shared/button';
+import styles from "../styles/newsletterRegistration.module.scss";
+import Button from "./shared/button";
 
 const NewsletterRegistration = (): JSX.Element => {
   const [eMailAddress, setEMailAddress] = useState("");
@@ -31,14 +31,14 @@ const NewsletterRegistration = (): JSX.Element => {
 
   return (
     <>
-      <h2 className="text-3xl text-center sm:text-6xl font-important">
+      <h2 className="text-center font-important text-3xl sm:text-6xl">
         {t("newsletter")}
       </h2>
-      <div className="flex flex-row justify-center mt-2 space-x-2">
+      <div className="mt-2 flex flex-row justify-center space-x-2">
         <input
           className={`${
             isValid ? "" : styles.invalid
-          } w-56 sm:w-96 text-lg sm:text-3xl bg-secondary border-2 border-primary rounded-full px-3 sm:px-6 focus:outline-none font-important`}
+          } w-56 rounded-full border-2 border-primary bg-secondary px-3 font-important text-lg focus:outline-none sm:w-96 sm:px-6 sm:text-3xl`}
           placeholder={t("your-email-address").toString()}
           value={eMailAddress}
           type="email"
