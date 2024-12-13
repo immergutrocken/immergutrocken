@@ -1,7 +1,7 @@
-import getYouTubeId from 'get-youtube-id';
-import { FaYoutube } from 'react-icons/fa';
-import YouTube from 'react-youtube';
-import { defineField, PreviewLayoutKey, PreviewProps } from 'sanity';
+import getYouTubeId from "get-youtube-id";
+import { FaYoutube } from "react-icons/fa";
+import YouTube from "react-youtube";
+import { defineField, PreviewLayoutKey, PreviewProps } from "sanity";
 
 const Preview = (props: PreviewProps<PreviewLayoutKey> & { url?: string }) => {
   const { url, renderDefault } = props;
