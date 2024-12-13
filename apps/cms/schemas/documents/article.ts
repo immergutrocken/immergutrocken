@@ -1,13 +1,13 @@
-import { GiFiles } from 'react-icons/gi';
-import { RiArticleLine } from 'react-icons/ri';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { GiFiles } from "react-icons/gi";
+import { RiArticleLine } from "react-icons/ri";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
-import blockContent from '../fields/blockContent';
-import contactForm from '../fields/contactForm';
-import expander from '../fields/expander';
-import image from '../fields/image';
-import slug from '../fields/slug';
-import localizedTabs from './localizedTabs';
+import blockContent from "../fields/blockContent";
+import contactForm from "../fields/contactForm";
+import expander from "../fields/expander";
+import image from "../fields/image";
+import slug from "../fields/slug";
+import localizedTabs from "./localizedTabs";
 
 const fields = [
   defineField({
@@ -60,7 +60,7 @@ const fields = [
           },
           prepare({ article0, article1, article2, article3 }) {
             const articles = [article0, article1, article2, article3].filter(
-              Boolean
+              Boolean,
             );
             return {
               title: articles.join(", "),

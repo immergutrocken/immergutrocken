@@ -1,8 +1,8 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from "sanity";
 
-import blockContent from '../fields/blockContent';
-import product from '../fields/product';
-import localizedTabs from './localizedTabs';
+import blockContent from "../fields/blockContent";
+import product from "../fields/product";
+import localizedTabs from "./localizedTabs";
 
 const localizedFields = [
   defineField({

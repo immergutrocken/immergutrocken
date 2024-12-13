@@ -1,8 +1,8 @@
-import { RiGiftLine } from 'react-icons/ri';
-import { defineField, defineType } from 'sanity';
+import { RiGiftLine } from "react-icons/ri";
+import { defineField, defineType } from "sanity";
 
-import externalLink from '../fields/externalLink';
-import image from '../fields/image';
+import externalLink from "../fields/externalLink";
+import image from "../fields/image";
 
 export default defineType({
   type: "document",

@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineField } from "sanity";
 
-import localeString from './localeString';
+import localeString from "./localeString";
 
 export const withTitle = (object: any) => ({
   ...object,

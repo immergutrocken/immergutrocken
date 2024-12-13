@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineField } from "sanity";
 
-import supportedLanguages from '../../supportedLanguages';
+import supportedLanguages from "../../supportedLanguages";
 
 const buildFields = (fields: any[]) =>
   supportedLanguages.map((lang) =>
@@ -10,7 +10,7 @@ const buildFields = (fields: any[]) =>
       title: lang.title,
       fields: fields,
       group: lang.id,
-    })
+    }),
   );
 
 export default (fields: any[]) =>

@@ -1,10 +1,10 @@
-import { RiMenuAddLine } from 'react-icons/ri';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { RiMenuAddLine } from "react-icons/ri";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
-import externalLink from '../fields/externalLink';
-import { withTitle } from '../fields/fieldExtender';
-import internalLink from '../fields/internalLink';
-import localeString from '../fields/localeString';
+import externalLink from "../fields/externalLink";
+import { withTitle } from "../fields/fieldExtender";
+import internalLink from "../fields/internalLink";
+import localeString from "../fields/localeString";
 
 export default defineType({
   title: "Menü",

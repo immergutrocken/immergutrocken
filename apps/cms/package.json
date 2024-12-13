@@ -12,6 +12,7 @@
     "start": "sanity start",
     "build": "sanity build public -y",
     "lint": "eslint --fix",
+    "prettier": "prettier . --write",
     "lint-staged": "lint-staged"
   },
   "keywords": [

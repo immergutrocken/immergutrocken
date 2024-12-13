@@ -1,5 +1,5 @@
-import { HiOutlineExternalLink } from 'react-icons/hi';
-import { defineField } from 'sanity';
+import { HiOutlineExternalLink } from "react-icons/hi";
+import { defineField } from "sanity";
 
 export default defineField({
   title: "External Link",

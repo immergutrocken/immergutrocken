@@ -1,5 +1,5 @@
-import { HiOutlineLink } from 'react-icons/hi';
-import { defineField } from 'sanity';
+import { HiOutlineLink } from "react-icons/hi";
+import { defineField } from "sanity";
 
 export default (...references: string[]) =>
   defineField({

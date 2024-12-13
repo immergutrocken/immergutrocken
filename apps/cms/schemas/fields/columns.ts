@@ -1,8 +1,8 @@
-import { BiColumns } from 'react-icons/bi';
-import { FaColumns } from 'react-icons/fa';
-import { defineField, defineType } from 'sanity';
+import { BiColumns } from "react-icons/bi";
+import { FaColumns } from "react-icons/fa";
+import { defineField, defineType } from "sanity";
 
-import blockContent from './blockContent';
+import blockContent from "./blockContent";
 
 export const twoColumns = defineType({
   type: "object",
