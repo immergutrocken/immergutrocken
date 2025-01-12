@@ -65,8 +65,8 @@ importers:
         specifier: ^3.66.1
         version: 3.67.1(react@18.3.1)
       '@sanity/eslint-config-studio':
-        specifier: ^5.0.0
-        version: 5.0.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+        specifier: ^5.0.1
+        version: 5.0.1(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       eslint:
         specifier: ^9.16.0
         version: 9.16.0(jiti@1.21.6)
@@ -2090,8 +2090,8 @@ packages:
     resolution: {integrity: sha512-p8OpQeeQLFkwovRiQHDcG9bHmDDYRiPJW5NWXcKsptCMoTtVPxjk0gVGAmepYv81Jr7CTLIpZZjIu731AQqwPQ==}
     engines: {node: '>=18'}
 
-  '@sanity/eslint-config-studio@5.0.0':
-    resolution: {integrity: sha512-Xa4ypVZBxUJKj2Vm7Xsy6oUjPQ3L7AxXEQR6zoIKTD61owsWV9Nr/U9/qvAKOCm+QjZiPzxlupSv0Win1Igg3w==}
+  '@sanity/eslint-config-studio@5.0.1':
+    resolution: {integrity: sha512-F1U4S4QQHlM+F9KLvqLXHzDerlgj402vU88b/jHb9DHkefEMJ97hwNXBGuNXQ/3cKq/hup1h7wl3nCK1oe5tdQ==}
     engines: {node: '>=18.18'}
     peerDependencies:
       eslint: ^9.0.0
@@ -9735,7 +9735,7 @@ snapshots:
     dependencies:
       '@sanity/diff-match-patch': 3.1.1
 
-  '@sanity/eslint-config-studio@5.0.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)':
+  '@sanity/eslint-config-studio@5.0.1(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/eslint-parser': 7.25.9(@babel/core@7.26.0)(eslint@9.16.0(jiti@1.21.6))
