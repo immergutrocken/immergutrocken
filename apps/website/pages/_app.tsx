@@ -1,6 +1,6 @@
 import "../styles/globals.scss";
 
-import { NextIntlClientProvider } from "next-intl";
+import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { DefaultSeo } from "next-seo";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps & { pageProps: { messages?: AbstractIntlMessages | undefined } }) {
   const router = useRouter();
 
   return (
