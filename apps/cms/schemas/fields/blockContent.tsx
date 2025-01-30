@@ -1,15 +1,19 @@
 import {
-    FaAlignCenter, FaAlignJustify, FaAlignLeft, FaAlignRight, FaHighlighter
-} from 'react-icons/fa';
-import { defineArrayMember, defineField } from 'sanity';
+  FaAlignCenter,
+  FaAlignJustify,
+  FaAlignLeft,
+  FaAlignRight,
+  FaHighlighter,
+} from "react-icons/fa";
+import { defineArrayMember, defineField } from "sanity";
 
-import imageGallery from '../components/imageGallery';
-import youtube from '../components/youtube';
-import externalLink from './externalLink';
-import { withCTA } from './fieldExtender';
-import image from './image';
-import internalLink from './internalLink';
-import link from './link';
+import imageGallery from "../components/imageGallery";
+import youtube from "../components/youtube";
+import externalLink from "./externalLink";
+import { withCTA } from "./fieldExtender";
+import image from "./image";
+import internalLink from "./internalLink";
+import link from "./link";
 
 const HighlightRender = (props: { children: JSX.Element }): JSX.Element => (
   <span style={{ backgroundColor: "yellow" }}>{props.children}</span>
@@ -24,7 +28,7 @@ const AlignRender =
       | "right"
       | "center"
       | "justify"
-      | "match-parent"
+      | "match-parent",
   ) =>
   (props: { children: JSX.Element }) => (
     <div

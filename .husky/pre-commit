@@ -1,0 +1,4 @@
+cd apps/cms
+pnpm run lint-staged
+cd ../website
+pnpm run lint-staged

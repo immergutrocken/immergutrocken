@@ -1,8 +1,8 @@
-import { RiNotification2Line } from 'react-icons/ri';
-import { defineField, defineType } from 'sanity';
+import { RiNotification2Line } from "react-icons/ri";
+import { defineField, defineType } from "sanity";
 
-import blockContent from '../fields/blockContent';
-import localizedTabs from './localizedTabs';
+import blockContent from "../fields/blockContent";
+import localizedTabs from "./localizedTabs";
 
 const fields = [
   defineField({

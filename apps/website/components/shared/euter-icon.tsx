@@ -1,8 +1,10 @@
+import { ReactNode } from "react";
+
 interface EuterIconProps {
   className?: string;
 }
 
-const EuterIcon = ({ className }: EuterIconProps): JSX.Element => {
+const EuterIcon = ({ className }: EuterIconProps): ReactNode => {
   return (
     <svg
       viewBox="67.341 126.517 177.039 209.559"

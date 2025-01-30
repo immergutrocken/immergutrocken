@@ -1,7 +1,7 @@
-import { BsChevronExpand } from 'react-icons/bs';
-import { defineField } from 'sanity';
+import { BsChevronExpand } from "react-icons/bs";
+import { defineField } from "sanity";
 
-import blockContent from './blockContent';
+import blockContent from "./blockContent";
 
 export default defineField({
   type: "object",

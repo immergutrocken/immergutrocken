@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface LinkProps {
-  children: JSX.Element | string;
+  children: ReactNode | string;
   title?: string;
   href: string;
   className?: string;
@@ -12,7 +14,7 @@ const Link = ({
   href,
   className = "",
   click,
-}: LinkProps): JSX.Element => (
+}: LinkProps): ReactNode => (
   <a
     href={href}
     target="_blank"

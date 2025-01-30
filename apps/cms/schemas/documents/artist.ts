@@ -1,15 +1,22 @@
 import {
-    FaCompactDisc, FaFacebook, FaGlobe, FaInstagram, FaSpotify, FaVimeo, FaXTwitter, FaYoutube
-} from 'react-icons/fa6';
-import { RiMusic2Line } from 'react-icons/ri';
-import { SiTiktok } from 'react-icons/si';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+  FaCompactDisc,
+  FaFacebook,
+  FaGlobe,
+  FaInstagram,
+  FaSpotify,
+  FaVimeo,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
+import { RiMusic2Line } from "react-icons/ri";
+import { SiTiktok } from "react-icons/si";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
-import blockContent from '../fields/blockContent';
-import externalLink from '../fields/externalLink';
-import image from '../fields/image';
-import slug from '../fields/slug';
-import localizedTabs from './localizedTabs';
+import blockContent from "../fields/blockContent";
+import externalLink from "../fields/externalLink";
+import image from "../fields/image";
+import slug from "../fields/slug";
+import localizedTabs from "./localizedTabs";
 
 const fields = [
   defineField({

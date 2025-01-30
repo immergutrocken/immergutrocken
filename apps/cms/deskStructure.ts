@@ -1,7 +1,7 @@
-import { FaShoppingBag, FaUsers } from 'react-icons/fa';
-import { IoMdSettings } from 'react-icons/io';
-import { MdFormatListNumbered } from 'react-icons/md';
-import { StructureResolver } from 'sanity/structure';
+import { FaShoppingBag, FaUsers } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { MdFormatListNumbered } from "react-icons/md";
+import { StructureResolver } from "sanity/structure";
 
 const structure: StructureResolver = (S) =>
   S.list()
@@ -15,14 +15,16 @@ const structure: StructureResolver = (S) =>
             "generalSettings",
             "merch",
             "media.tag",
-          ].includes(listItem.getId() ?? "")
+          ].includes(listItem.getId() ?? ""),
       ),
       S.divider(),
       S.listItem()
         .title("Allgemein")
         .icon(IoMdSettings)
         .child(
-          S.editor().schemaType("generalSettings").documentId("generalSettings")
+          S.editor()
+            .schemaType("generalSettings")
+            .documentId("generalSettings"),
         ),
       S.listItem()
         .title("Sortierungen")

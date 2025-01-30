@@ -1,7 +1,12 @@
-import { CustomValidatorResult, defineField, defineType, ValidationContext } from 'sanity';
+import {
+  CustomValidatorResult,
+  defineField,
+  defineType,
+  ValidationContext,
+} from "sanity";
 
-import { getImage } from '../fields/image';
-import localizedTabs from './localizedTabs';
+import { getImage } from "../fields/image";
+import localizedTabs from "./localizedTabs";
 
 const fields = [
   defineField({
@@ -107,9 +112,13 @@ export default defineType({
 
 const validateCountdownDate = (
   date: string | undefined,
-  context: ValidationContext
+  context: ValidationContext,
 ): CustomValidatorResult | Promise<CustomValidatorResult> => {
-  if ((context.document as any)?.countdown?.showCountdown && !date) {
+  if (
+    (context.document as unknown as { countdown: { showCountdown: boolean } })
+      ?.countdown?.showCountdown &&
+    !date
+  ) {
     return "Datum muss angegeben werden, wenn Countdown aktiviert ist";
   }
 

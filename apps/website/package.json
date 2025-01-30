@@ -9,7 +9,7 @@
     "start": "next start",
     "test": "jest --watch --detectOpenHandles",
     "test:ci": "jest --ci --coverage",
-    "lint": "npm run eslint && npm run stylelint",
+    "lint": "pnpm run eslint && pnpm run stylelint",
     "eslint": "next lint --fix",
     "stylelint": "stylelint --fix '**/*.{css,scss}'",
     "prettier": "prettier --write '**/*.{ts,tsx,css,scss}'",
@@ -45,7 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.1",
+    "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -75,6 +75,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
-    "*.{css,scss}": "stylelint --fix"
+    "*.{css,scss}": "stylelint --fix",
+    "*.{ts,tsx,css,scss}": "prettier --write"
   }
 }

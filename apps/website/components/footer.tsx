@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
+import { ReactNode } from "react";
 
 import { IGeneralSettings } from "../lib/general-settings";
 import socialMedia from "../lib/models/social-media";
@@ -21,7 +22,7 @@ const Footer = ({
   mediaPartnerList,
   additionalList,
   generalSettings,
-}: FooterProps): JSX.Element => {
+}: FooterProps): ReactNode => {
   const t = useTranslations("Footer");
   const router = useRouter();
 

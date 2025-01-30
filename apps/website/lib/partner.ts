@@ -29,6 +29,7 @@ export const getPartnerList = async (
       logo: result[0].logo[index],
     }),
   );
+
   return partnerList.map((p: IPartner) => {
     return {
       ...p,

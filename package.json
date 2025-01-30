@@ -14,7 +14,8 @@
     "vercel:pull-env-cms": "vercel env pull --environment=development --yes --cwd apps/cms",
     "vercel:login": "vercel login",
     "vercel:link-website": "vercel link --cwd apps/website",
-    "vercel:link-cms": "vercel link --cwd apps/cms"
+    "vercel:link-cms": "vercel link --cwd apps/cms",
+    "prepare": "husky"
   },
   "workspaces": [
     "apps/*",
@@ -24,7 +25,9 @@
     "turbo": "^2.3.3"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "15.2.11",
     "vercel": "^39.1.3"
   },
-  "packageManager": "npm@10.9.2"
+  "packageManager": "pnpm@9.15.0"
 }

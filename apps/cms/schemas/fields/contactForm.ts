@@ -1,5 +1,5 @@
-import { RiContactsFill } from 'react-icons/ri';
-import { defineField } from 'sanity';
+import { RiContactsFill } from "react-icons/ri";
+import { defineField } from "sanity";
 
 export default defineField({
   type: "object",

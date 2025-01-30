@@ -9,6 +9,7 @@ import NextHead from "next/head";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { ReactNode } from "react";
 
 import Content from "../../components/block-content/content";
 import Layout from "../../components/layout";
@@ -129,7 +130,7 @@ const Artist = ({
   menuItems,
   newsList,
   generalSettings,
-}: ArtistProps): JSX.Element => {
+}: ArtistProps): ReactNode => {
   const router = useRouter();
   const t = useTranslations("Article");
   const performanceDate = performance?.time ? new Date(performance.time) : null;

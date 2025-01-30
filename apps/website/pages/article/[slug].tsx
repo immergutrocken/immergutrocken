@@ -8,6 +8,7 @@ import { NextSeo } from "next-seo";
 import NextHead from "next/head";
 import NextImage from "next/image";
 import { ParsedUrlQuery } from "querystring";
+import { ReactNode } from "react";
 
 import Content from "../../components/block-content/content";
 import Layout from "../../components/layout";
@@ -101,7 +102,7 @@ const Article = ({
   menuItems,
   newsList,
   generalSettings,
-}: ArticleProps): JSX.Element => {
+}: ArticleProps): ReactNode => {
   const t = useTranslations("Article");
 
   return (

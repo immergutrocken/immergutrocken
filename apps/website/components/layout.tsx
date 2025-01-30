@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { track } from "@vercel/analytics/react";
 
@@ -19,7 +19,7 @@ import Button from "./shared/button";
 import Link from "./shared/link";
 
 interface LayoutProps {
-  children: JSX.Element | JSX.Element[] | string;
+  children: ReactNode;
   notifcationList: INotification[];
   sponsorList: IPartner[];
   mediaPartnerList: IPartner[];
@@ -42,7 +42,7 @@ const Layout = ({
   ticketshopUrl,
   showNewsList = true,
   generalSettings,
-}: LayoutProps): JSX.Element => {
+}: LayoutProps): ReactNode => {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
   const t = useTranslations("Layout");

@@ -1,5 +1,7 @@
-import { IPartner } from "../lib/partner";
 import NextImage from "next/image";
+import { ReactNode } from "react";
+
+import { IPartner } from "../lib/partner";
 import Label from "./shared/label";
 import Link from "./shared/link";
 
@@ -9,7 +11,7 @@ export interface PartnerProps {
   list: IPartner[];
 }
 
-const Partner = ({ label, className, list }: PartnerProps): JSX.Element => (
+const Partner = ({ label, className, list }: PartnerProps): ReactNode => (
   <div className={className}>
     <Label>{label}</Label>
     <div className="mt-4 flex flex-wrap justify-center">

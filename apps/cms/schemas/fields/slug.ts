@@ -1,4 +1,4 @@
-import { defineField, Path, SlugSourceFn } from 'sanity';
+import { defineField, Path, SlugSourceFn } from "sanity";
 
 export const slug = (source: string | Path | SlugSourceFn | undefined) =>
   defineField({

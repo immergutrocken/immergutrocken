@@ -1,14 +1,14 @@
-import { IoMdImages } from 'react-icons/io';
-import { defineField, PreviewLayoutKey, PreviewProps, useClient } from 'sanity';
+import { IoMdImages } from "react-icons/io";
+import { defineField, PreviewLayoutKey, PreviewProps, useClient } from "sanity";
 
-import imageUrlBuilder from '@sanity/image-url';
+import imageUrlBuilder from "@sanity/image-url";
 
-import image from '../fields/image';
+import image from "../fields/image";
 
 const Preview = (
   props: PreviewProps<PreviewLayoutKey> & {
     images?: { asset: unknown; _key: string; alt: string }[];
-  }
+  },
 ) => {
   const { images, renderDefault } = props;
   const builder = imageUrlBuilder(useClient());

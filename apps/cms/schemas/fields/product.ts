@@ -1,8 +1,8 @@
-import { defineArrayMember, defineField } from 'sanity';
+import { defineArrayMember, defineField } from "sanity";
 
-import localizedTabs from '../documents/localizedTabs';
-import blockContent from './blockContent';
-import { getImage } from './image';
+import localizedTabs from "../documents/localizedTabs";
+import blockContent from "./blockContent";
+import { getImage } from "./image";
 
 const localizedFields = [
   defineField({

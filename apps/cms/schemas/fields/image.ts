@@ -1,5 +1,5 @@
-import { FaImage } from 'react-icons/fa';
-import { defineField } from 'sanity';
+import { FaImage } from "react-icons/fa";
+import { defineField } from "sanity";
 
 export const getImage = (isMetaDataRequired = true) =>
   defineField({

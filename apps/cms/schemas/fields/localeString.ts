@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineField } from "sanity";
 
-import supportedLanguages from '../../supportedLanguages';
+import supportedLanguages from "../../supportedLanguages";
 
 export default (title: string, name: string) =>
   defineField({
@@ -12,6 +12,6 @@ export default (title: string, name: string) =>
         title: lang.title,
         name: lang.id,
         type: "string",
-      })
+      }),
     ),
   });

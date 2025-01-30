@@ -1,15 +1,15 @@
 /// <reference types="vite/client" />
 
-import { defineConfig, PluginOptions, WorkspaceOptions } from 'sanity';
-import { structureTool } from 'sanity/structure';
+import { defineConfig, PluginOptions, WorkspaceOptions } from "sanity";
+import { structureTool } from "sanity/structure";
 
-import { assist } from '@sanity/assist';
-import { deDELocale } from '@sanity/locale-de-de';
-import { visionTool } from '@sanity/vision';
+import { assist } from "@sanity/assist";
+import { deDELocale } from "@sanity/locale-de-de";
+import { visionTool } from "@sanity/vision";
 
-import { ImmergutLogo } from './components/immergutLogo';
-import deskStructure from './deskStructure';
-import schema from './schemas/schema';
+import { ImmergutLogo } from "./components/immergutLogo";
+import deskStructure from "./deskStructure";
+import schema from "./schemas/schema";
 
 const commonWorkspace: WorkspaceOptions & { plugins: PluginOptions[] } = {
   title: "Immergutrocken",
@@ -35,13 +35,13 @@ const commonWorkspace: WorkspaceOptions & { plugins: PluginOptions[] } = {
   document: {
     actions: (prev, context) => {
       return ["sortings", "generalSettings", "verein"].includes(
-        context.schemaType
+        context.schemaType,
       )
         ? prev.filter(
             (action) =>
               !["delete", "duplicate", "unpublish"].includes(
-                action.action ?? ""
-              )
+                action.action ?? "",
+              ),
           )
         : prev;
     },
@@ -80,5 +80,5 @@ export default defineConfig(
           plugins: pluginsWithVisionTool,
         },
       ]
-    : [commonWorkspace]
+    : [commonWorkspace],
 );
