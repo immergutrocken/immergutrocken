@@ -1,7 +1,8 @@
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
+import { useTranslations } from "next-intl";
 import NextHead from "next/head";
 import NextLink from "next/link";
-import { useTranslations } from "use-intl";
+import { ReactNode } from "react";
 
 import Layout from "../components/layout";
 import { Locale } from "../lib/enums/locals.enum";
@@ -53,7 +54,7 @@ const Custom404 = ({
   menuItems,
   newsList,
   generalSettings,
-}: Custom404Props): JSX.Element => {
+}: Custom404Props): ReactNode => {
   const t = useTranslations("404");
 
   return (

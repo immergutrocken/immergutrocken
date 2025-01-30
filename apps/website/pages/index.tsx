@@ -4,7 +4,7 @@ import { NextSeo } from "next-seo";
 import NextHead from "next/head";
 import NextImage from "next/image";
 import NextLink from "next/link";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import Layout from "../components/layout";
 import Button from "../components/shared/button";
@@ -56,7 +56,7 @@ export const getStaticProps = async ({
   };
 };
 
-export default function Home(props: HomeProps): JSX.Element {
+export default function Home(props: HomeProps): ReactNode {
   const [filterCategory, setFilterCategory] = useState<ArtistCategory | null>(
     null,
   );

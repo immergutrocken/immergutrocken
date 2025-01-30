@@ -1,8 +1,8 @@
 import { useRouter } from "next/dist/client/router";
-import { useEffect, useState } from "react";
 import NextHead from "next/head";
+import { ReactNode, useEffect, useState } from "react";
 
-const NewsletterConfirmation = (): JSX.Element => {
+const NewsletterConfirmation = (): ReactNode => {
   const {
     query: { email, sha },
   } = useRouter();

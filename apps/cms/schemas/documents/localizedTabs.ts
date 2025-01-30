@@ -2,6 +2,7 @@ import { defineField } from "sanity";
 
 import supportedLanguages from "../../supportedLanguages";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const buildFields = (fields: any[]) =>
   supportedLanguages.map((lang) =>
     defineField({
@@ -13,6 +14,7 @@ const buildFields = (fields: any[]) =>
     }),
   );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (fields: any[]) =>
   defineField({
     name: "languages",
