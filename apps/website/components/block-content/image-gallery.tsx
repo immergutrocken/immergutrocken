@@ -1,5 +1,5 @@
 import NextImage from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { SanityImage } from "../../lib/shared/sanity-image-url";
 import Bubble from "../shared/bubble";
@@ -11,7 +11,7 @@ export interface ImageGalleryProps {
   };
 }
 
-const ImageGallery = (props: ImageGalleryProps): JSX.Element => {
+const ImageGallery = (props: ImageGalleryProps): ReactNode => {
   const [showLightbox, setShowLightbox] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(
     null,

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import Button from "../shared/button";
 import Link from "../shared/link";
 
@@ -6,18 +8,18 @@ interface ExternalLinkProps {
     isCTA: boolean;
     url: string;
   };
-  children: JSX.Element | string;
+  children: ReactNode | string;
 }
 
 const buildChildren = (
   isCTA: boolean,
-  children: JSX.Element | string,
-): JSX.Element | string => {
+  children: ReactNode | string,
+): ReactNode | string => {
   if (isCTA) return <Button size="small">{children}</Button>;
   else return children;
 };
 
-const ExternalLink = ({ mark, children }: ExternalLinkProps): JSX.Element => {
+const ExternalLink = ({ mark, children }: ExternalLinkProps): ReactNode => {
   return (
     <Link
       href={mark.url}

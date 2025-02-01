@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
+
 interface IClassName {
   className?: string;
 }
 
 interface BubbleProps extends IClassName {
-  children: JSX.Element | string;
+  children: ReactNode | string;
   onClick?: () => void;
   size?: "small" | "large";
 }
@@ -13,7 +15,7 @@ const Bubble = ({
   onClick = () => false,
   className = "",
   size = "large",
-}: BubbleProps): JSX.Element => {
+}: BubbleProps): ReactNode => {
   const sizeClasses =
     size === "large"
       ? "w-9 h-9 sm:w-14 sm:h-14 text-xl sm:text-3xl"

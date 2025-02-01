@@ -2,6 +2,7 @@ import { defineField } from "sanity";
 
 import localeString from "./localeString";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withTitle = (object: any) => ({
   ...object,
   fields: [defineField(localeString("Titel", "title")), ...object.fields],
@@ -12,6 +13,7 @@ export const withTitle = (object: any) => ({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withCTA = (object: any) => ({
   ...object,
   fields: [

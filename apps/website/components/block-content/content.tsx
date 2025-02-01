@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import BlockContent from "@sanity/block-content-to-react";
 
 import AlignCenter from "./alignCenter";
@@ -24,7 +26,7 @@ interface ContentProps {
   content: unknown[];
 }
 
-const Content = ({ content }: ContentProps): JSX.Element => (
+const Content = ({ content }: ContentProps): ReactNode => (
   <div className="font-content text-base sm:text-lg">
     <BlockContent
       blocks={content}
