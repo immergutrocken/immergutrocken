@@ -31,8 +31,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0
       '@sanity/locale-de-de':
-        specifier: 1.1.15
-        version: 1.1.15(sanity@3.72.1(@emotion/is-prop-valid@1.2.2)(@types/babel__core@7.20.5)(@types/node@22.13.0)(@types/react@19.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.37.0)(typescript@5.7.3))
+        specifier: 1.1.16
+        version: 1.1.16(sanity@3.72.1(@emotion/is-prop-valid@1.2.2)(@types/babel__core@7.20.5)(@types/node@22.13.0)(@types/react@19.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.37.0)(typescript@5.7.3))
       '@sanity/vision':
         specifier: 3.72.1
         version: 3.72.1(@babel/runtime@7.26.7)(@codemirror/lint@6.8.4)(@codemirror/theme-one-dark@6.1.2)(@emotion/is-prop-valid@1.2.2)(codemirror@6.0.1)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -2562,8 +2562,8 @@ packages:
       react-dom: ^18.3 || >=19.0.0-rc
       react-is: ^18.3 || >=19.0.0-rc
 
-  '@sanity/locale-de-de@1.1.15':
-    resolution: {integrity: sha512-SzV0pAdvgkeuUqXtDQ4cuWsR3PzdUysrxSQGMDWflHwMcQBHSQPWypEJ2QTsg7z479A1MJv/HHg0NCrGo7irSw==}
+  '@sanity/locale-de-de@1.1.16':
+    resolution: {integrity: sha512-madhWPDbhXWjziPqY8VhFMoJ1ia49QQ5VLtPBaRlXlAHIrmK9eaOy54AMBWDHO6Jiya7vAneezpHq3vsxhkmSQ==}
     peerDependencies:
       sanity: ^3.22.0
 
@@ -11662,7 +11662,7 @@ snapshots:
       - '@emotion/is-prop-valid'
       - styled-components
 
-  '@sanity/locale-de-de@1.1.15(sanity@3.72.1(@emotion/is-prop-valid@1.2.2)(@types/babel__core@7.20.5)(@types/node@22.13.0)(@types/react@19.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.37.0)(typescript@5.7.3))':
+  '@sanity/locale-de-de@1.1.16(sanity@3.72.1(@emotion/is-prop-valid@1.2.2)(@types/babel__core@7.20.5)(@types/node@22.13.0)(@types/react@19.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.37.0)(typescript@5.7.3))':
     dependencies:
       sanity: 3.72.1(@emotion/is-prop-valid@1.2.2)(@types/babel__core@7.20.5)(@types/node@22.13.0)(@types/react@19.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.37.0)(typescript@5.7.3)
 
