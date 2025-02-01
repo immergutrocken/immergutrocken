@@ -6,6 +6,7 @@ export default defineField({
   name: "link",
   type: "object",
   icon: HiOutlineExternalLink,
+  validation: (rule) => rule.required(),
   fields: [
     defineField({
       title: "URL",
