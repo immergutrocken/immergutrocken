@@ -35,7 +35,7 @@
     "@sanity/cli": "3.66.1",
     "@sanity/eslint-config-studio": "5.0.0",
     "eslint": "9.19.0",
-    "eslint-config-prettier": "9.1.0",
+    "eslint-config-prettier": "10.0.1",
     "prettier": "3.4.2",
     "typescript": "5.7.2"
   },
