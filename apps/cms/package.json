@@ -19,7 +19,7 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/assist": "3.0.8",
+    "@sanity/assist": "3.1.0",
     "@sanity/image-url": "1.1.0",
     "@sanity/locale-de-de": "1.1.15",
     "@sanity/vision": "3.72.1",
