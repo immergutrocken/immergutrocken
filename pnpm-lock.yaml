@@ -80,8 +80,8 @@ importers:
   apps/website:
     dependencies:
       '@fortawesome/fontawesome-free':
-        specifier: 6.7.1
-        version: 6.7.1
+        specifier: 6.7.2
+        version: 6.7.2
       '@sanity/block-content-to-react':
         specifier: 3.0.0
         version: 3.0.0(react@18.3.1)
@@ -1718,8 +1718,8 @@ packages:
   '@formatjs/intl-localematcher@0.5.9':
     resolution: {integrity: sha512-8zkGu/sv5euxbjfZ/xmklqLyDGQSxsLqg8XOq88JW3cmJtzhCP8EtSJXlaKZnVO4beEaoiT9wj4eIoCQ9smwxA==}
 
-  '@fortawesome/fontawesome-free@6.7.1':
-    resolution: {integrity: sha512-ALIk/MOh5gYe1TG/ieS5mVUsk7VUIJTJKPMK9rFFqOgfp0Q3d5QiBXbcOMwUvs37fyZVCz46YjOE6IFeOAXCHA==}
+  '@fortawesome/fontawesome-free@6.7.2':
+    resolution: {integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==}
     engines: {node: '>=6'}
 
   '@humanfs/core@0.19.1':
@@ -10763,7 +10763,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@fortawesome/fontawesome-free@6.7.1': {}
+  '@fortawesome/fontawesome-free@6.7.2': {}
 
   '@humanfs/core@0.19.1': {}
 
