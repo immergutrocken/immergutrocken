@@ -95,8 +95,8 @@ importers:
         specifier: 4.2.2
         version: 4.2.2
       '@types/node-mailjet':
-        specifier: 3.3.12
-        version: 3.3.12
+        specifier: 4.0.0
+        version: 4.0.0
       '@vercel/analytics':
         specifier: 1.4.1
         version: 1.4.1(next@15.1.6(@babel/core@7.26.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4))(react@18.3.1)
@@ -2889,8 +2889,9 @@ packages:
   '@types/minimist@1.2.5':
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
 
-  '@types/node-mailjet@3.3.12':
-    resolution: {integrity: sha512-M9HRtJSB64wfV9ZFOBHBKT67cV+rCjo3Rbc9A4Fv/CxHcjcXnVMEh2vUpRcqzO6Tx0TEbDq8Xzt6009SkG5Z+w==}
+  '@types/node-mailjet@4.0.0':
+    resolution: {integrity: sha512-BoRchpkPegTg5jKmIWGMjdu6J3JuWBeffs/VlJvJV8b/sFIIXWYg7Qkbi1sEl24G2zxRpYBiGyRG7yB1iWU0xg==}
+    deprecated: This is a stub types definition. node-mailjet provides its own type definitions, so you do not need this installed.
 
   '@types/node@16.18.11':
     resolution: {integrity: sha512-3oJbGBUWuS6ahSnEq1eN2XrCyf4YsWI8OyCvo7c64zQJNplk3mO84t53o8lfTk+2ji59g5ycfc6qQ3fdHliHuA==}
@@ -12233,7 +12234,11 @@ snapshots:
 
   '@types/minimist@1.2.5': {}
 
-  '@types/node-mailjet@3.3.12': {}
+  '@types/node-mailjet@4.0.0':
+    dependencies:
+      node-mailjet: 6.0.6
+    transitivePeerDependencies:
+      - debug
 
   '@types/node@16.18.11': {}
 
