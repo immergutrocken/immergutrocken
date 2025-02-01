@@ -183,8 +183,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(eslint@9.19.0(jiti@1.21.6))
       groq:
-        specifier: 3.67.1
-        version: 3.67.1
+        specifier: 3.72.1
+        version: 3.72.1
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -5022,10 +5022,6 @@ packages:
 
   groq@3.66.1:
     resolution: {integrity: sha512-03VxAjpI8BAxSZ4czNUNtMvj+Z5poETQJgd8O8JLUhI9RsKnC6F+NTyNbnbfBvf4Kz7OUhkHM5ttAl5S60EYkg==}
-    engines: {node: '>=18'}
-
-  groq@3.67.1:
-    resolution: {integrity: sha512-3plMQ9IRhz5EQ8cI3HEcEPHk7Y7eceU0Zw3N5m+8Lg/VufCd+RNV10Pqi9ph7Ti1m2ew35tJ969Jx1AW4bk/Pg==}
     engines: {node: '>=18'}
 
   groq@3.72.1:
@@ -14691,8 +14687,6 @@ snapshots:
       - supports-color
 
   groq@3.66.1: {}
-
-  groq@3.67.1: {}
 
   groq@3.72.1: {}
 
