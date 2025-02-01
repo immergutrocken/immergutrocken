@@ -22,7 +22,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "turbo": "2.3.3"
+    "turbo": "2.4.0"
   },
   "devDependencies": {
     "husky": "9.1.7",
