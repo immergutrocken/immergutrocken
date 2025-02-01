@@ -3,6 +3,5 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": {}
   },
-  "waitFor": "onCreateCommand",
-  "updateContentCommand": "pnpm install"
+  "postCreateCommand": "pnpm install"
 }
