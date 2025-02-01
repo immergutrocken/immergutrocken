@@ -2,7 +2,7 @@ import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { NextSeo } from "next-seo";
 import NextHead from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import Content from "../components/block-content/content";
 import Layout from "../components/layout";
@@ -68,7 +68,7 @@ const Merch = ({
   generalSettings,
   description,
   products,
-}: MerchProps): JSX.Element => {
+}: MerchProps): ReactNode => {
   const [showLightbox, setShowLightbox] = useState(false);
   const [currentLightboxImages, setCurrentLightboxImages] = useState<
     SanityImage[]

@@ -43,6 +43,7 @@ yarn-error.log*
 
 # sanity
 apps/cms/public
+apps/cms/.sanity
 
 # turbo
 .turbo

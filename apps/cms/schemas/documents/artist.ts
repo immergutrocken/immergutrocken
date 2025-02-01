@@ -104,6 +104,7 @@ export default defineType({
               type: "string",
               name: "medium",
               title: "Soziales Medium",
+              validation: (rule) => rule.required(),
               options: {
                 list: [
                   { title: "Website", value: "Website" },

@@ -1,10 +1,10 @@
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import styles from "../styles/newsletterRegistration.module.scss";
 import Button from "./shared/button";
 
-const NewsletterRegistration = (): JSX.Element => {
+const NewsletterRegistration = (): ReactNode => {
   const [eMailAddress, setEMailAddress] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [success, setSuccess] = useState(false);

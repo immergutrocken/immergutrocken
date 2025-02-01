@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
 import NextLink from "next/link";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { track } from "@vercel/analytics/react";
 
@@ -21,7 +21,7 @@ const buildMenuItem = (
   item: IMenuItem,
   onClose: () => void,
   locale: string | undefined,
-): JSX.Element => {
+): ReactNode => {
   switch (item.type) {
     case MenuItemType.EXTERNAL_LINK:
       if (item.url == null) throw new Error("External link must have a url");
@@ -71,7 +71,7 @@ const Menu = ({
   onClose,
   showMenu = false,
   items = [],
-}: MenuProps): JSX.Element => {
+}: MenuProps): ReactNode => {
   const router = useRouter();
   const [showContent, setShowContent] = useState(false);
 

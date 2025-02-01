@@ -1,16 +1,12 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 interface ExpanderProps {
   className?: string;
   title: string;
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode | ReactNode[];
 }
 
-const Expander = ({
-  title,
-  className,
-  children,
-}: ExpanderProps): JSX.Element => {
+const Expander = ({ title, className, children }: ExpanderProps): ReactNode => {
   const [collapsed, setCollapsed] = useState(true);
 
   return (

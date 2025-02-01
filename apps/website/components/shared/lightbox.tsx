@@ -1,5 +1,6 @@
 import NextImage from "next/image";
 import { useRouter } from "next/router";
+import { ReactNode } from "react";
 
 import { SanityImage } from "../../lib/shared/sanity-image-url";
 import Bubble from "./bubble";
@@ -19,7 +20,7 @@ const LightBox = ({
   show = false,
   onShow,
   onCurrentImageIndexChange,
-}: LightBoxProps): JSX.Element => {
+}: LightBoxProps): ReactNode => {
   const router = useRouter();
 
   return (

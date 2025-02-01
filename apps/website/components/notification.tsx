@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+
 import { NotificationDisplayCategory } from "../lib/enums/notificationDisplayCategory";
 import { INotification } from "../lib/notification";
 import Content from "./block-content/content";
@@ -8,7 +9,7 @@ interface NotificationProps {
   notification: INotification;
 }
 
-const Notification = ({ notification }: NotificationProps): JSX.Element => {
+const Notification = ({ notification }: NotificationProps): ReactNode => {
   const [show, setShow] = useState(false);
 
   const key =
@@ -39,7 +40,7 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
     }
   }, [key, show, notification.startDate, notification.endDate]);
 
-  const buildFooterNotification = (): JSX.Element => (
+  const buildFooterNotification = (): ReactNode => (
     <>
       {show && (
         <div className={`border-t-2 border-primary bg-secondary p-3 sm:pt-6`}>
@@ -65,7 +66,7 @@ const Notification = ({ notification }: NotificationProps): JSX.Element => {
     </>
   );
 
-  const buildPopupNotification = (): JSX.Element => (
+  const buildPopupNotification = (): ReactNode => (
     <>
       {show && (
         <div

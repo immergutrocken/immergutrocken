@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface ButtonProps {
-  children: JSX.Element | string;
+  children: ReactNode | string;
   className?: string;
   click?: () => void;
   disabled?: boolean;
@@ -16,7 +18,7 @@ const Button = ({
   active = true,
   size = "large",
   success = false,
-}: ButtonProps): JSX.Element => (
+}: ButtonProps): ReactNode => (
   <button
     className={`flex items-center justify-center rounded-full font-important uppercase text-secondary focus:outline-none sm:transform sm:transition-transform sm:duration-300 sm:ease-in-out sm:hover:scale-110 ${className} ${
       active ? "bg-primary" : "bg-gray-300"
