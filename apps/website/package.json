@@ -77,10 +77,5 @@
     "*.{ts,tsx}": "eslint --fix",
     "*.{css,scss}": "stylelint --fix",
     "*.{ts,tsx,css,scss}": "prettier --write"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.0.8"
-    }
   }
 }
