@@ -21,10 +21,6 @@ const socialMedia: ISocialMediaElement[] = [
     brandLogo: "instagram",
   },
   {
-    url: "https://twitter.com/immergutrocken",
-    brandLogo: "x-twitter",
-  },
-  {
     url: "https://www.flickr.com/photos/immergutrocken",
     brandLogo: "flickr",
   },
