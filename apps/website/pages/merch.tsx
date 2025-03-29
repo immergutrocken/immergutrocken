@@ -103,7 +103,7 @@ const Merch = ({
         <title>{"Merch - " + generalSettings.websiteTitle}</title>
       </NextHead>
       <div className="flex flex-col items-center px-4 pt-24 sm:px-8 sm:pt-36">
-        <div>
+        <div className="max-w-7xl">
           <h1 className="self-start font-important text-4xl sm:text-7xl">
             Merch
           </h1>
