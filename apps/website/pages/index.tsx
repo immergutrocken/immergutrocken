@@ -173,7 +173,7 @@ export default function Home(props: HomeProps): ReactNode {
               <span key={index}>
                 <NextLink
                   href={`/artist/${link.slug}`}
-                  className={`mx-2 sm:mx-5${
+                  className={`mx-2 sm:mx-5 ${
                     filterCategory != null && link.category !== filterCategory
                       ? "text-gray-300"
                       : ""
