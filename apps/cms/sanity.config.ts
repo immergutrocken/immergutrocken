@@ -7,6 +7,7 @@ import { assist } from "@sanity/assist";
 import { deDELocale } from "@sanity/locale-de-de";
 import { visionTool } from "@sanity/vision";
 
+import { vercelDeployTool } from "sanity-plugin-vercel-deploy";
 import { ImmergutLogo } from "./components/immergutLogo";
 import deskStructure from "./deskStructure";
 import schema from "./schemas/schema";
@@ -23,6 +24,7 @@ const commonWorkspace: WorkspaceOptions & { plugins: PluginOptions[] } = {
     }),
     assist(),
     deDELocale(),
+    vercelDeployTool(),
   ],
   schema: {
     types: schema,
