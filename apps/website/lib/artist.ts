@@ -131,12 +131,13 @@ export const getArtist = async (
       url: getImageUrl(result.banner, 1000, 1000),
       urlWithBlur: await getPlaceholderImage(result.banner),
     },
-    socialMedia: result.socialMedia.map(
-      (element: { medium: string; link: { url: string } }) => ({
-        type: socialMediaMapping.get(element.medium),
-        url: element.link.url,
-      }),
-    ),
+    socialMedia:
+      result.socialMedia?.map(
+        (element: { medium: string; link: { url: string } }) => ({
+          type: socialMediaMapping.get(element.medium),
+          url: element.link.url,
+        }),
+      ) ?? [],
     content:
       locale === "en" && result.contentEn ? result.contentEn : result.contentDe,
   };
