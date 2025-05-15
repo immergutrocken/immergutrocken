@@ -104,9 +104,9 @@ export const getArticle = async (
 
   const article = {
     ...result,
-    title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
+    title: locale === "en" && result.titleEn.trim() ? result.titleEn : result.titleDe,
     subtitle:
-      locale === "en" && result.subtitleEn
+      locale === "en" && result.subtitleEn.trim()
         ? result.subtitleEn
         : result.subtitleDe,
     banner: {

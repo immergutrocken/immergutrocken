@@ -12,7 +12,7 @@ jest.mock("../../lib/shared/sanity-image-url", () => ({
   getPlaceholderImage: jest.fn().mockResolvedValue("mock-placeholder-url"),
 }));
 
-describe("Article Module", () => {
+describe("Article", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
