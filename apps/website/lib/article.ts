@@ -11,6 +11,7 @@ import {
 
 export interface IArticle {
   title: string;
+  subtitle: string;
   banner: {
     alt: string;
     asset: SanityImageSource;
@@ -40,6 +41,8 @@ export const getArticle = async (
   {
     "titleDe": languages.de.title,
     "titleEn": languages.en.title,
+    "subtitleDe": languages.de.subtitle,
+    "subtitleEn": languages.en.subtitle,
     "banner": languages.de.banner,
     author,
     ogDescription,
@@ -102,6 +105,10 @@ export const getArticle = async (
   const article = {
     ...result,
     title: locale === "en" && result.titleEn ? result.titleEn : result.titleDe,
+    subtitle:
+      locale === "en" && result.subtitleEn
+        ? result.subtitleEn
+        : result.subtitleDe,
     banner: {
       ...result.banner,
       url: getImageUrl(result.banner, 1000, 1000),
