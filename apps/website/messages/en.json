@@ -5,7 +5,9 @@
     "sponsors": "Sponsors",
     "media-partners": "Media Partners",
     "supported-by": "Supported by",
-    "disclaimer": "The Immergutrocken e.V. as the organizer reserves the right to make changes to the program. The house rules as shown on the notice apply on the event area."
+    "disclaimer": "The Immergutrocken e.V. as the organizer reserves the right to make changes to the program. The house rules as shown on the notice apply on the event area.",
+    "days-left": "{days} days left",
+    "day-left": "{days} day left"
   },
   "Home": {
     "music": "Music",
