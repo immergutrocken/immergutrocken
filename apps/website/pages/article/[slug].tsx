@@ -92,6 +92,7 @@ export const getStaticProps = async ({
 
 const Article = ({
   title,
+  subtitle,
   banner,
   content,
   author,
@@ -148,6 +149,11 @@ const Article = ({
         </div>
         <div className="px-4 pb-5 pt-14 sm:pb-5 sm:pt-32">
           <h1 className="font-important text-4xl sm:text-7xl">{title}</h1>
+          {subtitle != null && (
+            <h2 className="mt-2 font-important text-xl sm:text-4xl">
+              {subtitle}
+            </h2>
+          )}
           <div className="mt-5 flex flex-row items-center space-x-4 sm:mt-8 sm:text-3xl">
             <Label>{t("photo").toString()}</Label>
             <span className="font-important">{banner.credits}</span>
