@@ -32,6 +32,7 @@ const Footer = ({
   let days = Math.ceil(difference / (1000 * 3600 * 24));
   days = days < 0 ? 0 : days;
   const startAndEndDateString = `${startDate.toLocaleDateString(router.locale, { day: "numeric", month: "numeric" })} - ${endDate.toLocaleDateString(router.locale)}`;
+  const messageName = days === 1 ? "day-left" : "days-left";
 
   return (
     <>
@@ -75,7 +76,7 @@ const Footer = ({
       </div>
       {generalSettings.countdown.showCountdown && (
         <div className="fixed bottom-0 flex w-full justify-center border-t-2 border-primary bg-secondary py-1 font-important text-lg sm:text-4xl">
-          {startAndEndDateString} ... noch {days} Tag{days !== 1 ? "e" : ""}!
+          {startAndEndDateString} ... {t(messageName, { days })}!
         </div>
       )}
     </>

@@ -5,7 +5,9 @@
     "sponsors": "Sponsor*innen",
     "media-partners": "Medienpartner*innen",
     "supported-by": "Gefördert von",
-    "disclaimer": "Programmänderungen bleiben dem Immergutrocken e.V. als Veranstalter vorbehalten. Auf der Veranstaltungsfläche gilt die Hausordnung laut Aushang."
+    "disclaimer": "Programmänderungen bleiben dem Immergutrocken e.V. als Veranstalter vorbehalten. Auf der Veranstaltungsfläche gilt die Hausordnung laut Aushang.",
+    "days-left": "noch {days} Tage",
+    "day-left": "noch {days} Tag"
   },
   "Home": {
     "music": "Musik",
