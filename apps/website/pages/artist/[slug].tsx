@@ -79,7 +79,7 @@ export const getStaticProps = async ({
     if (params?.slug == null) throw new Error("No slug provided");
     artist = await getArtist(params.slug, locale);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return {
       notFound: true,
     };
