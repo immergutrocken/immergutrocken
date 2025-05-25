@@ -61,10 +61,12 @@ export const getStaticProps = async ({
   GetStaticPropsResult<ArticleProps>
 > => {
   let article: IArticle;
+  console.log(locale);
   try {
     if (params?.slug == null) throw new Error("No slug provided");
     article = await getArticle(params?.slug, locale);
-  } catch {
+  } catch (e) {
+    console.error(e);
     return {
       notFound: true,
     };
