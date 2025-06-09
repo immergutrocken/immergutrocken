@@ -9,20 +9,62 @@ import {
 } from "./shared/sanity-image-url";
 
 export const getMerch = async (locale: string): Promise<IMerch> => {
+  // const query = groq`*[_type == "merch"]{
+  //     "description": languages.${locale}.description[],
+  //     "productList": products[]{
+  //       "title": languages.${locale}.title,
+  //       "category": languages.${locale}.category,
+  //       "description": languages.${locale}.description[],
+  //       "images": images[]
+  //     }
+  //   }`;
+
   const query = groq`*[_type == "merch"]{
-      "description": languages.${locale}.description[],
+      "descriptionDe": languages.de.description[],
+      "descriptionEn": languages.en.description[],
       "productList": products[]{
-        "title": languages.${locale}.title,
-        "category": languages.${locale}.category,
-        "description": languages.${locale}.description[],
+        "titleDe": languages.de.title,
+        "titleEn": languages.en.title,
+        "categoryDe": languages.de.category,
+        "categoryEn": languages.en.category,
+        "descriptionDe": languages.en.description[],
+        "descriptionEn": languages.en.description[],
         "images": images[]
       }
     }`;
-  const result: IMerch = (await sanityClient.fetch(query))[0];
+  const merchResponse = (await sanityClient.fetch(query))[0];
 
-  if (!result) {
+  if (!merchResponse) {
     return Promise.reject("No merch found");
   }
+
+  const isEnCurrentLocale = locale === "en";
+  const result: IMerch = {
+    description:
+      isEnCurrentLocale && !!merchResponse.descriptionEn
+        ? merchResponse.descriptionEn
+        : merchResponse.descriptionDe,
+    productList: merchResponse.productList?.map(
+      (p: {
+        titleDe: string;
+        titleEn: string;
+        categoryDe: string;
+        categoryEn: string;
+        descriptionDe: string;
+        descriptionEn: string;
+        images: SanityImage[];
+      }) => ({
+        title: isEnCurrentLocale && !!p.titleEn ? p.titleEn : p.titleDe,
+        category:
+          isEnCurrentLocale && !!p.categoryEn ? p.categoryEn : p.categoryDe,
+        description:
+          isEnCurrentLocale && !!p.descriptionEn
+            ? p.descriptionEn
+            : p.descriptionDe,
+        images: p.images,
+      }),
+    ),
+  };
 
   const imageSizePreview = 300;
   const imageSize = 1000;
