@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import ReactPlayer from "react-player/youtube";
+import ReactPlayer from "react-player";
 
 interface YoutubeProps {
   node: {
@@ -9,8 +9,8 @@ interface YoutubeProps {
 
 const Youtube = (props: YoutubeProps): ReactNode => (
   <div className="mt-9 flex justify-center">
-    <div className="w-full 3xl:w-2/3">
-      <ReactPlayer url={props.node.url} width="100%" controls={true} />
+    <div className="3xl:w-2/3 w-full">
+      <ReactPlayer src={props.node.url} width="100%" controls={true} />
     </div>
   </div>
 );
