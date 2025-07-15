@@ -30,7 +30,8 @@
     "vercel": "40.1.0"
   },
   "overrides": {
-    "@portabletext/editor": "1.28.0"
+    "@portabletext/editor": "1.28.0",
+    "eslint": "8.57.1"
   },
   "packageManager": "npm@10.8.2"
 }
