@@ -29,5 +29,8 @@
     "lint-staged": "15.4.3",
     "vercel": "40.1.0"
   },
+  "overrides": {
+    "@portabletext/editor": "1.28.0"
+  },
   "packageManager": "npm@10.8.2"
 }
