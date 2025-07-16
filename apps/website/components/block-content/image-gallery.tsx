@@ -29,7 +29,7 @@ const ImageGallery = (props: ImageGalleryProps): ReactNode => {
               setCurrentImageIndex(index);
             }}
             onKeyDown={(e) => {
-              if (e.key === "enter") {
+              if (e.key === "Enter") {
                 setShowLightbox(true);
                 setCurrentImageIndex(index);
               }

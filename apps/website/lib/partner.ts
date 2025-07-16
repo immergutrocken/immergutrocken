@@ -3,7 +3,7 @@ import groq from "groq";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import PartnerCategory from "./enums/partnerCategory.enum";
-import { sanityClient } from "./shared/sanity-client";
+import { getSanityClient } from "./shared/sanity-client";
 import { getImageUrl, SanityImage } from "./shared/sanity-image-url";
 
 export interface IPartner {
@@ -22,7 +22,7 @@ export const getPartnerList = async (
   category: PartnerCategory,
 ): Promise<IPartner[]> => {
   const query = groq`*[_type == 'sortings'] {'link': ${category}[]->link.url, 'logo': ${category}[]->logo}`;
-  const result = await sanityClient.fetch(query);
+  const result = await getSanityClient().fetch(query);
   const partnerList = result[0].link.map(
     (link: string, index: number): IPartner => ({
       link: link,
