@@ -2,7 +2,7 @@ import groq from "groq";
 
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { sanityClient } from "./shared/sanity-client";
+import { getSanityClient } from "./shared/sanity-client";
 import {
   getImageUrl,
   getPlaceholderImage,
@@ -27,7 +27,7 @@ export interface IArticle {
 
 export const getArticleSlugList = async (): Promise<string[]> => {
   const query = groq`*[_type == 'article']{'slug': slug.current}`;
-  const result = await sanityClient.fetch(query);
+  const result = await getSanityClient().fetch(query);
   return result.map((element: IArticle) => element.slug);
 };
 
@@ -100,7 +100,7 @@ export const getArticle = async (
     }
   }`;
 
-  const result = (await sanityClient.fetch(query))[0];
+  const result = (await getSanityClient().fetch(query))[0];
 
   const article = {
     ...result,

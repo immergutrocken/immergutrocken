@@ -1,16 +1,5 @@
+import { sanityClientFetchMock } from "../../jest.setup";
 import { getArticle, getArticleSlugList } from "../../lib/article";
-import { sanityClient } from "../../lib/shared/sanity-client";
-
-jest.mock("../../lib/shared/sanity-client", () => ({
-  sanityClient: {
-    fetch: jest.fn(),
-  },
-}));
-
-jest.mock("../../lib/shared/sanity-image-url", () => ({
-  getImageUrl: jest.fn((_image, width) => `mock-image-url-${width}`),
-  getPlaceholderImage: jest.fn().mockResolvedValue("mock-placeholder-url"),
-}));
 
 describe("Article", () => {
   beforeEach(() => {
@@ -21,11 +10,11 @@ describe("Article", () => {
     it("should fetch and return article slugs", async () => {
       const mockSlugs = [{ slug: "article-1" }, { slug: "article-2" }];
 
-      (sanityClient.fetch as jest.Mock).mockResolvedValueOnce(mockSlugs);
+      sanityClientFetchMock.mockResolvedValueOnce(mockSlugs);
 
       const result = await getArticleSlugList();
 
-      expect(sanityClient.fetch).toHaveBeenCalledWith(
+      expect(sanityClientFetchMock).toHaveBeenCalledWith(
         expect.stringContaining("*[_type == 'article']{'slug': slug.current}"),
       );
       expect(result).toEqual(["article-1", "article-2"]);
@@ -75,13 +64,13 @@ describe("Article", () => {
     ];
 
     beforeEach(() => {
-      (sanityClient.fetch as jest.Mock).mockResolvedValue(mockArticle);
+      sanityClientFetchMock.mockResolvedValue(mockArticle);
     });
 
     it("should return article with German content when locale is 'de'", async () => {
       const result = await getArticle("test-slug", "de");
 
-      expect(sanityClient.fetch).toHaveBeenCalled();
+      expect(sanityClientFetchMock).toHaveBeenCalled();
 
       expect(result).toMatchObject({
         title: "Deutscher Titel",
@@ -123,11 +112,7 @@ describe("Article", () => {
 
       expect(imageGallery).toBeDefined();
 
-      if (
-        imageGallery &&
-        imageGallery.images &&
-        imageGallery.images.length > 0
-      ) {
+      if (imageGallery?.images && imageGallery.images.length > 0) {
         const image = imageGallery.images[0];
         expect(image.urlPreview).toBe("mock-image-url-400");
         expect(image.url).toBe("mock-image-url-1000");
