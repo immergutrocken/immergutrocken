@@ -22,12 +22,12 @@
     "packages/*"
   ],
   "dependencies": {
-    "turbo": "2.5.4"
+    "turbo": "2.5.5"
   },
   "devDependencies": {
     "husky": "9.1.7",
     "lint-staged": "16.1.2",
-    "vercel": "44.4.1"
+    "vercel": "44.6.4"
   },
   "packageManager": "pnpm@10.5.2"
 }
