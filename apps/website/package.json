@@ -32,7 +32,7 @@
     "node-mailjet": "6.0.6",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-player": "2.16.0"
+    "react-player": "2.16.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "15.1.6",
