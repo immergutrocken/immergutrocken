@@ -29,5 +29,5 @@
     "lint-staged": "16.1.5",
     "vercel": "46.1.1"
   },
-  "packageManager": "pnpm@10.5.2"
+  "packageManager": "pnpm@10.15.0"
 }
