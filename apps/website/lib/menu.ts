@@ -1,7 +1,7 @@
 import groq from "groq";
 
 import { MenuItemType } from "./enums/menuItemType.enum";
-import { sanityClient } from "./shared/sanity-client";
+import { getSanityClient } from "./shared/sanity-client";
 
 interface ISanityMenu {
   _id: string;
@@ -99,7 +99,7 @@ export const getMenu = async (): Promise<IMenuItem[]> => {
     _id,
     'menuEntryRefs': menuEntries[].reference->{_id, _type, slug}
   }`;
-  const data = await sanityClient.fetch(query);
+  const data = await getSanityClient().fetch(query);
   const mainMenu = data.find((menu: ISanityMenu) => menu.isMainMenu === true);
   const menuItems = buildMenuItems(mainMenu, data);
   return menuItems;

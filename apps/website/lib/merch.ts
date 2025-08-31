@@ -1,7 +1,7 @@
 import groq from "groq";
 
 import { IMerch } from "./models/merch.interface";
-import { sanityClient } from "./shared/sanity-client";
+import { getSanityClient } from "./shared/sanity-client";
 import {
   getImageUrl,
   getPlaceholderImage,
@@ -9,16 +9,6 @@ import {
 } from "./shared/sanity-image-url";
 
 export const getMerch = async (locale: string): Promise<IMerch> => {
-  // const query = groq`*[_type == "merch"]{
-  //     "description": languages.${locale}.description[],
-  //     "productList": products[]{
-  //       "title": languages.${locale}.title,
-  //       "category": languages.${locale}.category,
-  //       "description": languages.${locale}.description[],
-  //       "images": images[]
-  //     }
-  //   }`;
-
   const query = groq`*[_type == "merch"]{
       "descriptionDe": languages.de.description[],
       "descriptionEn": languages.en.description[],
@@ -32,10 +22,10 @@ export const getMerch = async (locale: string): Promise<IMerch> => {
         "images": images[]
       }
     }`;
-  const merchResponse = (await sanityClient.fetch(query))[0];
+  const merchResponse = (await getSanityClient().fetch(query))[0];
 
   if (!merchResponse) {
-    return Promise.reject("No merch found");
+    throw new Error("No merch found");
   }
 
   const isEnCurrentLocale = locale === "en";

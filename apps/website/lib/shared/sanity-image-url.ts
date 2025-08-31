@@ -4,7 +4,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { sanityClient } from "./sanity-client";
+import { getSanityClient } from "./sanity-client";
 
 export interface SanityImage {
   hotspot: {
@@ -20,7 +20,7 @@ export interface SanityImage {
   credits: string;
 }
 
-const builder = imageUrlBuilder(sanityClient);
+const builder = imageUrlBuilder(getSanityClient());
 
 const urlFor = (source: SanityImageSource): ImageUrlBuilder => {
   return builder.image(source);

@@ -2,7 +2,7 @@ import groq from "groq";
 
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { sanityClient } from "./shared/sanity-client";
+import { getSanityClient } from "./shared/sanity-client";
 import { getImageUrl, getPlaceholderImage } from "./shared/sanity-image-url";
 
 export interface IGeneralSettings {
@@ -53,7 +53,7 @@ export const getGeneralSettings = async (
     'ticketshopUrl': ticketshopUrl,
     'countdown': countdown
   }`;
-  const result = (await sanityClient.fetch(query))[0];
+  const result = (await getSanityClient().fetch(query))[0];
   const bannerDesktop =
     locale === "de"
       ? result.bannerDesktopDe

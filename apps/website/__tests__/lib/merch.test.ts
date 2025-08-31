@@ -1,10 +1,11 @@
+import { sanityClientFetchMock } from "../../jest.setup";
 import { Locale } from "../../lib/enums/locals.enum";
 import { getMerch } from "../../lib/merch";
-import { sanityClient } from "../../lib/shared/sanity-client";
 
-jest.mock("@sanity/client", () => ({
-  createClient: () => ({
-    fetch: jest.fn().mockReturnValue([
+describe("Merch", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    sanityClientFetchMock.mockReturnValue([
       {
         descriptionDe: ["Beschreibung auf Deutsch"],
         descriptionEn: ["Description in English"],
@@ -26,16 +27,9 @@ jest.mock("@sanity/client", () => ({
           },
         ],
       },
-    ]),
-  }),
-}));
+    ]);
+  });
 
-jest.mock("../../lib/shared/sanity-image-url", () => ({
-  getImageUrl: jest.fn((_image, width) => `mock-image-url-${width}`),
-  getPlaceholderImage: jest.fn().mockResolvedValue("mock-placeholder-url"),
-}));
-
-describe("Merch", () => {
   it("should return german version of merch data", async () => {
     const result = await getMerch(Locale.DE);
 
@@ -59,7 +53,7 @@ describe("Merch", () => {
         },
       ],
     });
-    expect(sanityClient.fetch).toHaveBeenCalled();
+    expect(sanityClientFetchMock).toHaveBeenCalled();
   });
 
   it("should return english version of merch data", async () => {
@@ -77,7 +71,6 @@ describe("Merch", () => {
               _type: "image",
               asset: { _ref: "image-asset-ref-123" },
               url: "mock-image-url-1000",
-              urlBlur: "mock-placeholder-url",
               urlPreview: "mock-image-url-300",
               urlPreviewBlur: "mock-placeholder-url",
               alt: "Bildbeschreibung",
@@ -86,11 +79,11 @@ describe("Merch", () => {
         },
       ],
     });
-    expect(sanityClient.fetch).toHaveBeenCalled();
+    expect(sanityClientFetchMock).toHaveBeenCalled();
   });
 
   it("should reject if no merch data is found", async () => {
-    (sanityClient.fetch as jest.Mock).mockResolvedValueOnce([]);
-    await expect(getMerch(Locale.DE)).rejects.toEqual("No merch found");
+    sanityClientFetchMock.mockResolvedValueOnce([]);
+    await expect(getMerch(Locale.DE)).rejects.toThrow("No merch found");
   });
 });

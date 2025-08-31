@@ -2,7 +2,7 @@ import groq from "groq";
 
 import { Locale } from "./enums/locals.enum";
 import { NotificationDisplayCategory } from "./enums/notificationDisplayCategory";
-import { sanityClient } from "./shared/sanity-client";
+import { getSanityClient } from "./shared/sanity-client";
 
 export interface INotification {
   title: string;
@@ -36,7 +36,7 @@ export const getNotificationList = async (
       }
     },
     }}`;
-  const result = await sanityClient.fetch(query);
+  const result = await getSanityClient().fetch(query);
   return result.map(
     (
       item: INotification & {
