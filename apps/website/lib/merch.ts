@@ -25,7 +25,7 @@ export const getMerch = async (locale: string): Promise<IMerch> => {
   const merchResponse = (await getSanityClient().fetch(query))[0];
 
   if (!merchResponse) {
-    return Promise.reject(new Error("No merch found"));
+    throw new Error("No merch found");
   }
 
   const isEnCurrentLocale = locale === "en";
