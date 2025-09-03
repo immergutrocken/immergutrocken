@@ -1,9 +1,26 @@
-@use "tailwindcss/base";
-@use "tailwindcss/components";
-@use "tailwindcss/utilities";
+@import "tailwindcss";
 @import "@fortawesome/fontawesome-free/css/fontawesome.css";
 @import "@fortawesome/fontawesome-free/css/brands.css";
 @import "@fortawesome/fontawesome-free/css/solid.css";
+
+/* Tailwind v4 CSS-based configuration */
+@theme {
+  /* Custom colors */
+  --color-primary: #000;
+  --color-secondary: #fff;
+  --color-tertiary: #98ce58;
+
+  /* Custom screens */
+  --breakpoint-3xl: 1700px;
+
+  /* Custom font families */
+  --font-family-content: "Ludwig-Normal";
+  --font-family-important: "Ludwig-Bold";
+  --font-family-icon: "Font Awesome Free";
+
+  /* Custom invert values */
+  --invert-partner: 0;
+}
 
 @font-face {
   font-family: Ludwig-Bold;
