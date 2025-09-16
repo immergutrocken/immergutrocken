@@ -59,7 +59,7 @@ const Layout = ({
               }
             >
               {newsList.map((news, index) => (
-                <span key={index}>
+                <span key={news.slug}>
                   <NextLink
                     href={`/article/${news.slug}`}
                     className="mx-2 sm:mx-4"
@@ -123,8 +123,11 @@ const Layout = ({
               (notification) =>
                 notification.display === NotificationDisplayCategory.FOOTER,
             )
-            .map((notification, index) => (
-              <Notification notification={notification} key={index} />
+            .map((notification) => (
+              <Notification
+                notification={notification}
+                key={notification.title}
+              />
             ))}
         </div>
         {notifcationList
@@ -132,10 +135,10 @@ const Layout = ({
             (notification) =>
               notification.display === NotificationDisplayCategory.POP_UP,
           )
-          .map((notification, index) => (
+          .map((notification) => (
             <Notification
               notification={notification}
-              key={index}
+              key={notification.title}
             ></Notification>
           ))}
       </footer>
