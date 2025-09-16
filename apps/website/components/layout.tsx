@@ -83,7 +83,7 @@ const Layout = ({
             {ticketshopUrl && (
               <Link href={ticketshopUrl} className="hover:no-underline">
                 <Button
-                  className="!bg-tertiary"
+                  className="!bg-[#FA5925]"
                   click={() => track("Kartenladen (Header)")}
                 >
                   {t("ticket-shop")}

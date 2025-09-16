@@ -43,9 +43,7 @@ const buildMenuItem = (
     case MenuItemType.INTERNAL_LINK:
       return (
         <NextLink
-          href={
-            item.url != null ? item.url : `/${item.documentType}/${item.slug}`
-          }
+          href={item.url ?? `/${item.documentType}/${item.slug}`}
           onClick={() => onClose()}
         >
           {locale === "de" ? item.title.de : item.title.en}
@@ -55,8 +53,8 @@ const buildMenuItem = (
       return (
         <>
           <div>{locale === "de" ? item.title.de : item.title.en}</div>
-          {item.submenuItems?.map((subMenuItem, index) => (
-            <div className="text-lg sm:text-3xl" key={index}>
+          {item.submenuItems?.map((subMenuItem) => (
+            <div className="text-lg sm:text-3xl" key={subMenuItem.slug}>
               {buildMenuItem(subMenuItem, onClose, locale)}
             </div>
           ))}
@@ -112,10 +110,10 @@ const Menu = ({
                     </NextLink>
                   </div>
                   <div className="mt-4 sm:mt-6">
-                    {items.map((item, index) => (
+                    {items.map((item) => (
                       <div
                         className="text-center text-3xl sm:text-6xl"
-                        key={index}
+                        key={item.slug}
                       >
                         {buildMenuItem(
                           item,
