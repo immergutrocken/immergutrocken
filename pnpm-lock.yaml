@@ -83,8 +83,8 @@ importers:
   apps/website:
     dependencies:
       '@fortawesome/fontawesome-free':
-        specifier: 6.7.2
-        version: 6.7.2
+        specifier: 7.1.0
+        version: 7.1.0
       '@sanity/block-content-to-react':
         specifier: 3.0.0
         version: 3.0.0(react@19.1.1)
@@ -1624,8 +1624,8 @@ packages:
   '@formatjs/intl-localematcher@0.6.1':
     resolution: {integrity: sha512-ePEgLgVCqi2BBFnTMWPfIghu6FkbZnnBVhO2sSxvLfrdFw7wCHAHiDoM2h4NRgjbaY7+B7HgOLZGkK187pZTZg==}
 
-  '@fortawesome/fontawesome-free@6.7.2':
-    resolution: {integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==}
+  '@fortawesome/fontawesome-free@7.1.0':
+    resolution: {integrity: sha512-+WxNld5ZCJHvPQCr/GnzCTVREyStrAJjisUPtUxG5ngDA8TMlPnKp6dddlTpai4+1GNmltAeuk1hJEkBohwZYA==}
     engines: {node: '>=6'}
 
   '@humanwhocodes/config-array@0.13.0':
@@ -5179,6 +5179,7 @@ packages:
 
   get-random-values-esm@1.0.2:
     resolution: {integrity: sha512-HMSDTgj1HPFAuZG0FqxzHbYt5JeEGDUeT9r1RLXhS6RZQS8rLRjokgjZ0Pd28CN0lhXlRwfH6eviZqZEJ2kIoA==}
+    deprecated: use crypto.getRandomValues() instead
 
   get-random-values@1.2.2:
     resolution: {integrity: sha512-lMyPjQyl0cNNdDf2oR+IQ/fM3itDvpoHy45Ymo2r0L1EjazeSl13SfbKZs7KtZ/3MDCeueiaJiuOEfKqRTsSgA==}
@@ -7696,6 +7697,7 @@ packages:
   sanity-plugin-vercel-deploy@3.3.4:
     resolution: {integrity: sha512-07FO5gzzBehg/GUrRKr3uF2gPB/QOCLcErieJNJ+CY3nbdlCnpoUT6K3Cvn0Rn98d9Hztn+omMd6ao2Mh/Hlzw==}
     engines: {node: '>=14'}
+    deprecated: 'UNMAINTAINED: This plugin is no longer supported. See README for details and alternatives.'
     peerDependencies:
       react: ^18
       sanity: ^3
@@ -10614,7 +10616,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@fortawesome/fontawesome-free@6.7.2': {}
+  '@fortawesome/fontawesome-free@7.1.0': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
