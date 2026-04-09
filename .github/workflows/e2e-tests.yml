@@ -1,0 +1,41 @@
+name: e2e-tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test-e2e:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: cd apps/cms && pnpm run test:e2e
+        env:
+          # Sanity environment variables
+          SANITY_STUDIO_DATASET: ${{ secrets.SANITY_STUDIO_DATASET_DEVELOPMENT }}
+          SANITY_STUDIO_DATASET_DEVELOPMENT: ${{ secrets.SANITY_STUDIO_DATASET_DEVELOPMENT }}
+          SANITY_STUDIO_DATASET_PREVIEW: ${{ secrets.SANITY_STUDIO_DATASET_PREVIEW }}
+          SANITY_STUDIO_DATASET_PRODUCTION: ${{ secrets.SANITY_STUDIO_DATASET_PRODUCTION }}
+          # Authentication credentials (if needed)
+          SANITY_STUDIO_EMAIL: ${{ secrets.SANITY_STUDIO_EMAIL }}
+          SANITY_STUDIO_PASSWORD: ${{ secrets.SANITY_STUDIO_PASSWORD }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: apps/cms/playwright-report/
+          retention-days: 30

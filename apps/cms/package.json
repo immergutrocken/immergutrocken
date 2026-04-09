@@ -13,7 +13,11 @@
     "build": "sanity build public -y",
     "lint": "eslint . --fix",
     "prettier": "prettier --write '**/*.{ts,tsx,css,scss}'",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report"
   },
   "keywords": [
     "sanity"
@@ -33,13 +37,14 @@
     "styled-components": "6.1.19"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@sanity/cli": "4.6.0",
     "@sanity/eslint-config-studio": "5.0.2",
     "eslint": "9.39.4",
-    "typescript-eslint": "8.58.1",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.58.1"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

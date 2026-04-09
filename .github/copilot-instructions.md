@@ -7,6 +7,17 @@
 - All changes to TypeScript files must include or update relevant unit tests.
 - Test-driven development (TDD) is encouraged: consider writing or updating tests before implementing changes.
 
+### E2E Testing with Playwright
+
+- The CMS app (`apps/cms/`) includes Playwright e2e tests in the `e2e/` directory.
+- When adding new CMS features or modifying existing workflows, update or add e2e tests.
+- E2E tests validate complete user workflows in Sanity Studio (e.g., creating/editing documents).
+- Run e2e tests locally with `pnpm run test:e2e` (from `apps/cms/`).
+- E2E tests run automatically in CI via the `e2e-tests.yml` workflow.
+- Follow the patterns in existing tests (e.g., `artist.spec.ts`) for consistency.
+- Tests should clean up their own data (delete created documents at the end).
+- See `apps/cms/e2e/README.md` for detailed documentation on e2e testing.
+
 ## 2. Pull Request & Dependency Update Workflow
 
 ### Major Dependency Updates
@@ -86,7 +97,7 @@
 - Monorepo: pnpm workspaces, TurboRepo
 - Frontend: Next.js (React), TypeScript, Tailwind CSS, SCSS
 - CMS: Sanity.io
-- Testing: Jest
+- Testing: Jest (unit tests), Playwright (e2e tests for CMS)
 - Code Quality: SonarQube
 
 ### Development
@@ -117,7 +128,7 @@
 ### CI/CD Overview
 
 - Automated workflows run on each PR and push to `main`.
-- Checks: linting, unit tests, build verification.
+- Checks: linting, unit tests, e2e tests, build verification.
 - Deployments are triggered on successful builds.
 
 ### Environment Setup
@@ -129,14 +140,15 @@
 
 ### Common Commands
 
-| Command          | Description              | Location |
-| ---------------- | ------------------------ | -------- |
-| `pnpm install`   | Install dependencies     | root     |
-| `pnpm dev`       | Start development server | each app |
-| `pnpm build`     | Build the app            | each app |
-| `pnpm lint`      | Run linter               | each app |
-| `pnpm test`      | Run tests                | each app |
-| `pnpm turbo ...` | Run turbo tasks          | root     |
+| Command           | Description                  | Location     |
+| ----------------- | ---------------------------- | ------------ |
+| `pnpm install`    | Install dependencies         | root         |
+| `pnpm dev`        | Start development server     | each app     |
+| `pnpm build`      | Build the app                | each app     |
+| `pnpm lint`       | Run linter                   | each app     |
+| `pnpm test`       | Run tests                    | each app     |
+| `pnpm test:e2e`   | Run e2e tests (Playwright)   | apps/cms     |
+| `pnpm turbo ...`  | Run turbo tasks              | root         |
 
 ### Deployment Process
 

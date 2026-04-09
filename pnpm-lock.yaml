@@ -61,6 +61,9 @@ importers:
         specifier: 6.1.19
         version: 6.1.19(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
     devDependencies:
+      '@playwright/test':
+        specifier: ^1.59.1
+        version: 1.59.1
       '@sanity/cli':
         specifier: 4.6.0
         version: 4.6.0(@types/node@24.3.0)(@types/react@19.1.12)(lightningcss@1.30.1)(react@19.1.1)(sass@1.91.0)(terser@5.37.0)(typescript@5.9.2)(yaml@2.8.3)
@@ -102,10 +105,10 @@ importers:
         version: 4.2.2
       '@vercel/analytics':
         specifier: 1.5.0
-        version: 1.5.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)
+        version: 1.5.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)
       '@vercel/speed-insights':
         specifier: 1.2.0
-        version: 1.2.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)
+        version: 1.2.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)
       crypto-js:
         specifier: 4.2.0
         version: 4.2.0
@@ -114,13 +117,13 @@ importers:
         version: 12.23.12(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       next:
         specifier: 15.5.7
-        version: 15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
+        version: 15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
       next-intl:
         specifier: 4.3.5
-        version: 4.3.5(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)(typescript@5.9.2)
+        version: 4.3.5(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)(typescript@5.9.2)
       next-seo:
         specifier: 6.8.0
-        version: 6.8.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 6.8.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       node-mailjet:
         specifier: 6.0.9
         version: 6.0.9
@@ -145,7 +148,7 @@ importers:
         version: 15.5.2
       '@plaiceholder/next':
         specifier: 3.0.0
-        version: 3.0.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(plaiceholder@3.0.0(sharp@0.34.3))(sharp@0.34.3)
+        version: 3.0.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(plaiceholder@3.0.0(sharp@0.34.3))(sharp@0.34.3)
       '@testing-library/jest-dom':
         specifier: 6.8.0
         version: 6.8.0
@@ -2391,6 +2394,11 @@ packages:
       next: '>= 10.0.0'
       plaiceholder: '>=3.0.0'
       sharp: '>= 0.30.6'
+
+  '@playwright/test@1.59.1':
+    resolution: {integrity: sha512-PG6q63nQg5c9rIi4/Z5lR5IVF7yU5MqmKaPOe0HSc0O2cX1fPi96sUQu5j7eo4gKCkB2AnNGoWt7y4/Xx3Kcqg==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@portabletext/block-tools@3.5.1':
     resolution: {integrity: sha512-jyPHw+fMSMdbvBadE7lQ8HawQO9ZzM2m5OTieGN4yk0Z4iWxCb/X/sRtqb3qJYqspPuhZdn+DrveSE16/CBFaQ==}
@@ -5173,6 +5181,11 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -7038,6 +7051,16 @@ packages:
 
   player.style@0.1.9:
     resolution: {integrity: sha512-aFmIhHMrnAP8YliFYFMnRw+5AlHqBvnqWy4vHGo2kFxlC+XjmTXqgg62qSxlE8ubAY83c0ViEZGYglSJi6mGCA==}
+
+  playwright-core@1.59.1:
+    resolution: {integrity: sha512-HBV/RJg81z5BiiZ9yPzIiClYV/QMsDCKUyogwH9p3MCP6IYjUFu/MActgYAvK0oWyV9NlwM3GLBjADyWgydVyg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.59.1:
+    resolution: {integrity: sha512-C8oWjPR3F81yljW9o5OxcWzfh6avkVwDD2VYdwIGqTkl+OGFISgypqzfu7dOe4QNLL2aqcWBmI3PMtLIK233lw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   pluralize-esm@9.0.5:
     resolution: {integrity: sha512-Kb2dcpMsIutFw2hYrN0EhsAXOUJTd6FVMIxvNAkZCMQLVt9NGZqQczvGpYDxNWCZeCWLHUPxQIBudWzt1h7VVA==}
@@ -11492,11 +11515,15 @@ snapshots:
 
   '@pkgr/core@0.2.9': {}
 
-  '@plaiceholder/next@3.0.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(plaiceholder@3.0.0(sharp@0.34.3))(sharp@0.34.3)':
+  '@plaiceholder/next@3.0.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(plaiceholder@3.0.0(sharp@0.34.3))(sharp@0.34.3)':
     dependencies:
-      next: 15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
+      next: 15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
       plaiceholder: 3.0.0(sharp@0.34.3)
       sharp: 0.34.3
+
+  '@playwright/test@1.59.1':
+    dependencies:
+      playwright: 1.59.1
 
   '@portabletext/block-tools@3.5.1(@sanity/schema@4.6.0(@types/react@19.1.12)(debug@4.4.1))(@sanity/types@4.6.0(@types/react@19.1.12)(debug@4.4.1))(@types/react@19.1.12)':
     dependencies:
@@ -12713,9 +12740,9 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vercel/analytics@1.5.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)':
+  '@vercel/analytics@1.5.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)':
     optionalDependencies:
-      next: 15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
+      next: 15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
       react: 19.1.1
 
   '@vercel/blob@1.0.2':
@@ -12886,9 +12913,9 @@ snapshots:
 
   '@vercel/ruby@2.2.1': {}
 
-  '@vercel/speed-insights@1.2.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)':
+  '@vercel/speed-insights@1.2.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)':
     optionalDependencies:
-      next: 15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
+      next: 15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
       react: 19.1.1
 
   '@vercel/static-build@2.7.20':
@@ -14891,6 +14918,9 @@ snapshots:
 
   fs.realpath@1.0.0: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -16572,23 +16602,23 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-intl@4.3.5(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)(typescript@5.9.2):
+  next-intl@4.3.5(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react@19.1.1)(typescript@5.9.2):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       negotiator: 1.0.0
-      next: 15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
+      next: 15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
       react: 19.1.1
       use-intl: 4.3.5(react@19.1.1)
     optionalDependencies:
       typescript: 5.9.2
 
-  next-seo@6.8.0(next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  next-seo@6.8.0(next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
-      next: 15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
+      next: 15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0)
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  next@15.5.7(@babel/core@7.28.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0):
+  next@15.5.7(@babel/core@7.28.3)(@playwright/test@1.59.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.91.0):
     dependencies:
       '@next/env': 15.5.7
       '@swc/helpers': 0.5.15
@@ -16606,6 +16636,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 15.5.7
       '@next/swc-win32-arm64-msvc': 15.5.7
       '@next/swc-win32-x64-msvc': 15.5.7
+      '@playwright/test': 1.59.1
       sass: 1.91.0
       sharp: 0.34.3
     transitivePeerDependencies:
@@ -16977,6 +17008,14 @@ snapshots:
       media-chrome: 4.11.1(react@19.1.1)
     transitivePeerDependencies:
       - react
+
+  playwright-core@1.59.1: {}
+
+  playwright@1.59.1:
+    dependencies:
+      playwright-core: 1.59.1
+    optionalDependencies:
+      fsevents: 2.3.2
 
   pluralize-esm@9.0.5: {}
 
