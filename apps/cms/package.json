@@ -11,7 +11,7 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build public -y",
-    "lint": "eslint --fix",
+    "lint": "eslint . --fix",
     "prettier": "prettier --write '**/*.{ts,tsx,css,scss}'",
     "lint-staged": "lint-staged"
   },
@@ -35,7 +35,8 @@
   "devDependencies": {
     "@sanity/cli": "4.6.0",
     "@sanity/eslint-config-studio": "5.0.2",
-    "eslint": "8.57.1",
+    "eslint": "9.39.4",
+    "typescript-eslint": "8.58.1",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
     "typescript": "5.9.2"
