@@ -152,12 +152,12 @@ importers:
       '@types/react':
         specifier: 19.1.12
         version: 19.1.12
-      '@typescript-eslint/eslint-plugin':
-        specifier: 8.41.0
-        version: 8.41.0(@typescript-eslint/parser@8.41.0(eslint@8.57.1)(typescript@5.9.2))(eslint@8.57.1)(typescript@5.9.2)
-      '@typescript-eslint/parser':
-        specifier: 8.41.0
-        version: 8.41.0(eslint@8.57.1)(typescript@5.9.2)
+      '@eslint/eslintrc':
+        specifier: 2.1.4
+        version: 2.1.4
+      typescript-eslint:
+        specifier: 8.18.0
+        version: 8.18.0(eslint@8.57.1)(typescript@5.9.2)
       autoprefixer:
         specifier: 10.4.23
         version: 10.4.23(postcss@8.5.6)
