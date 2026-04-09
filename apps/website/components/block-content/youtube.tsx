@@ -9,7 +9,7 @@ interface YoutubeProps {
 
 const Youtube = (props: YoutubeProps): ReactNode => (
   <div className="mt-9 flex justify-center">
-    <div className="3xl:w-2/3 w-full">
+    <div className="w-full 3xl:w-2/3">
       <ReactPlayer src={props.node.url} width="100%" controls={true} />
     </div>
   </div>
