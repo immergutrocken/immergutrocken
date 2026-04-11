@@ -7,7 +7,35 @@ on:
     branches: [main]
 
 jobs:
+  # Wait for Vercel deployments to complete
+  wait-for-vercel:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    outputs:
+      cms_url: ${{ steps.get-urls.outputs.cms_url }}
+      website_url: ${{ steps.get-urls.outputs.website_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Wait for Vercel Preview Deployment
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.2
+        id: wait-for-vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 600
+          check_interval: 10
+
+      - name: Get Deployment URLs
+        id: get-urls
+        run: |
+          # Extract deployment URLs from Vercel
+          # The CMS and website should have separate deployments
+          # For now, we'll use the preview URL from the action above
+          echo "cms_url=${{ steps.wait-for-vercel.outputs.url }}" >> $GITHUB_OUTPUT
+          echo "website_url=${{ steps.wait-for-vercel.outputs.url }}" >> $GITHUB_OUTPUT
+
   test-e2e:
+    needs: wait-for-vercel
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -19,23 +47,22 @@ jobs:
         run: pnpm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium webkit
 
-      - name: Run Playwright tests
-        run: cd apps/cms && pnpm run test:e2e
+      - name: Run E2E tests
+        run: pnpm run test:e2e
         env:
-          # Sanity environment variables
-          SANITY_STUDIO_DATASET: ${{ secrets.SANITY_STUDIO_DATASET_DEVELOPMENT }}
-          SANITY_STUDIO_DATASET_DEVELOPMENT: ${{ secrets.SANITY_STUDIO_DATASET_DEVELOPMENT }}
-          SANITY_STUDIO_DATASET_PREVIEW: ${{ secrets.SANITY_STUDIO_DATASET_PREVIEW }}
-          SANITY_STUDIO_DATASET_PRODUCTION: ${{ secrets.SANITY_STUDIO_DATASET_PRODUCTION }}
-          # Authentication credentials (if needed)
-          SANITY_STUDIO_EMAIL: ${{ secrets.SANITY_STUDIO_EMAIL }}
-          SANITY_STUDIO_PASSWORD: ${{ secrets.SANITY_STUDIO_PASSWORD }}
+          # Vercel deployment URLs
+          CMS_BASE_URL: ${{ needs.wait-for-vercel.outputs.cms_url }}
+          WEBSITE_BASE_URL: ${{ needs.wait-for-vercel.outputs.website_url }}
+          # Sanity configuration
+          SANITY_STUDIO_PROJECT_ID: "05hvmwlk"
+          SANITY_DATASET_E2E: ${{ secrets.SANITY_DATASET_E2E }}
+          SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
-          path: apps/cms/playwright-report/
+          path: playwright-report/
           retention-days: 30

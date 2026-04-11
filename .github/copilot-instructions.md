@@ -9,14 +9,16 @@
 
 ### E2E Testing with Playwright
 
-- The CMS app (`apps/cms/`) includes Playwright e2e tests in the `e2e/` directory.
-- When adding new CMS features or modifying existing workflows, update or add e2e tests.
-- E2E tests validate complete user workflows in Sanity Studio (e.g., creating/editing documents).
-- Run e2e tests locally with `pnpm run test:e2e` (from `apps/cms/`).
-- E2E tests run automatically in CI via the `e2e-tests.yml` workflow.
-- Follow the patterns in existing tests (e.g., `artist.spec.ts`) for consistency.
-- Tests should clean up their own data (delete created documents at the end).
-- See `apps/cms/e2e/README.md` for detailed documentation on e2e testing.
+- E2E tests are located in the root `e2e/` directory and test both CMS and website.
+- When adding new features or modifying workflows, update or add e2e tests.
+- E2E tests validate complete user workflows across Sanity Studio and the website.
+- Run e2e tests with `pnpm run test:e2e` (from root).
+- E2E tests run automatically in CI via the `e2e-tests.yml` workflow after Vercel deployments.
+- Tests use Chromium for CMS (Sanity Studio) and WebKit for website.
+- Tests run against deployed Vercel instances, not localhost.
+- The `SANITY_DATASET_E2E` dataset is automatically reset before each test run.
+- Follow the patterns in existing tests (e.g., `artist.cms.spec.ts`, `artist.website.spec.ts`).
+- See `e2e/README.md` for detailed documentation on e2e testing.
 
 ## 2. Pull Request & Dependency Update Workflow
 
