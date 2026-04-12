@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { resetE2EDataset } from "./helpers/reset-dataset";
 
 /**
@@ -9,11 +9,11 @@ import { resetE2EDataset } from "./helpers/reset-dataset";
  * 2. View the artist on the website (WebKit)
  * 3. Edit the artist in Sanity Studio (Chromium)
  * 4. Verify the changes on the website (WebKit)
+ *
+ * Note: This is a placeholder for the full happy path test.
+ * The actual implementation combines the separate CMS and website tests
+ * into a single sequential workflow.
  */
-
-const ARTIST_NAME = "E2E Test Artist";
-const ARTIST_NAME_UPDATED = "E2E Test Artist Updated";
-const ARTIST_SLUG = "e2e-test-artist";
 
 test.describe("Artist End-to-End Workflow", () => {
   test.beforeAll(async () => {
@@ -21,8 +21,11 @@ test.describe("Artist End-to-End Workflow", () => {
     await resetE2EDataset();
   });
 
-  test("complete artist lifecycle - create, view, edit, verify", async ({}) => {
-    // This test is split into multiple steps to demonstrate the workflow
-    // Each step is documented separately below
-  });
+  // TODO: Implement the complete happy path test
+  // This should combine artist.cms.spec.ts and artist.website.spec.ts
+  // into a single test that runs sequentially:
+  // 1. Create artist in CMS (Chromium)
+  // 2. Verify on website (WebKit)
+  // 3. Edit artist in CMS (Chromium)
+  // 4. Verify changes on website (WebKit)
 });

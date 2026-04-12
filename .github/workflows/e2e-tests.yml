@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
 
+# Prevent parallel runs to avoid interference with shared E2E dataset
+concurrency:
+  group: e2e-tests
+  cancel-in-progress: false
+
 jobs:
   # Wait for Vercel deployments to complete
   wait-for-vercel:
