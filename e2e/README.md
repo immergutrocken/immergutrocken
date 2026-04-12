@@ -81,18 +81,21 @@ Required for dataset reset:
 Tests run automatically via GitHub Actions with intelligent deployment handling:
 
 **When apps are changed** (`apps/cms/**` or `apps/website/**`):
-1. Waits for new Vercel deployments to complete
-2. Resets the E2E dataset
-3. Runs tests against the newly deployed instances
-4. Uploads test reports as artifacts
+1. Uses `wait-for-vercel-preview` action to wait for Vercel deployment status checks
+2. Waits up to 10 minutes for deployments to reach READY state
+3. Fetches deployment URLs for the specific commit SHA
+4. **Fails the workflow if deployments are not ready** (no fallback to prevent testing wrong code)
+5. Resets the E2E dataset
+6. Runs tests against the newly deployed instances
+7. Uploads test reports as artifacts
 
 **When only e2e files are changed**:
-1. Gets the latest existing Vercel deployment for the current branch
+1. Immediately gets the latest READY deployment for the branch
 2. Resets the E2E dataset
 3. Runs tests against the existing deployment
 4. Uploads test reports as artifacts
 
-This approach ensures tests always run against the correct deployment while avoiding unnecessary wait times when only test files change.
+This approach ensures tests always run against the correct deployment. When apps change, the workflow will fail if deployments don't complete within the timeout, allowing you to re-run the workflow once deployments finish.
 
 ### Required Secrets
 

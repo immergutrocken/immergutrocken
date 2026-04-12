@@ -30,7 +30,7 @@ jobs:
   # Get deployment URLs - either wait for new ones or get latest
   get-deployment-urls:
     needs: check-changes
-    timeout-minutes: 15
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     outputs:
       cms_url: ${{ steps.get-urls.outputs.cms_url }}
@@ -38,14 +38,23 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Wait for deployments or get latest
+      - name: Wait for Vercel deployments (if apps changed)
+        if: needs.check-changes.outputs.apps_changed == 'true'
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        id: wait-for-vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 600
+          check_interval: 10
+
+      - name: Get deployment URLs
         id: get-urls
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_CMS_PROJECT_ID: ${{ secrets.VERCEL_CMS_PROJECT_ID }}
           VERCEL_WEBSITE_PROJECT_ID: ${{ secrets.VERCEL_WEBSITE_PROJECT_ID }}
           APPS_CHANGED: ${{ needs.check-changes.outputs.apps_changed }}
+          VERCEL_PREVIEW_URL: ${{ steps.wait-for-vercel.outputs.url }}
         run: |
           BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
           COMMIT_SHA="${GITHUB_SHA}"
@@ -54,68 +63,58 @@ jobs:
           echo "Commit: ${COMMIT_SHA}"
           echo "Apps changed: ${APPS_CHANGED}"
 
-          # Function to get deployment URL
-          get_deployment() {
-            local project_id=$1
-            local wait_for_commit=$2
+          if [ "$APPS_CHANGED" = "true" ]; then
+            # Apps changed - get deployments matching this commit (should be READY after wait-for-vercel)
+            echo "Getting deployment URLs for commit ${COMMIT_SHA}..."
 
-            if [ "$wait_for_commit" = "true" ]; then
-              # Wait up to 10 minutes for deployment matching this commit
-              echo "Waiting for deployment with commit ${COMMIT_SHA}..."
-              for i in {1..60}; do
-                url=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${project_id}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
-                  -H "Authorization: Bearer ${VERCEL_TOKEN}" \
-                  | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | select(.state == \"READY\" or .state == \"BUILDING\") | .url" \
-                  | head -n1)
+            # Get CMS deployment for this commit
+            CMS_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_CMS_PROJECT_ID}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | select(.state == \"READY\") | .url" \
+              | head -n1)
 
-                if [ -n "$url" ]; then
-                  # Check if deployment is ready
-                  state=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${project_id}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
-                    -H "Authorization: Bearer ${VERCEL_TOKEN}" \
-                    | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | .state" \
-                    | head -n1)
-
-                  if [ "$state" = "READY" ]; then
-                    echo "https://${url}"
-                    return 0
-                  fi
-                fi
-
-                echo "Waiting... (attempt $i/60)"
-                sleep 10
-              done
-
-              # Fallback to latest if timeout
-              echo "Timeout waiting for deployment, using latest instead..."
+            if [ -z "$CMS_URL" ]; then
+              echo "ERROR: No READY deployment found for CMS with commit ${COMMIT_SHA}"
+              exit 1
             fi
 
-            # Get latest deployment for branch
-            url=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${project_id}&target=preview&limit=1&state=READY&gitBranch=${BRANCH_NAME}" \
+            # Get Website deployment for this commit
+            WEBSITE_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_WEBSITE_PROJECT_ID}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | select(.state == \"READY\") | .url" \
+              | head -n1)
+
+            if [ -z "$WEBSITE_URL" ]; then
+              echo "ERROR: No READY deployment found for Website with commit ${COMMIT_SHA}"
+              exit 1
+            fi
+
+            echo "CMS URL: https://${CMS_URL}"
+            echo "Website URL: https://${WEBSITE_URL}"
+            echo "cms_url=https://${CMS_URL}" >> $GITHUB_OUTPUT
+            echo "website_url=https://${WEBSITE_URL}" >> $GITHUB_OUTPUT
+          else
+            # Only e2e files changed - get latest READY deployment for branch
+            echo "Getting latest deployment URLs for branch ${BRANCH_NAME}..."
+
+            CMS_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_CMS_PROJECT_ID}&target=preview&limit=1&state=READY&gitBranch=${BRANCH_NAME}" \
               -H "Authorization: Bearer ${VERCEL_TOKEN}" \
               | jq -r '.deployments[0].url // empty')
 
-            if [ -n "$url" ]; then
-              echo "https://${url}"
-            else
-              echo ""
+            WEBSITE_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_WEBSITE_PROJECT_ID}&target=preview&limit=1&state=READY&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r '.deployments[0].url // empty')
+
+            if [ -z "$CMS_URL" ] || [ -z "$WEBSITE_URL" ]; then
+              echo "ERROR: No READY deployments found for branch ${BRANCH_NAME}"
+              exit 1
             fi
-          }
 
-          # Determine if we should wait for new deployments
-          WAIT_FOR_COMMIT="false"
-          if [ "$APPS_CHANGED" = "true" ]; then
-            WAIT_FOR_COMMIT="true"
+            echo "CMS URL: https://${CMS_URL}"
+            echo "Website URL: https://${WEBSITE_URL}"
+            echo "cms_url=https://${CMS_URL}" >> $GITHUB_OUTPUT
+            echo "website_url=https://${WEBSITE_URL}" >> $GITHUB_OUTPUT
           fi
-
-          # Get CMS deployment
-          CMS_URL=$(get_deployment "${VERCEL_CMS_PROJECT_ID}" "${WAIT_FOR_COMMIT}")
-          echo "CMS URL: ${CMS_URL}"
-          echo "cms_url=${CMS_URL}" >> $GITHUB_OUTPUT
-
-          # Get Website deployment
-          WEBSITE_URL=$(get_deployment "${VERCEL_WEBSITE_PROJECT_ID}" "${WAIT_FOR_COMMIT}")
-          echo "Website URL: ${WEBSITE_URL}"
-          echo "website_url=${WEBSITE_URL}" >> $GITHUB_OUTPUT
 
   test-e2e:
     needs: [check-changes, get-deployment-urls]
