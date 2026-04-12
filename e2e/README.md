@@ -78,13 +78,31 @@ Required for dataset reset:
 
 ## CI/CD
 
-Tests run automatically via GitHub Actions:
-1. Gets the latest Vercel deployment for the current branch
+Tests run automatically via GitHub Actions with intelligent deployment handling:
+
+**When apps are changed** (`apps/cms/**` or `apps/website/**`):
+1. Waits for new Vercel deployments to complete
 2. Resets the E2E dataset
-3. Runs tests against the deployed instances
+3. Runs tests against the newly deployed instances
 4. Uploads test reports as artifacts
 
-**Note**: The workflow gets the latest deployment instead of waiting for a new one. This is important when only e2e test files change, as no new deployment is triggered.
+**When only e2e files are changed**:
+1. Gets the latest existing Vercel deployment for the current branch
+2. Resets the E2E dataset
+3. Runs tests against the existing deployment
+4. Uploads test reports as artifacts
+
+This approach ensures tests always run against the correct deployment while avoiding unnecessary wait times when only test files change.
+
+### Required Secrets
+
+The workflow requires the following GitHub secrets to be configured:
+- `VERCEL_TOKEN`: Vercel API token for fetching deployment URLs
+- `VERCEL_ORG_ID`: Vercel organization ID
+- `VERCEL_CMS_PROJECT_ID`: Vercel project ID for the CMS app
+- `VERCEL_WEBSITE_PROJECT_ID`: Vercel project ID for the website app
+- `SANITY_DATASET_E2E`: Name of the E2E dataset (e.g., "e2e-test")
+- `SANITY_API_TOKEN`: Sanity API token with write permissions
 
 See `.github/workflows/e2e-tests.yml` for the workflow configuration.
 

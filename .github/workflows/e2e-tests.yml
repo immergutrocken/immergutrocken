@@ -12,9 +12,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Get the latest Vercel deployment for the current branch
-  get-vercel-deployment:
-    timeout-minutes: 5
+  # Check if apps were changed to determine if we need to wait for deployment
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      apps_changed: ${{ steps.filter.outputs.apps }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            apps:
+              - 'apps/cms/**'
+              - 'apps/website/**'
+
+  # Get deployment URLs - either wait for new ones or get latest
+  get-deployment-urls:
+    needs: check-changes
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     outputs:
       cms_url: ${{ steps.get-urls.outputs.cms_url }}
@@ -22,23 +38,88 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Get latest Vercel deployment URLs
+      - name: Wait for deployments or get latest
         id: get-urls
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_CMS_PROJECT_ID: ${{ secrets.VERCEL_CMS_PROJECT_ID }}
+          VERCEL_WEBSITE_PROJECT_ID: ${{ secrets.VERCEL_WEBSITE_PROJECT_ID }}
+          APPS_CHANGED: ${{ needs.check-changes.outputs.apps_changed }}
         run: |
-          # Get the latest deployment URL for the current branch
-          # This avoids waiting for a new deployment when only e2e files change
           BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          COMMIT_SHA="${GITHUB_SHA}"
 
-          # Use vercel CLI to get the latest deployment
-          # For now, use placeholder - will need proper Vercel API integration
-          # TODO: Implement proper Vercel API call to get latest deployment for branch
+          echo "Branch: ${BRANCH_NAME}"
+          echo "Commit: ${COMMIT_SHA}"
+          echo "Apps changed: ${APPS_CHANGED}"
 
-          # Fallback to wait-for-vercel if needed
-          echo "cms_url=" >> $GITHUB_OUTPUT
-          echo "website_url=" >> $GITHUB_OUTPUT
+          # Function to get deployment URL
+          get_deployment() {
+            local project_id=$1
+            local wait_for_commit=$2
+
+            if [ "$wait_for_commit" = "true" ]; then
+              # Wait up to 10 minutes for deployment matching this commit
+              echo "Waiting for deployment with commit ${COMMIT_SHA}..."
+              for i in {1..60}; do
+                url=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${project_id}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
+                  -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+                  | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | select(.state == \"READY\" or .state == \"BUILDING\") | .url" \
+                  | head -n1)
+
+                if [ -n "$url" ]; then
+                  # Check if deployment is ready
+                  state=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${project_id}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
+                    -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+                    | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | .state" \
+                    | head -n1)
+
+                  if [ "$state" = "READY" ]; then
+                    echo "https://${url}"
+                    return 0
+                  fi
+                fi
+
+                echo "Waiting... (attempt $i/60)"
+                sleep 10
+              done
+
+              # Fallback to latest if timeout
+              echo "Timeout waiting for deployment, using latest instead..."
+            fi
+
+            # Get latest deployment for branch
+            url=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${project_id}&target=preview&limit=1&state=READY&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r '.deployments[0].url // empty')
+
+            if [ -n "$url" ]; then
+              echo "https://${url}"
+            else
+              echo ""
+            fi
+          }
+
+          # Determine if we should wait for new deployments
+          WAIT_FOR_COMMIT="false"
+          if [ "$APPS_CHANGED" = "true" ]; then
+            WAIT_FOR_COMMIT="true"
+          fi
+
+          # Get CMS deployment
+          CMS_URL=$(get_deployment "${VERCEL_CMS_PROJECT_ID}" "${WAIT_FOR_COMMIT}")
+          echo "CMS URL: ${CMS_URL}"
+          echo "cms_url=${CMS_URL}" >> $GITHUB_OUTPUT
+
+          # Get Website deployment
+          WEBSITE_URL=$(get_deployment "${VERCEL_WEBSITE_PROJECT_ID}" "${WAIT_FOR_COMMIT}")
+          echo "Website URL: ${WEBSITE_URL}"
+          echo "website_url=${WEBSITE_URL}" >> $GITHUB_OUTPUT
 
   test-e2e:
-    needs: get-vercel-deployment
+    needs: [check-changes, get-deployment-urls]
+    if: always() && !cancelled() && !contains(needs.*.result, 'failure')
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -55,9 +136,9 @@ jobs:
       - name: Run E2E tests
         run: pnpm run test:e2e
         env:
-          # Vercel deployment URLs
-          CMS_BASE_URL: ${{ needs.get-vercel-deployment.outputs.cms_url }}
-          WEBSITE_BASE_URL: ${{ needs.get-vercel-deployment.outputs.website_url }}
+          # Use URLs from get-deployment-urls job
+          CMS_BASE_URL: ${{ needs.get-deployment-urls.outputs.cms_url }}
+          WEBSITE_BASE_URL: ${{ needs.get-deployment-urls.outputs.website_url }}
           # Sanity configuration
           SANITY_STUDIO_PROJECT_ID: "05hvmwlk"
           SANITY_DATASET_E2E: ${{ secrets.SANITY_DATASET_E2E }}

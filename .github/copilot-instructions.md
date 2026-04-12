@@ -16,7 +16,9 @@
 - When adding new features or modifying workflows, update or add e2e tests.
 - E2E tests validate complete user workflows across Sanity Studio and the website.
 - E2E tests run automatically in CI via the `e2e-tests.yml` workflow.
-- CI gets the latest Vercel deployment (doesn't wait for new deployment when only e2e files change).
+- **CI deployment handling**:
+  - When `apps/cms/**` or `apps/website/**` files change: waits for new Vercel deployments
+  - When only `e2e/` files change: uses latest existing deployment for the branch
 - Tests use Chromium for CMS (Sanity Studio) and WebKit for website.
 - The `SANITY_DATASET_E2E` dataset is automatically reset before each test run.
 - Follow the patterns in existing tests (e.g., `artist.cms.spec.ts`, `artist.website.spec.ts`).
