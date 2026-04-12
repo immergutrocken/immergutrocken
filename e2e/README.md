@@ -94,10 +94,22 @@ See `.github/workflows/e2e-tests.yml` for the workflow configuration.
 e2e/
 ├── artist.cms.spec.ts       # CMS tests (Chromium)
 ├── artist.website.spec.ts   # Website tests (WebKit)
-├── artist-lifecycle.spec.ts # Combined lifecycle test
+├── artist-lifecycle.spec.ts # Full happy path test (Chromium + WebKit)
 └── helpers/
     └── reset-dataset.ts     # Dataset reset utility
 ```
+
+### Test Files
+
+- **artist.cms.spec.ts**: Tests for creating and editing artists in Sanity Studio using Chromium browser
+- **artist.website.spec.ts**: Tests for viewing artist content on the website using WebKit browser
+- **artist-lifecycle.spec.ts**: Complete end-to-end workflow test that:
+  1. Creates an artist in Sanity Studio (Chromium)
+  2. Verifies the artist appears on the website (WebKit)
+  3. Edits the artist in Sanity Studio (Chromium)
+  4. Verifies the changes appear on the website (WebKit)
+
+The lifecycle test demonstrates the full happy path by managing its own browser contexts and sequentially testing both CMS and website functionality.
 
 ## Dataset Management
 

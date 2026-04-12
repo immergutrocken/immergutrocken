@@ -46,5 +46,13 @@ export default defineConfig({
       },
       testMatch: /.*\.website\.spec\.ts/,
     },
+    {
+      name: "happy-path",
+      use: {
+        // Happy path tests manage their own browser contexts
+        // and don't need a default baseURL
+      },
+      testMatch: /.*-lifecycle\.spec\.ts/,
+    },
   ],
 });
