@@ -1,0 +1,151 @@
+name: e2e-tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Prevent parallel runs to avoid interference with shared E2E dataset
+concurrency:
+  group: e2e-tests
+  cancel-in-progress: false
+
+jobs:
+  # Check if apps were changed to determine if we need to wait for deployment
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      apps_changed: ${{ steps.filter.outputs.apps }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            apps:
+              - 'apps/cms/**'
+              - 'apps/website/**'
+
+  # Get deployment URLs - either wait for new ones or get latest
+  get-deployment-urls:
+    needs: check-changes
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    outputs:
+      cms_url: ${{ steps.get-urls.outputs.cms_url }}
+      website_url: ${{ steps.get-urls.outputs.website_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Wait for Vercel deployments (if apps changed)
+        if: needs.check-changes.outputs.apps_changed == 'true'
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        id: wait-for-vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 600
+          check_interval: 10
+
+      - name: Get deployment URLs
+        id: get-urls
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_CMS_PROJECT_ID: ${{ secrets.VERCEL_CMS_PROJECT_ID }}
+          VERCEL_WEBSITE_PROJECT_ID: ${{ secrets.VERCEL_WEBSITE_PROJECT_ID }}
+          APPS_CHANGED: ${{ needs.check-changes.outputs.apps_changed }}
+          VERCEL_PREVIEW_URL: ${{ steps.wait-for-vercel.outputs.url }}
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          COMMIT_SHA="${GITHUB_SHA}"
+
+          echo "Branch: ${BRANCH_NAME}"
+          echo "Commit: ${COMMIT_SHA}"
+          echo "Apps changed: ${APPS_CHANGED}"
+
+          if [ "$APPS_CHANGED" = "true" ]; then
+            # Apps changed - get deployments matching this commit (should be READY after wait-for-vercel)
+            echo "Getting deployment URLs for commit ${COMMIT_SHA}..."
+
+            # Get CMS deployment for this commit
+            CMS_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_CMS_PROJECT_ID}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | select(.state == \"READY\") | .url" \
+              | head -n1)
+
+            if [ -z "$CMS_URL" ]; then
+              echo "ERROR: No READY deployment found for CMS with commit ${COMMIT_SHA}"
+              exit 1
+            fi
+
+            # Get Website deployment for this commit
+            WEBSITE_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_WEBSITE_PROJECT_ID}&target=preview&limit=20&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r ".deployments[] | select(.meta.githubCommitSha == \"${COMMIT_SHA}\") | select(.state == \"READY\") | .url" \
+              | head -n1)
+
+            if [ -z "$WEBSITE_URL" ]; then
+              echo "ERROR: No READY deployment found for Website with commit ${COMMIT_SHA}"
+              exit 1
+            fi
+
+            echo "CMS URL: https://${CMS_URL}"
+            echo "Website URL: https://${WEBSITE_URL}"
+            echo "cms_url=https://${CMS_URL}" >> $GITHUB_OUTPUT
+            echo "website_url=https://${WEBSITE_URL}" >> $GITHUB_OUTPUT
+          else
+            # Only e2e files changed - get latest READY deployment for branch
+            echo "Getting latest deployment URLs for branch ${BRANCH_NAME}..."
+
+            CMS_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_CMS_PROJECT_ID}&target=preview&limit=1&state=READY&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r '.deployments[0].url // empty')
+
+            WEBSITE_URL=$(curl -s "https://api.vercel.com/v6/deployments?projectId=${VERCEL_WEBSITE_PROJECT_ID}&target=preview&limit=1&state=READY&gitBranch=${BRANCH_NAME}" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | jq -r '.deployments[0].url // empty')
+
+            if [ -z "$CMS_URL" ] || [ -z "$WEBSITE_URL" ]; then
+              echo "ERROR: No READY deployments found for branch ${BRANCH_NAME}"
+              exit 1
+            fi
+
+            echo "CMS URL: https://${CMS_URL}"
+            echo "Website URL: https://${WEBSITE_URL}"
+            echo "cms_url=https://${CMS_URL}" >> $GITHUB_OUTPUT
+            echo "website_url=https://${WEBSITE_URL}" >> $GITHUB_OUTPUT
+          fi
+
+  test-e2e:
+    needs: [check-changes, get-deployment-urls]
+    if: always() && !cancelled() && !contains(needs.*.result, 'failure')
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Run E2E tests
+        run: pnpm run test:e2e
+        env:
+          # Use URLs from get-deployment-urls job
+          CMS_BASE_URL: ${{ needs.get-deployment-urls.outputs.cms_url }}
+          WEBSITE_BASE_URL: ${{ needs.get-deployment-urls.outputs.website_url }}
+          # Sanity configuration
+          SANITY_STUDIO_PROJECT_ID: "05hvmwlk"
+          SANITY_DATASET_E2E: ${{ secrets.SANITY_DATASET_E2E }}
+          SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

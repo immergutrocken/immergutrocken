@@ -1,0 +1,168 @@
+# End-to-End Tests
+
+This directory contains end-to-end tests for the Immergutrocken project using Playwright.
+
+## Overview
+
+The e2e tests validate the complete workflow across both the Sanity CMS and the public website:
+- Creating and editing content in Sanity Studio (using Chromium)
+- Viewing content on the website (using WebKit)
+- Verifying changes propagate correctly
+
+## Test Strategy
+
+- **Browser Selection**:
+  - Chromium for Sanity Studio interactions
+  - WebKit for website verification
+- **Dataset**: Uses a dedicated `SANITY_DATASET_E2E` dataset that is reset before each test run
+- **Deployment**: Tests run against Vercel preview deployments, not localhost
+
+## Running Tests
+
+### Prerequisites
+
+```bash
+# Install dependencies
+pnpm install
+
+# Install Playwright browsers (first time only)
+npx playwright install chromium webkit
+```
+
+### Local Development
+
+**Important**: Always run e2e tests locally before committing changes to ensure they pass.
+
+Tests can run against localhost (default) or deployed instances:
+
+```bash
+# Run all e2e tests against localhost
+# Make sure CMS is running on localhost:3333 and website on localhost:3000
+pnpm run test:e2e
+
+# Run tests in UI mode (interactive)
+pnpm run test:e2e:ui
+
+# Run tests in debug mode
+pnpm run test:e2e:debug
+
+# Show test report
+pnpm run test:e2e:report
+```
+
+**Running against localhost:**
+1. Start the CMS: `cd apps/cms && pnpm dev` (runs on http://localhost:3333)
+2. Start the website: `cd apps/website && pnpm dev` (runs on http://localhost:3000)
+3. Run tests: `pnpm run test:e2e`
+
+**Running against deployed instances:**
+```bash
+# Set environment variables for deployed URLs
+export CMS_BASE_URL="https://your-cms-deployment.vercel.app"
+export WEBSITE_BASE_URL="https://your-website-deployment.vercel.app"
+export SANITY_DATASET_E2E="e2e-test"
+export SANITY_API_TOKEN="your-token"
+pnpm run test:e2e
+```
+
+### Environment Variables
+
+Optional for local testing (defaults to localhost):
+- `CMS_BASE_URL`: URL of the Sanity Studio (default: "http://localhost:3333")
+- `WEBSITE_BASE_URL`: URL of the public website (default: "http://localhost:3000")
+
+Required for dataset reset:
+- `SANITY_STUDIO_PROJECT_ID`: Sanity project ID (default: "05hvmwlk")
+- `SANITY_DATASET_E2E`: Name of the E2E dataset (e.g., "e2e-test")
+- `SANITY_API_TOKEN`: Sanity API token with write permissions for dataset reset
+
+## CI/CD
+
+Tests run automatically via GitHub Actions with intelligent deployment handling:
+
+**When apps are changed** (`apps/cms/**` or `apps/website/**`):
+1. Uses `wait-for-vercel-preview` action to wait for Vercel deployment status checks
+2. Waits up to 10 minutes for deployments to reach READY state
+3. Fetches deployment URLs for the specific commit SHA
+4. **Fails the workflow if deployments are not ready** (no fallback to prevent testing wrong code)
+5. Resets the E2E dataset
+6. Runs tests against the newly deployed instances
+7. Uploads test reports as artifacts
+
+**When only e2e files are changed**:
+1. Immediately gets the latest READY deployment for the branch
+2. Resets the E2E dataset
+3. Runs tests against the existing deployment
+4. Uploads test reports as artifacts
+
+This approach ensures tests always run against the correct deployment. When apps change, the workflow will fail if deployments don't complete within the timeout, allowing you to re-run the workflow once deployments finish.
+
+### Required Secrets
+
+The workflow requires the following GitHub secrets to be configured:
+- `VERCEL_TOKEN`: Vercel API token for fetching deployment URLs
+- `VERCEL_ORG_ID`: Vercel organization ID
+- `VERCEL_CMS_PROJECT_ID`: Vercel project ID for the CMS app
+- `VERCEL_WEBSITE_PROJECT_ID`: Vercel project ID for the website app
+- `SANITY_DATASET_E2E`: Name of the E2E dataset (e.g., "e2e-test")
+- `SANITY_API_TOKEN`: Sanity API token with write permissions
+
+See `.github/workflows/e2e-tests.yml` for the workflow configuration.
+
+## Test Structure
+
+```
+e2e/
+├── artist.cms.spec.ts       # CMS tests (Chromium)
+├── artist.website.spec.ts   # Website tests (WebKit)
+├── artist-lifecycle.spec.ts # Full happy path test (Chromium + WebKit)
+└── helpers/
+    └── reset-dataset.ts     # Dataset reset utility
+```
+
+### Test Files
+
+- **artist.cms.spec.ts**: Tests for creating and editing artists in Sanity Studio using Chromium browser
+- **artist.website.spec.ts**: Tests for viewing artist content on the website using WebKit browser
+- **artist-lifecycle.spec.ts**: Complete end-to-end workflow test that:
+  1. Creates an artist in Sanity Studio (Chromium)
+  2. Verifies the artist appears on the website (WebKit)
+  3. Edits the artist in Sanity Studio (Chromium)
+  4. Verifies the changes appear on the website (WebKit)
+
+The lifecycle test demonstrates the full happy path by managing its own browser contexts and sequentially testing both CMS and website functionality.
+
+## Dataset Management
+
+The E2E dataset is automatically reset before each test run to ensure a clean state. This is done using the `resetE2EDataset()` helper function.
+
+**Important**: The `SANITY_DATASET_E2E` dataset should be dedicated to E2E tests only and should not contain production data.
+
+## Best Practices
+
+1. **Run tests before committing**: Always run `pnpm run test:e2e` locally before committing changes
+2. **Keep tests independent**: Each test should be able to run in isolation
+3. **Use descriptive names**: Test data should be easily identifiable (e.g., "E2E Test Artist")
+4. **Clean dataset**: The dataset is reset before tests, so don't rely on existing data
+5. **Test real workflows**: Focus on user journeys, not implementation details
+6. **Handle async properly**: Wait for network requests and state updates
+
+## Troubleshooting
+
+### Tests fail with "Page not found"
+
+Ensure the deployment URLs are correct and the services are running.
+
+### Dataset reset fails
+
+Check that:
+- `SANITY_API_TOKEN` has write permissions
+- `SANITY_DATASET_E2E` dataset exists in the Sanity project
+- Network connectivity to Sanity API is available
+
+### Timeouts
+
+If tests timeout:
+1. Check network connectivity to the deployed instances
+2. Increase timeout values in `playwright.config.ts` if needed
+3. Verify the deployed instances are responding correctly
