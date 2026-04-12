@@ -10,12 +10,14 @@
 ### E2E Testing with Playwright
 
 - E2E tests are located in the root `e2e/` directory and test both CMS and website.
+- **Always run e2e tests locally before committing changes**: `pnpm run test:e2e` (from root).
+- E2E tests can run against localhost (default) or deployed instances.
+- For localhost testing: Start CMS on port 3333 and website on port 3000 before running tests.
 - When adding new features or modifying workflows, update or add e2e tests.
 - E2E tests validate complete user workflows across Sanity Studio and the website.
-- Run e2e tests with `pnpm run test:e2e` (from root).
-- E2E tests run automatically in CI via the `e2e-tests.yml` workflow after Vercel deployments.
+- E2E tests run automatically in CI via the `e2e-tests.yml` workflow.
+- CI gets the latest Vercel deployment (doesn't wait for new deployment when only e2e files change).
 - Tests use Chromium for CMS (Sanity Studio) and WebKit for website.
-- Tests run against deployed Vercel instances, not localhost.
 - The `SANITY_DATASET_E2E` dataset is automatically reset before each test run.
 - Follow the patterns in existing tests (e.g., `artist.cms.spec.ts`, `artist.website.spec.ts`).
 - See `e2e/README.md` for detailed documentation on e2e testing.

@@ -31,8 +31,13 @@ npx playwright install chromium webkit
 
 ### Local Development
 
+**Important**: Always run e2e tests locally before committing changes to ensure they pass.
+
+Tests can run against localhost (default) or deployed instances:
+
 ```bash
-# Run all e2e tests
+# Run all e2e tests against localhost
+# Make sure CMS is running on localhost:3333 and website on localhost:3000
 pnpm run test:e2e
 
 # Run tests in UI mode (interactive)
@@ -45,11 +50,28 @@ pnpm run test:e2e:debug
 pnpm run test:e2e:report
 ```
 
+**Running against localhost:**
+1. Start the CMS: `cd apps/cms && pnpm dev` (runs on http://localhost:3333)
+2. Start the website: `cd apps/website && pnpm dev` (runs on http://localhost:3000)
+3. Run tests: `pnpm run test:e2e`
+
+**Running against deployed instances:**
+```bash
+# Set environment variables for deployed URLs
+export CMS_BASE_URL="https://your-cms-deployment.vercel.app"
+export WEBSITE_BASE_URL="https://your-website-deployment.vercel.app"
+export SANITY_DATASET_E2E="e2e-test"
+export SANITY_API_TOKEN="your-token"
+pnpm run test:e2e
+```
+
 ### Environment Variables
 
-Required for running tests:
-- `CMS_BASE_URL`: URL of the Sanity Studio (e.g., deployed Vercel URL)
-- `WEBSITE_BASE_URL`: URL of the public website (e.g., deployed Vercel URL)
+Optional for local testing (defaults to localhost):
+- `CMS_BASE_URL`: URL of the Sanity Studio (default: "http://localhost:3333")
+- `WEBSITE_BASE_URL`: URL of the public website (default: "http://localhost:3000")
+
+Required for dataset reset:
 - `SANITY_STUDIO_PROJECT_ID`: Sanity project ID (default: "05hvmwlk")
 - `SANITY_DATASET_E2E`: Name of the E2E dataset (e.g., "e2e-test")
 - `SANITY_API_TOKEN`: Sanity API token with write permissions for dataset reset
@@ -57,10 +79,12 @@ Required for running tests:
 ## CI/CD
 
 Tests run automatically via GitHub Actions:
-1. Waits for Vercel preview deployments to complete
+1. Gets the latest Vercel deployment for the current branch
 2. Resets the E2E dataset
 3. Runs tests against the deployed instances
 4. Uploads test reports as artifacts
+
+**Note**: The workflow gets the latest deployment instead of waiting for a new one. This is important when only e2e test files change, as no new deployment is triggered.
 
 See `.github/workflows/e2e-tests.yml` for the workflow configuration.
 
@@ -83,11 +107,12 @@ The E2E dataset is automatically reset before each test run to ensure a clean st
 
 ## Best Practices
 
-1. **Keep tests independent**: Each test should be able to run in isolation
-2. **Use descriptive names**: Test data should be easily identifiable (e.g., "E2E Test Artist")
-3. **Clean dataset**: The dataset is reset before tests, so don't rely on existing data
-4. **Test real workflows**: Focus on user journeys, not implementation details
-5. **Handle async properly**: Wait for network requests and state updates
+1. **Run tests before committing**: Always run `pnpm run test:e2e` locally before committing changes
+2. **Keep tests independent**: Each test should be able to run in isolation
+3. **Use descriptive names**: Test data should be easily identifiable (e.g., "E2E Test Artist")
+4. **Clean dataset**: The dataset is reset before tests, so don't rely on existing data
+5. **Test real workflows**: Focus on user journeys, not implementation details
+6. **Handle async properly**: Wait for network requests and state updates
 
 ## Troubleshooting
 
