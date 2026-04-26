@@ -18,5 +18,5 @@
 ## Conventions
 - TypeScript strict mode everywhere — no `any`
 - i18n via `next-intl`; locales `de` (default) and `en`
-- Environment variables are not committed — pull via `vercel env pull`
+- No `.env` files committed — required vars are `MAILJET_*` and `SANITY_STUDIO_*` (ask user)
 - Deployed on Vercel
