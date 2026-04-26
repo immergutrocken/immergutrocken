@@ -18,5 +18,5 @@
 ## Conventions
 - TypeScript strict mode everywhere — no `any`
 - i18n via `next-intl`; locales `de` (default) and `en`
-- No `.env` files committed — required vars are `MAILJET_*` and `SANITY_STUDIO_*` (ask user)
+- No `.env` files committed — secrets (`MAILJET_*`, `SANITY_STUDIO_*`) fetched via Doppler at session start into `.env.local`
 - Deployed on Vercel
