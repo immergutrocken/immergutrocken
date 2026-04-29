@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.5",
-    "@eslint/js": "9.39.4",
+    "@eslint/js": "10.0.1",
     "@next/eslint-plugin-next": "15.5.2",
     "@plaiceholder/next": "3.0.0",
     "@testing-library/jest-dom": "6.8.0",
@@ -46,7 +46,7 @@
     "@typescript-eslint/eslint-plugin": "8.58.1",
     "@typescript-eslint/parser": "8.58.1",
     "autoprefixer": "10.4.23",
-    "eslint": "9.39.4",
+    "eslint": "10.2.1",
     "eslint-config-next": "15.5.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-jsx-a11y": "6.10.2",
