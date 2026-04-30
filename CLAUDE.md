@@ -20,3 +20,4 @@
 - i18n via `next-intl`; locales `de` (default) and `en`
 - No `.env` files committed — secrets (`MAILJET_*`, `SANITY_STUDIO_*`) fetched via Doppler at session start into `.env.local`
 - Deployed on Vercel
+- If you discover a convention or constraint not listed here, add it to this file and commit it
