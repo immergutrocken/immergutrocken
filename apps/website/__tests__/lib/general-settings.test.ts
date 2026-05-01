@@ -163,5 +163,9 @@ describe("GeneralSettings", () => {
     expect(result.isPerformanceDetailsVisible).toBe(false);
     expect(result.ticketshopUrl).toBe("");
     expect(result.countdown.showCountdown).toBe(false);
+    expect(result.bannerDesktop.urlWithBlur).toMatch(
+      /^data:image\/png;base64,/,
+    );
+    expect(result.bannerMobile.urlWithBlur).toMatch(/^data:image\/png;base64,/);
   });
 });
