@@ -17,8 +17,10 @@ export default defineConfig({
     {
       command: "pnpm --filter cms dev",
       url: "http://localhost:3333",
-      timeout: 120_000,
+      timeout: 300_000,
       reuseExistingServer: !process.env.CI,
+      stdout: "pipe",
+      stderr: "pipe",
       env: {
         SANITY_STUDIO_DATASET_DEVELOPMENT: "e2e-test",
         SANITY_STUDIO_DATASET_PREVIEW: "e2e-test",
@@ -29,8 +31,10 @@ export default defineConfig({
     {
       command: "pnpm --filter website dev",
       url: "http://localhost:3000",
-      timeout: 120_000,
+      timeout: 300_000,
       reuseExistingServer: !process.env.CI,
+      stdout: "pipe",
+      stderr: "pipe",
       env: {
         SANITY_STUDIO_DATASET: "e2e-test",
         SANITY_STUDIO_PROJECT_ID: "05hvmwlk",
