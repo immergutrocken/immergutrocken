@@ -64,6 +64,23 @@ jobs:
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
 
+      - name: Verify Sanity dataset is queryable
+        run: |
+          echo "Querying e2e-test dataset via GROQ..."
+          response=$(curl -s -w "\n%{http_code}" \
+            "https://05hvmwlk.api.sanity.io/v2024-01-01/data/query/e2e-test?query=*%5Bfalse%5D" \
+            -H "Authorization: Bearer $SANITY_API_TOKEN")
+          body=$(echo "$response" | head -n -1)
+          status=$(echo "$response" | tail -n 1)
+          echo "GROQ query HTTP $status: $body"
+          if [ "$status" != "200" ]; then
+            echo "ERROR: Cannot query e2e-test dataset (HTTP $status). Check that the dataset exists and the token has read access."
+            exit 1
+          fi
+          echo "Dataset is queryable"
+        env:
+          SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium webkit
 
