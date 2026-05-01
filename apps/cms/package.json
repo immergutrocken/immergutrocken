@@ -21,7 +21,7 @@
   "dependencies": {
     "@sanity/assist": "4.4.7",
     "@sanity/image-url": "1.2.0",
-    "@sanity/locale-de-de": "1.1.25",
+    "@sanity/locale-de-de": "1.1.31",
     "@sanity/vision": "4.6.0",
     "get-youtube-id": "1.0.1",
     "react": "19.1.1",
