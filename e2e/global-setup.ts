@@ -38,6 +38,34 @@ async function saveCmsAuthState() {
     { projectId: SANITY_PROJECT_ID, authToken: token },
   );
 
+  // Reload so the Studio reads the token we just set.
+  await page.reload();
+
+  // Wait up to 30 s for the Studio to finish auth. A login form appearing means
+  // the token was rejected; a data-testid="studio" or nav element means success.
+  const loginSelector = '[data-testid="login-form"], form input[type="email"]';
+  const studioSelector = '[data-testid="studio"], [data-ui="NavDrawer"], nav[aria-label]';
+
+  try {
+    await Promise.race([
+      page.waitForSelector(studioSelector, { timeout: 30_000 }),
+      page.waitForSelector(loginSelector, { timeout: 30_000 }),
+    ]);
+  } catch {
+    // Neither appeared — take a screenshot and proceed anyway.
+    await page.screenshot({ path: "e2e/.auth/global-setup-timeout.png" });
+    console.warn("globalSetup: Studio did not load within 30s — proceeding anyway");
+  }
+
+  const loginVisible = await page.locator(loginSelector).first().isVisible();
+  if (loginVisible) {
+    await page.screenshot({ path: "e2e/.auth/global-setup-login-form.png" });
+    throw new Error(
+      "Sanity Studio showed a login form — the SANITY_API_TOKEN was not accepted. " +
+        "Check that the token has Editor permissions on project 05hvmwlk.",
+    );
+  }
+
   await mkdir(dirname(AUTH_STATE_PATH), { recursive: true });
   await context.storageState({ path: AUTH_STATE_PATH });
   await browser.close();
