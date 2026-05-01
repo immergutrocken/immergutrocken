@@ -1,54 +1,41 @@
 import { test, expect, chromium, webkit } from "@playwright/test";
-import { resetE2EDataset } from "./helpers/reset-dataset";
-
-/**
- * E2E Happy Path Test: Artist Creation and Publishing
- *
- * This test validates the complete workflow:
- * 1. Create an artist in Sanity Studio (Chromium)
- * 2. View the artist on the website (WebKit)
- * 3. Edit the artist in Sanity Studio (Chromium)
- * 4. Verify the changes on the website (WebKit)
- *
- * This test uses both Chromium (for CMS) and WebKit (for website) browsers
- * to simulate real-world cross-browser compatibility.
- */
 
 const ARTIST_NAME = "E2E Test Artist";
 const ARTIST_NAME_UPDATED = "E2E Test Artist Updated";
 const ARTIST_SLUG = "e2e-test-artist";
 
+// Dataset reset is handled by global-setup.ts before all tests run.
+
+const CMS_BASE_URL = "http://localhost:3333/dev";
+const WEBSITE_BASE_URL = "http://localhost:3000";
+const AUTH_STATE_PATH = "e2e/.auth/storage-state.json";
+
 test.describe("Artist End-to-End Workflow", () => {
-  test.beforeAll(async () => {
-    // Reset the E2E dataset before running tests
-    await resetE2EDataset();
-  });
-
   test("should complete full artist lifecycle: create in CMS, view on website, edit in CMS, verify on website", async () => {
-    const cmsBaseURL = process.env.CMS_BASE_URL ?? "http://localhost:3333";
-    const websiteBaseURL =
-      process.env.WEBSITE_BASE_URL ?? "http://localhost:3000";
-
     // Step 1: Create artist in Sanity Studio (Chromium)
     const chromiumBrowser = await chromium.launch();
-    const chromiumContext = await chromiumBrowser.newContext();
+    const chromiumContext = await chromiumBrowser.newContext({
+      storageState: AUTH_STATE_PATH,
+    });
     const cmsPage = await chromiumContext.newPage();
 
-    // Navigate to Sanity Studio
-    await cmsPage.goto(cmsBaseURL);
+    await cmsPage.goto(CMS_BASE_URL);
     await cmsPage.waitForLoadState("networkidle");
 
-    // Navigate to artist creation
-    const createButton = cmsPage.getByRole("button", { name: /create/i }).first();
+    const createButton = cmsPage
+      .getByRole("button", { name: /create/i })
+      .first();
 
     if (await createButton.isVisible().catch(() => false)) {
       await createButton.click();
       await cmsPage.getByText("Künstler*in").click();
     } else {
-      await cmsPage.goto(`${cmsBaseURL}/desk/artist`);
+      await cmsPage.goto(`${CMS_BASE_URL}/desk/artist`);
       await cmsPage.waitForLoadState("networkidle");
 
-      const newButton = cmsPage.getByRole("button", { name: /new|erstellen/i });
+      const newButton = cmsPage.getByRole("button", {
+        name: /new|erstellen/i,
+      });
       if (await newButton.isVisible().catch(() => false)) {
         await newButton.click();
       }
@@ -56,7 +43,6 @@ test.describe("Artist End-to-End Workflow", () => {
 
     await cmsPage.waitForTimeout(2000);
 
-    // Fill in the artist form
     const titleInput = cmsPage.getByLabel(/titel/i).first();
     await titleInput.fill(ARTIST_NAME);
 
@@ -77,7 +63,9 @@ test.describe("Artist End-to-End Workflow", () => {
       await cmsPage.getByText("Musik", { exact: true }).first().click();
     }
 
-    const contentEditor = cmsPage.locator('[data-testid="pt-editor"]').first();
+    const contentEditor = cmsPage
+      .locator('[data-testid="pt-editor"]')
+      .first();
     if (await contentEditor.isVisible().catch(() => false)) {
       await contentEditor.click();
       await cmsPage.keyboard.type(
@@ -87,19 +75,18 @@ test.describe("Artist End-to-End Workflow", () => {
 
     await cmsPage.waitForTimeout(1000);
 
-    // Publish the document
     const publishButton = cmsPage.getByRole("button", { name: /publish/i });
     if (await publishButton.isVisible().catch(() => false)) {
       await publishButton.click();
       await cmsPage.waitForTimeout(3000);
     }
 
-    // Verify the artist was created
-    await cmsPage.goto(`${cmsBaseURL}/desk/artist`);
+    await cmsPage.goto(`${CMS_BASE_URL}/desk/artist`);
     await cmsPage.waitForLoadState("networkidle");
 
-    const artistInList = cmsPage.getByText(ARTIST_NAME);
-    await expect(artistInList).toBeVisible({ timeout: 10000 });
+    await expect(cmsPage.getByText(ARTIST_NAME)).toBeVisible({
+      timeout: 10000,
+    });
 
     await chromiumContext.close();
     await chromiumBrowser.close();
@@ -109,26 +96,28 @@ test.describe("Artist End-to-End Workflow", () => {
     const webkitContext = await webkitBrowser.newContext();
     const websitePage = await webkitContext.newPage();
 
-    await websitePage.goto(`${websiteBaseURL}/artist/${ARTIST_SLUG}`);
+    await websitePage.goto(`${WEBSITE_BASE_URL}/artist/${ARTIST_SLUG}`);
     await websitePage.waitForLoadState("networkidle");
 
-    const artistHeading = websitePage.getByRole("heading", {
-      name: ARTIST_NAME,
-    });
-    await expect(artistHeading).toBeVisible({ timeout: 10000 });
+    await expect(
+      websitePage.getByRole("heading", { name: ARTIST_NAME }),
+    ).toBeVisible({ timeout: 10000 });
 
-    const content = websitePage.getByText(/This is an E2E test artist/i);
-    await expect(content).toBeVisible({ timeout: 5000 });
+    await expect(
+      websitePage.getByText(/This is an E2E test artist/i),
+    ).toBeVisible({ timeout: 5000 });
 
     await webkitContext.close();
     await webkitBrowser.close();
 
     // Step 3: Edit the artist in Sanity Studio (Chromium)
     const chromiumBrowser2 = await chromium.launch();
-    const chromiumContext2 = await chromiumBrowser2.newContext();
+    const chromiumContext2 = await chromiumBrowser2.newContext({
+      storageState: AUTH_STATE_PATH,
+    });
     const cmsPage2 = await chromiumContext2.newPage();
 
-    await cmsPage2.goto(`${cmsBaseURL}/desk/artist`);
+    await cmsPage2.goto(`${CMS_BASE_URL}/desk/artist`);
     await cmsPage2.waitForLoadState("networkidle");
 
     const artistLink = cmsPage2.getByText(ARTIST_NAME);
@@ -150,12 +139,12 @@ test.describe("Artist End-to-End Workflow", () => {
       await cmsPage2.waitForTimeout(3000);
     }
 
-    // Verify the change in CMS
-    await cmsPage2.goto(`${cmsBaseURL}/desk/artist`);
+    await cmsPage2.goto(`${CMS_BASE_URL}/desk/artist`);
     await cmsPage2.waitForLoadState("networkidle");
 
-    const updatedArtistInList = cmsPage2.getByText(ARTIST_NAME_UPDATED);
-    await expect(updatedArtistInList).toBeVisible({ timeout: 10000 });
+    await expect(cmsPage2.getByText(ARTIST_NAME_UPDATED)).toBeVisible({
+      timeout: 10000,
+    });
 
     await chromiumContext2.close();
     await chromiumBrowser2.close();
@@ -165,13 +154,12 @@ test.describe("Artist End-to-End Workflow", () => {
     const webkitContext2 = await webkitBrowser2.newContext();
     const websitePage2 = await webkitContext2.newPage();
 
-    await websitePage2.goto(`${websiteBaseURL}/artist/${ARTIST_SLUG}`);
+    await websitePage2.goto(`${WEBSITE_BASE_URL}/artist/${ARTIST_SLUG}`);
     await websitePage2.waitForLoadState("networkidle");
 
-    const updatedHeading = websitePage2.getByRole("heading", {
-      name: ARTIST_NAME_UPDATED,
-    });
-    await expect(updatedHeading).toBeVisible({ timeout: 10000 });
+    await expect(
+      websitePage2.getByRole("heading", { name: ARTIST_NAME_UPDATED }),
+    ).toBeVisible({ timeout: 10000 });
 
     await webkitContext2.close();
     await webkitBrowser2.close();

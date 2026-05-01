@@ -1,40 +1,51 @@
 import { defineConfig, devices } from "@playwright/test";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: "./e2e",
-  /* Run tests in files in parallel */
+  globalSetup: "./e2e/global-setup.ts",
   fullyParallel: false,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
   workers: 1,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
 
-  /* Configure projects for major browsers */
+  webServer: [
+    {
+      command: "pnpm --filter cms dev",
+      url: "http://localhost:3333",
+      timeout: 120_000,
+      reuseExistingServer: !process.env.CI,
+      env: {
+        SANITY_STUDIO_DATASET_DEVELOPMENT: "e2e-test",
+        SANITY_STUDIO_DATASET_PREVIEW: "e2e-test",
+        SANITY_STUDIO_DATASET_PRODUCTION: "e2e-test",
+        SANITY_STUDIO_PROJECT_ID: "05hvmwlk",
+      },
+    },
+    {
+      command: "pnpm --filter website dev",
+      url: "http://localhost:3000",
+      timeout: 120_000,
+      reuseExistingServer: !process.env.CI,
+      env: {
+        SANITY_STUDIO_DATASET: "e2e-test",
+        SANITY_STUDIO_PROJECT_ID: "05hvmwlk",
+      },
+    },
+  ],
+
   projects: [
     {
       name: "cms-chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: process.env.CMS_BASE_URL ?? "http://localhost:3333",
+        // /dev = the dev workspace in sanity.config.ts (active when import.meta.env.DEV is true)
+        baseURL: "http://localhost:3333/dev",
+        storageState: "e2e/.auth/storage-state.json",
       },
       testMatch: /.*\.cms\.spec\.ts/,
     },
@@ -42,15 +53,14 @@ export default defineConfig({
       name: "website-webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: process.env.WEBSITE_BASE_URL ?? "http://localhost:3000",
+        baseURL: "http://localhost:3000",
       },
       testMatch: /.*\.website\.spec\.ts/,
     },
     {
       name: "happy-path",
       use: {
-        // Happy path tests manage their own browser contexts
-        // and don't need a default baseURL
+        ...devices["Desktop Chrome"],
       },
       testMatch: /.*-lifecycle\.spec\.ts/,
     },

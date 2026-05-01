@@ -11,11 +11,10 @@ The e2e tests validate the complete workflow across both the Sanity CMS and the 
 
 ## Test Strategy
 
-- **Browser Selection**:
-  - Chromium for Sanity Studio interactions
-  - WebKit for website verification
-- **Dataset**: Uses a dedicated `SANITY_DATASET_E2E` dataset that is reset before each test run
-- **Deployment**: Tests run against Vercel preview deployments, not localhost
+- **Browser selection**: Chromium for Sanity Studio interactions, WebKit for website verification
+- **Dataset**: Uses a dedicated `e2e-test` Sanity dataset that is reset before each test run
+- **Servers**: Both apps start as local dev servers — Playwright's `webServer` config handles this automatically
+- **Auth**: The `SANITY_API_TOKEN` is injected into the browser's localStorage in `globalSetup` so no manual login to Studio is needed
 
 ## Running Tests
 
@@ -31,138 +30,91 @@ npx playwright install chromium webkit
 
 ### Local Development
 
-**Important**: Always run e2e tests locally before committing changes to ensure they pass.
+**Important**: Always run e2e tests locally before committing changes.
 
-Tests can run against localhost (default) or deployed instances:
+Playwright starts both dev servers automatically before running tests:
 
 ```bash
-# Run all e2e tests against localhost
-# Make sure CMS is running on localhost:3333 and website on localhost:3000
+# Required env vars (add to your shell or .env.local at root)
+export SANITY_API_TOKEN="your-token-with-editor-access"
+
+# Run all e2e tests (servers start automatically)
 pnpm run test:e2e
 
-# Run tests in UI mode (interactive)
+# Run tests in UI mode (interactive, great for debugging)
 pnpm run test:e2e:ui
 
 # Run tests in debug mode
 pnpm run test:e2e:debug
 
-# Show test report
+# Show last test report
 pnpm run test:e2e:report
 ```
 
-**Running against localhost:**
-1. Start the CMS: `cd apps/cms && pnpm dev` (runs on http://localhost:3333)
-2. Start the website: `cd apps/website && pnpm dev` (runs on http://localhost:3000)
-3. Run tests: `pnpm run test:e2e`
-
-**Running against deployed instances:**
-```bash
-# Set environment variables for deployed URLs
-export CMS_BASE_URL="https://your-cms-deployment.vercel.app"
-export WEBSITE_BASE_URL="https://your-website-deployment.vercel.app"
-export SANITY_DATASET_E2E="e2e-test"
-export SANITY_API_TOKEN="your-token"
-pnpm run test:e2e
-```
+If both dev servers are already running on their default ports (3333, 3000), Playwright reuses them instead of starting new ones.
 
 ### Environment Variables
 
-Optional for local testing (defaults to localhost):
-- `CMS_BASE_URL`: URL of the Sanity Studio (default: "http://localhost:3333")
-- `WEBSITE_BASE_URL`: URL of the public website (default: "http://localhost:3000")
-
-Required for dataset reset:
-- `SANITY_STUDIO_PROJECT_ID`: Sanity project ID (default: "05hvmwlk")
-- `SANITY_DATASET_E2E`: Name of the E2E dataset (e.g., "e2e-test")
-- `SANITY_API_TOKEN`: Sanity API token with write permissions for dataset reset
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `SANITY_API_TOKEN` | Yes | — | Token with editor access; used for dataset reset and Studio auth injection |
+| `SANITY_STUDIO_PROJECT_ID` | No | `05hvmwlk` | Sanity project ID |
+| `SANITY_DATASET_E2E` | No | `e2e-test` | Name of the dedicated E2E dataset |
 
 ## CI/CD
 
-Tests run automatically via GitHub Actions with intelligent deployment handling:
+Tests run automatically via GitHub Actions (`.github/workflows/e2e-tests.yml`).
 
-**When apps are changed** (`apps/cms/**` or `apps/website/**`):
-1. Uses `wait-for-vercel-preview` action to wait for Vercel deployment status checks
-2. Waits up to 10 minutes for deployments to reach READY state
-3. Fetches deployment URLs for the specific commit SHA
-4. **Fails the workflow if deployments are not ready** (no fallback to prevent testing wrong code)
-5. Resets the E2E dataset
-6. Runs tests against the newly deployed instances
-7. Uploads test reports as artifacts
+The workflow:
+1. Installs dependencies
+2. Installs Playwright browsers
+3. Runs `pnpm test:e2e` — Playwright starts both dev servers pointed at the `e2e-test` dataset, runs all tests, then stops them
+4. Uploads the HTML report as an artifact
 
-**When only e2e files are changed**:
-1. Immediately gets the latest READY deployment for the branch
-2. Resets the E2E dataset
-3. Runs tests against the existing deployment
-4. Uploads test reports as artifacts
+Only one run is allowed at a time (`concurrency: cancel-in-progress: false`) to prevent dataset interference.
 
-This approach ensures tests always run against the correct deployment. When apps change, the workflow will fail if deployments don't complete within the timeout, allowing you to re-run the workflow once deployments finish.
+### Required GitHub secret
 
-### Required Secrets
-
-The workflow requires the following GitHub secrets to be configured:
-- `VERCEL_TOKEN`: Vercel API token for fetching deployment URLs
-- `VERCEL_ORG_ID`: Vercel organization ID
-- `VERCEL_CMS_PROJECT_ID`: Vercel project ID for the CMS app
-- `VERCEL_WEBSITE_PROJECT_ID`: Vercel project ID for the website app
-- `SANITY_DATASET_E2E`: Name of the E2E dataset (e.g., "e2e-test")
-- `SANITY_API_TOKEN`: Sanity API token with write permissions
-
-See `.github/workflows/e2e-tests.yml` for the workflow configuration.
+| Secret | Purpose |
+|--------|---------|
+| `SANITY_API_TOKEN` | Dataset reset + Studio auth injection |
 
 ## Test Structure
 
 ```
 e2e/
-├── artist.cms.spec.ts       # CMS tests (Chromium)
-├── artist.website.spec.ts   # Website tests (WebKit)
-├── artist-lifecycle.spec.ts # Full happy path test (Chromium + WebKit)
-└── helpers/
-    └── reset-dataset.ts     # Dataset reset utility
+├── global-setup.ts          # Resets dataset + saves Sanity auth state
+├── artist-lifecycle.spec.ts # Full happy path (Chromium + WebKit)
+├── artist.cms.spec.ts       # CMS-only tests (Chromium)
+├── artist.website.spec.ts   # Website-only tests (WebKit)
+├── helpers/
+│   └── reset-dataset.ts     # Dataset reset utility
+└── .auth/                   # Playwright auth state (gitignored)
 ```
 
 ### Test Files
 
-- **artist.cms.spec.ts**: Tests for creating and editing artists in Sanity Studio using Chromium browser
-- **artist.website.spec.ts**: Tests for viewing artist content on the website using WebKit browser
-- **artist-lifecycle.spec.ts**: Complete end-to-end workflow test that:
-  1. Creates an artist in Sanity Studio (Chromium)
-  2. Verifies the artist appears on the website (WebKit)
-  3. Edits the artist in Sanity Studio (Chromium)
-  4. Verifies the changes appear on the website (WebKit)
-
-The lifecycle test demonstrates the full happy path by managing its own browser contexts and sequentially testing both CMS and website functionality.
+- **global-setup.ts**: Resets the `e2e-test` dataset and saves Sanity Studio auth state to `e2e/.auth/storage-state.json`
+- **artist-lifecycle.spec.ts**: Full happy path — create artist (Chromium) → view on website (WebKit) → edit (Chromium) → verify change (WebKit). Since the website runs as a dev server (`next dev`), CMS changes are visible immediately.
+- **artist.cms.spec.ts**: CMS-focused tests using the `cms-chromium` project (baseURL: `http://localhost:3333/dev`)
+- **artist.website.spec.ts**: Website-focused tests using the `website-webkit` project (baseURL: `http://localhost:3000`)
 
 ## Dataset Management
 
-The E2E dataset is automatically reset before each test run to ensure a clean state. This is done using the `resetE2EDataset()` helper function.
-
-**Important**: The `SANITY_DATASET_E2E` dataset should be dedicated to E2E tests only and should not contain production data.
-
-## Best Practices
-
-1. **Run tests before committing**: Always run `pnpm run test:e2e` locally before committing changes
-2. **Keep tests independent**: Each test should be able to run in isolation
-3. **Use descriptive names**: Test data should be easily identifiable (e.g., "E2E Test Artist")
-4. **Clean dataset**: The dataset is reset before tests, so don't rely on existing data
-5. **Test real workflows**: Focus on user journeys, not implementation details
-6. **Handle async properly**: Wait for network requests and state updates
+The `e2e-test` dataset is reset automatically in `globalSetup` before any test runs. It is dedicated to E2E tests and must never contain production data.
 
 ## Troubleshooting
 
-### Tests fail with "Page not found"
+### Studio shows login screen (auth not working)
 
-Ensure the deployment URLs are correct and the services are running.
+The `globalSetup` injects `SANITY_API_TOKEN` into localStorage under key `__sanity_auth_token_05hvmwlk`. If the Studio still shows a login screen, open DevTools on `http://localhost:3333/dev` after a manual login and run `Object.keys(localStorage)` to find the actual key Sanity v4 uses, then update `global-setup.ts` accordingly.
+
+### Dev servers fail to start
+
+- Ensure ports 3333 and 3000 are free (or set `reuseExistingServer` is working for already-running servers)
+- Check that all required env vars are set
 
 ### Dataset reset fails
 
-Check that:
-- `SANITY_API_TOKEN` has write permissions
-- `SANITY_DATASET_E2E` dataset exists in the Sanity project
-- Network connectivity to Sanity API is available
-
-### Timeouts
-
-If tests timeout:
-1. Check network connectivity to the deployed instances
-2. Increase timeout values in `playwright.config.ts` if needed
-3. Verify the deployed instances are responding correctly
+- Verify `SANITY_API_TOKEN` has write permissions on the `e2e-test` dataset
+- Confirm the `e2e-test` dataset exists in the Sanity project (`05hvmwlk`)

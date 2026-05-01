@@ -31,6 +31,7 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@sanity/client": "^7.10.0",
+    "@types/node": "^22.0.0",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "vercel": "46.1.1"
