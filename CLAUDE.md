@@ -13,7 +13,7 @@
 ## Structure
 - `apps/website` — Next.js 15 SSG, **Pages Router** (not App Router), TypeScript strict, Tailwind
 - `apps/cms` — Sanity Studio 4, headless CMS
-- Path alias: `@/*` → `./src/*` in website
+- Website app structure uses top-level folders such as `components`, `lib`, and `pages` (no documented `src/` alias)
 
 ## Conventions
 - TypeScript strict mode everywhere — no `any`
