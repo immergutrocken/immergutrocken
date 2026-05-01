@@ -1,3 +1,6 @@
+import { mkdir } from "fs/promises";
+import { dirname } from "path";
+
 import { chromium } from "@playwright/test";
 
 import { resetE2EDataset } from "./helpers/reset-dataset";
@@ -31,6 +34,7 @@ async function saveCmsAuthState() {
     { projectId: SANITY_PROJECT_ID, authToken: token },
   );
 
+  await mkdir(dirname(AUTH_STATE_PATH), { recursive: true });
   await context.storageState({ path: AUTH_STATE_PATH });
   await browser.close();
 }
