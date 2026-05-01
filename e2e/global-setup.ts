@@ -25,11 +25,15 @@ async function saveCmsAuthState() {
   const page = await context.newPage();
 
   // Navigate to Studio so its origin is established, then inject the token into
-  // localStorage. Sanity Studio v4 reads __sanity_auth_token_<projectId> on load.
+  // localStorage. Sanity Studio v4 stores the token as JSON under the key
+  // __sanity_auth_token_<projectId> and reads it with JSON.parse(item).token.
   await page.goto(CMS_DEV_URL);
   await page.evaluate(
     ({ projectId, authToken }) => {
-      localStorage.setItem(`__sanity_auth_token_${projectId}`, authToken);
+      localStorage.setItem(
+        `__sanity_auth_token_${projectId}`,
+        JSON.stringify({ token: authToken }),
+      );
     },
     { projectId: SANITY_PROJECT_ID, authToken: token },
   );
