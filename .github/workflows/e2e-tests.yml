@@ -36,22 +36,30 @@ jobs:
 
       - name: Ensure e2e-test Sanity dataset exists
         run: |
-          response=$(curl -s -w "\n%{http_code}" \
+          list_response=$(curl -s -w "\n%{http_code}" \
             "https://api.sanity.io/v2021-10-21/projects/05hvmwlk/datasets" \
             -H "Authorization: Bearer $SANITY_API_TOKEN")
-          body=$(echo "$response" | head -n -1)
-          status=$(echo "$response" | tail -n 1)
-          echo "Dataset list HTTP $status: $body"
-          if echo "$body" | grep -q '"e2e-test"'; then
+          list_body=$(echo "$list_response" | head -n -1)
+          list_status=$(echo "$list_response" | tail -n 1)
+          echo "Dataset list HTTP $list_status: $list_body"
+          if echo "$list_body" | grep -q '"e2e-test"'; then
             echo "e2e-test dataset already exists"
           else
-            echo "e2e-test dataset not found — creating it"
-            curl -s -X PUT \
+            echo "e2e-test dataset not found — attempting to create it"
+            create_response=$(curl -s -w "\n%{http_code}" -X PUT \
               "https://api.sanity.io/v2021-10-21/projects/05hvmwlk/datasets/e2e-test" \
               -H "Authorization: Bearer $SANITY_API_TOKEN" \
               -H "Content-Type: application/json" \
-              -d '{"aclMode":"private"}'
-            echo "Dataset created"
+              -d '{"aclMode":"private"}')
+            create_body=$(echo "$create_response" | head -n -1)
+            create_status=$(echo "$create_response" | tail -n 1)
+            echo "Dataset creation HTTP $create_status: $create_body"
+            if [ "$create_status" != "200" ] && [ "$create_status" != "201" ]; then
+              echo "ERROR: Could not create e2e-test dataset (HTTP $create_status)."
+              echo "Please create it manually at https://www.sanity.io/manage/personal/project/05hvmwlk/datasets"
+              exit 1
+            fi
+            echo "e2e-test dataset created successfully"
           fi
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
