@@ -1,4 +1,5 @@
-reviews:
+code_review:
+  comment_severity_threshold: MEDIUM
   instructions: |
     Before reviewing, read CLAUDE.md in the repository root to understand
     the project conventions. Key points:
@@ -9,7 +10,7 @@ reviews:
     - i18n via next-intl with locales `de` (default) and `en`
     - No .env files committed — secrets via Doppler into .env.local
   path_instructions:
-    - path: "apps/website/**"
+    - glob: "apps/website/**"
       instructions: "Pages Router only — flag any App Router patterns (e.g. app/ directory, server components, use client without Pages Router context)."
-    - path: "apps/cms/**"
+    - glob: "apps/cms/**"
       instructions: "Sanity Studio 4 — flag deprecated Sanity v3 APIs or patterns."

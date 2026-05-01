@@ -23,5 +23,5 @@
 - If you discover a convention or constraint not listed here, add it to this file and commit it
 
 ## Code Review
-- PRs are reviewed automatically by **CodeRabbit** (free tier, GitHub App)
-- CodeRabbit is configured via `.coderabbit.yaml` in the repo root — update that file when conventions here change
+- PRs are reviewed automatically by **Gemini Code Assist** (free, GitHub App)
+- Gemini is configured via `gemini-code-assist.yaml` in the repo root — update that file when conventions here change
