@@ -16,7 +16,7 @@
 - Website app structure uses top-level folders such as `components`, `lib`, and `pages` (no documented `src/` alias)
 
 ## Conventions
-- TypeScript strict mode everywhere — no `any`
+- TypeScript strict mode everywhere — avoid `any` when possible, and document exception cases
 - i18n via `next-intl`; locales `de` (default) and `en`
 - No `.env` files committed — secrets (`MAILJET_*`, `SANITY_STUDIO_*`) fetched via Doppler at session start into `.env.local`
 - Deployed on Vercel
