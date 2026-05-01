@@ -15,7 +15,7 @@ export async function resetE2EDataset() {
 
   // Delete all documents in the E2E dataset
   try {
-    const query = '*[_type in ["artist", "article", "partner", "menu"]]';
+    const query = "*";
     const documents = await client.fetch(query);
 
     if (documents && documents.length > 0) {
