@@ -154,4 +154,14 @@ describe("GeneralSettings", () => {
     const result = await getGeneralSettings("de");
     expect(result.isPerformanceDetailsVisible).toBe(false);
   });
+
+  it("should return safe defaults when dataset is empty", async () => {
+    sanityClientFetchMock.mockResolvedValueOnce([]);
+    const result = await getGeneralSettings("de");
+    expect(result.websiteTitle).toBe("");
+    expect(result.showNewsAsPrimaryContent).toBe(false);
+    expect(result.isPerformanceDetailsVisible).toBe(false);
+    expect(result.ticketshopUrl).toBe("");
+    expect(result.countdown.showCountdown).toBe(false);
+  });
 });

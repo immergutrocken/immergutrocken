@@ -33,4 +33,10 @@ describe("News", () => {
       { title: "titleEn2", slug: "slug2" },
     ]);
   });
+
+  it("should return empty array when dataset is empty", async () => {
+    sanityClientFetchMock.mockReturnValue([]);
+    const result = await getNewsLinkList(Locale.DE);
+    expect(result).toEqual([]);
+  });
 });
