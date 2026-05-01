@@ -1,0 +1,16 @@
+code_review:
+  comment_severity_threshold: MEDIUM
+  instructions: |
+    Before reviewing, read CLAUDE.md in the repository root to understand
+    the project conventions. Key points:
+    - Package manager is pnpm — flag any npm or yarn usage
+    - apps/website is Next.js 15 SSG using Pages Router (not App Router) with TypeScript strict and Tailwind
+    - apps/cms is Sanity Studio 4
+    - TypeScript strict mode everywhere — avoid `any`, document exceptions
+    - i18n via next-intl with locales `de` (default) and `en`
+    - No .env files committed — secrets via Doppler into .env.local
+  path_instructions:
+    - glob: "apps/website/**"
+      instructions: "Pages Router only — flag any App Router patterns (e.g. app/ directory, server components, use client without Pages Router context)."
+    - glob: "apps/cms/**"
+      instructions: "Sanity Studio 4 — flag deprecated Sanity v3 APIs or patterns."
