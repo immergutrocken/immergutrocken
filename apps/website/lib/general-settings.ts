@@ -54,6 +54,31 @@ export const getGeneralSettings = async (
     'countdown': countdown
   }`;
   const result = (await getSanityClient().fetch(query))[0];
+  if (!result) {
+    const emptyImage = {
+      alt: "",
+      asset: {} as SanityImageSource,
+      credits: "",
+      url: "/placeholder.png",
+      urlWithBlur: "",
+      width: 1,
+      height: 1,
+    };
+    return {
+      websiteTitle: "",
+      bannerDesktop: emptyImage,
+      bannerMobile: emptyImage,
+      showNewsAsPrimaryContent: false,
+      additionalTextAfterArtists: "",
+      isPerformanceDetailsVisible: false,
+      ticketshopUrl: "",
+      countdown: {
+        showCountdown: false,
+        festivalStartDate: "",
+        festivalEndDate: "",
+      },
+    };
+  }
   const bannerDesktop =
     locale === "de"
       ? result.bannerDesktopDe

@@ -101,6 +101,7 @@ export const getMenu = async (): Promise<IMenuItem[]> => {
   }`;
   const data = await getSanityClient().fetch(query);
   const mainMenu = data.find((menu: ISanityMenu) => menu.isMainMenu === true);
+  if (!mainMenu) return [];
   const menuItems = buildMenuItems(mainMenu, data);
   return menuItems;
 };
