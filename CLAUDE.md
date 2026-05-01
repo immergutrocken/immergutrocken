@@ -21,3 +21,7 @@
 - No `.env` files committed — secrets (`MAILJET_*`, `SANITY_STUDIO_*`) fetched via Doppler at session start into `.env.local`
 - Deployed on Vercel
 - If you discover a convention or constraint not listed here, add it to this file and commit it
+
+## Code Review
+- PRs are reviewed automatically by **CodeRabbit** (free tier, GitHub App)
+- CodeRabbit is configured via `.coderabbit.yaml` in the repo root — update that file when conventions here change
