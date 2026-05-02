@@ -25,30 +25,13 @@ jobs:
 
       - name: Check required secrets
         run: |
-          failed=0
           if [ -z "$SANITY_API_TOKEN" ]; then
             echo "ERROR: SANITY_API_TOKEN secret is not set"
-            failed=1
-          else
-            echo "SANITY_API_TOKEN is set (length: ${#SANITY_API_TOKEN})"
+            exit 1
           fi
-          if [ -z "$SANITY_USER_EMAIL" ]; then
-            echo "ERROR: SANITY_USER_EMAIL secret is not set"
-            failed=1
-          else
-            echo "SANITY_USER_EMAIL is set"
-          fi
-          if [ -z "$SANITY_USER_PASSWORD" ]; then
-            echo "ERROR: SANITY_USER_PASSWORD secret is not set"
-            failed=1
-          else
-            echo "SANITY_USER_PASSWORD is set"
-          fi
-          exit $failed
+          echo "SANITY_API_TOKEN is set (length: ${#SANITY_API_TOKEN})"
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
-          SANITY_USER_EMAIL: ${{ secrets.SANITY_USER_EMAIL }}
-          SANITY_USER_PASSWORD: ${{ secrets.SANITY_USER_PASSWORD }}
 
       - name: Ensure e2e-test Sanity dataset exists
         continue-on-error: true
@@ -112,8 +95,6 @@ jobs:
           SANITY_STUDIO_PROJECT_ID: "05hvmwlk"
           SANITY_DATASET_E2E: e2e-test
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
-          SANITY_USER_EMAIL: ${{ secrets.SANITY_USER_EMAIL }}
-          SANITY_USER_PASSWORD: ${{ secrets.SANITY_USER_PASSWORD }}
 
       - uses: actions/upload-artifact@v4
         if: always()
