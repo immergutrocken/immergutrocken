@@ -11,8 +11,9 @@ const AUTH_STATE_PATH = "e2e/.auth/storage-state.json";
 const STUDIO_SELECTOR =
   '[data-testid="studio"], [data-ui="NavDrawer"], nav[aria-label]';
 
-// localStorage key used by @sanity/sdk to persist the auth token.
-const SANITY_AUTH_STORAGE_KEY = "__sanity_auth_token";
+// localStorage key used by sanity@4.x (getStorageKey in sanity/lib/index.js).
+const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? "05hvmwlk";
+const SANITY_AUTH_STORAGE_KEY = `__studio_auth_token_${PROJECT_ID}`;
 
 export default async function globalSetup() {
   await resetE2EDataset();
@@ -46,6 +47,7 @@ async function saveCmsAuthState() {
     await page.waitForSelector(STUDIO_SELECTOR, { timeout: 120_000 });
   } catch {
     await page.screenshot({ path: "e2e/.auth/global-setup-timeout.png" });
+    await browser.close();
     throw new Error(
       "globalSetup: Studio did not load after token injection — verify SANITY_API_TOKEN is valid and has editor access to the e2e-test dataset",
     );
