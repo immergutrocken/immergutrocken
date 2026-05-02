@@ -12,6 +12,7 @@ const AUTH_STATE_PATH = "e2e/.auth/storage-state.json";
 
 test.describe("Artist End-to-End Workflow", () => {
   test("should complete full artist lifecycle: create in CMS, view on website, edit in CMS, verify on website", async () => {
+    test.setTimeout(120_000);
     // Launch one browser per engine and reuse across steps to avoid redundant startups.
     const chromiumBrowser = await chromium.launch();
     const webkitBrowser = await webkit.launch();
@@ -20,6 +21,7 @@ test.describe("Artist End-to-End Workflow", () => {
       // Step 1: Create artist in Sanity Studio (Chromium)
       const chromiumContext1 = await chromiumBrowser.newContext({
         storageState: AUTH_STATE_PATH,
+        ignoreHTTPSErrors: true,
       });
       const cmsPage = await chromiumContext1.newPage();
 
@@ -93,7 +95,7 @@ test.describe("Artist End-to-End Workflow", () => {
       await chromiumContext1.close();
 
       // Step 2: View the artist on the website (WebKit)
-      const webkitContext1 = await webkitBrowser.newContext();
+      const webkitContext1 = await webkitBrowser.newContext({ ignoreHTTPSErrors: true });
       const websitePage = await webkitContext1.newPage();
 
       await websitePage.goto(`${WEBSITE_BASE_URL}/artist/${ARTIST_SLUG}`);
@@ -110,6 +112,7 @@ test.describe("Artist End-to-End Workflow", () => {
       // Step 3: Edit the artist in Sanity Studio (reuse Chromium browser)
       const chromiumContext2 = await chromiumBrowser.newContext({
         storageState: AUTH_STATE_PATH,
+        ignoreHTTPSErrors: true,
       });
       const cmsPage2 = await chromiumContext2.newPage();
 
@@ -145,7 +148,7 @@ test.describe("Artist End-to-End Workflow", () => {
       await chromiumContext2.close();
 
       // Step 4: Verify the changes on the website (reuse WebKit browser)
-      const webkitContext2 = await webkitBrowser.newContext();
+      const webkitContext2 = await webkitBrowser.newContext({ ignoreHTTPSErrors: true });
       const websitePage2 = await webkitContext2.newPage();
 
       await websitePage2.goto(`${WEBSITE_BASE_URL}/artist/${ARTIST_SLUG}`);

@@ -5,7 +5,6 @@ import { chromium } from "@playwright/test";
 
 import { resetE2EDataset } from "./helpers/reset-dataset";
 
-const SANITY_PROJECT_ID = "05hvmwlk";
 const CMS_DEV_URL = "http://localhost:3333/dev";
 const AUTH_STATE_PATH = "e2e/.auth/storage-state.json";
 
@@ -15,54 +14,76 @@ export default async function globalSetup() {
 }
 
 async function saveCmsAuthState() {
-  const token = process.env.SANITY_API_TOKEN;
-  if (!token) {
-    throw new Error("SANITY_API_TOKEN is required for e2e tests");
+  const email = process.env.SANITY_USER_EMAIL;
+  const password = process.env.SANITY_USER_PASSWORD;
+  if (!email || !password) {
+    throw new Error(
+      "SANITY_USER_EMAIL and SANITY_USER_PASSWORD are required for e2e tests",
+    );
   }
 
   const browser = await chromium.launch();
-  const context = await browser.newContext();
+  // ignoreHTTPSErrors is required in environments that intercept TLS traffic
+  // (e.g. sandboxed CI workers with a corporate CA not trusted by Chromium).
+  const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await context.newPage();
 
-  // Navigate to Studio so its origin is established, then inject the token into
-  // localStorage. Sanity Studio v4 stores the token as JSON under the key
-  // __sanity_auth_token_<projectId> and reads it with JSON.parse(item).token.
   await page.goto(CMS_DEV_URL);
-  await page.evaluate(
-    ({ projectId, authToken }) => {
-      localStorage.setItem(
-        `__sanity_auth_token_${projectId}`,
-        JSON.stringify({ token: authToken }),
-      );
-    },
-    { projectId: SANITY_PROJECT_ID, authToken: token },
-  );
 
-  // Reload so the Studio reads the token we just set.
-  await page.reload();
+  const studioSelector =
+    '[data-testid="studio"], [data-ui="NavDrawer"], nav[aria-label]';
+  const emailButtonSelector = 'button:has-text("E-mail")';
 
-  // Wait up to 30 s for the Studio to finish auth. A login form appearing means
-  // the token was rejected; a data-testid="studio" or nav element means success.
-  const loginSelector = '[data-testid="login-form"], form input[type="email"]';
-  const studioSelector = '[data-testid="studio"], [data-ui="NavDrawer"], nav[aria-label]';
-
+  // Wait for either the Studio (already logged in) or the login provider choice.
   try {
     await Promise.race([
       page.waitForSelector(studioSelector, { timeout: 30_000 }),
-      page.waitForSelector(loginSelector, { timeout: 30_000 }),
+      page.waitForSelector(emailButtonSelector, { timeout: 30_000 }),
     ]);
   } catch {
-    // Neither appeared — take a screenshot and proceed anyway.
     await page.screenshot({ path: "e2e/.auth/global-setup-timeout.png" });
-    console.warn("globalSetup: Studio did not load within 30s — proceeding anyway");
+    console.warn(
+      "globalSetup: neither Studio nor login screen appeared within 30s",
+    );
   }
 
-  const loginVisible = await page.locator(loginSelector).first().isVisible();
-  if (loginVisible) {
-    await page.screenshot({ path: "e2e/.auth/global-setup-login-form.png" });
+  // If Studio is already authenticated (storage state reuse) we're done.
+  if (await page.locator(studioSelector).first().isVisible()) {
+    await mkdir(dirname(AUTH_STATE_PATH), { recursive: true });
+    await context.storageState({ path: AUTH_STATE_PATH });
+    await browser.close();
+    return;
+  }
+
+  // Click "E-mail / password" to open the credentials form.
+  const emailButton = page.locator(emailButtonSelector).first();
+  if (!(await emailButton.isVisible())) {
+    await page.screenshot({ path: "e2e/.auth/global-setup-no-login.png" });
     throw new Error(
-      "Sanity Studio showed a login form — the SANITY_API_TOKEN was not accepted. " +
-        "Check that the token has Editor permissions on project 05hvmwlk.",
+      "globalSetup: could not find 'E-mail / password' login button on Studio login page",
+    );
+  }
+  await emailButton.click();
+
+  // Fill email.
+  await page.waitForSelector('input[type="email"]', { timeout: 10_000 });
+  await page.fill('input[type="email"]', email);
+  await page.locator('button[type="submit"]').first().click();
+
+  // Sanity may split email and password onto separate pages.
+  const passwordInput = page.locator('input[type="password"]');
+  if (await passwordInput.isVisible({ timeout: 8_000 }).catch(() => false)) {
+    await passwordInput.fill(password);
+    await page.locator('button[type="submit"]').last().click();
+  }
+
+  // Wait for Studio to load after successful login.
+  try {
+    await page.waitForSelector(studioSelector, { timeout: 60_000 });
+  } catch {
+    await page.screenshot({ path: "e2e/.auth/global-setup-login-failed.png" });
+    throw new Error(
+      "globalSetup: Studio did not load after login — check credentials",
     );
   }
 

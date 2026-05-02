@@ -96,6 +96,8 @@ jobs:
           SANITY_STUDIO_PROJECT_ID: "05hvmwlk"
           SANITY_DATASET_E2E: e2e-test
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+          SANITY_USER_EMAIL: ${{ secrets.SANITY_USER_EMAIL }}
+          SANITY_USER_PASSWORD: ${{ secrets.SANITY_USER_PASSWORD }}
 
       - uses: actions/upload-artifact@v4
         if: always()
