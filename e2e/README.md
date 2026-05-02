@@ -107,7 +107,7 @@ The `e2e-test` dataset is reset automatically in `globalSetup` before any test r
 
 ### Studio shows login screen (auth not working)
 
-The `globalSetup` injects `SANITY_API_TOKEN` into localStorage under key `__sanity_auth_token_05hvmwlk`. If the Studio still shows a login screen, open DevTools on `http://localhost:3333/dev` after a manual login and run `Object.keys(localStorage)` to find the actual key Sanity v4 uses, then update `global-setup.ts` accordingly.
+The `globalSetup` injects `SANITY_API_TOKEN` into localStorage under key `__studio_auth_token_05hvmwlk` (from `getStorageKey` in `sanity@4.x`). If the Studio still shows a login screen, open DevTools on `http://localhost:3333/dev` after a manual login and run `Object.keys(localStorage)` to find the actual key Sanity uses, then update `SANITY_AUTH_STORAGE_KEY` in `global-setup.ts` accordingly.
 
 ### Dev servers fail to start
 
