@@ -55,3 +55,6 @@ public
 build/**
 dist/**
 .next/**
+
+# typescript
+*.tsbuildinfo
