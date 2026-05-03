@@ -23,6 +23,7 @@ export const getPartnerList = async (
 ): Promise<IPartner[]> => {
   const query = groq`*[_type == 'sortings'] {'link': ${category}[]->link.url, 'logo': ${category}[]->logo}`;
   const result = await getSanityClient().fetch(query);
+  if (!result?.[0]?.link) return [];
   const partnerList = result[0].link.map(
     (link: string, index: number): IPartner => ({
       link: link,

@@ -15,6 +15,7 @@ export const getNewsLinkList = async (locale: string): Promise<INewsLink[]> => {
     'slug': news[]->slug.current
     }`;
   const result = await getSanityClient().fetch(query);
+  if (!result?.[0]?.slug) return [];
   const newsLinkList = result[0].slug.map(
     (slug: string, index: number): INewsLink => ({
       title:

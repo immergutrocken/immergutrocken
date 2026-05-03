@@ -16,7 +16,7 @@ const commonWorkspace: WorkspaceOptions & { plugins: PluginOptions[] } = {
   title: "Immergutrocken",
   projectId: "05hvmwlk",
   name: process.env.SANITY_STUDIO_DATASET ?? "immergutrocken",
-  dataset: process.env.SANITY_STUDIO_DATASET ?? "",
+  dataset: process.env.SANITY_STUDIO_DATASET ?? "immergutrocken",
   basePath: "/",
   plugins: [
     structureTool({
@@ -57,27 +57,35 @@ export default defineConfig(
     ? [
         {
           ...commonWorkspace,
-          title: "DEV - Immergutrocken",
-          dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "",
-          name:
-            process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "immergutrocken",
+          title: "DEV",
+          dataset:
+            process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "development",
+          name: "dev",
           basePath: "/dev",
           plugins: pluginsWithVisionTool,
         },
         {
           ...commonWorkspace,
-          title: "PREVIEW - Immergutrocken",
-          dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW ?? "",
-          name: process.env.SANITY_STUDIO_DATASET_PREVIEW ?? "immergutrocken",
+          title: "E2E",
+          dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "e2e-test",
+          name: "e2e-test",
+          basePath: "/e2e",
+          plugins: pluginsWithVisionTool,
+        },
+        {
+          ...commonWorkspace,
+          title: "PREVIEW",
+          dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW ?? "development",
+          name: "preview",
           basePath: "/preview",
           plugins: pluginsWithVisionTool,
         },
         {
           ...commonWorkspace,
-          title: "PRODUCTION - Immergutrocken",
-          dataset: process.env.SANITY_STUDIO_DATASET_PRODUCTION ?? "",
-          name:
+          title: "PRODUCTION",
+          dataset:
             process.env.SANITY_STUDIO_DATASET_PRODUCTION ?? "immergutrocken",
+          name: "production",
           basePath: "/production",
           plugins: pluginsWithVisionTool,
         },

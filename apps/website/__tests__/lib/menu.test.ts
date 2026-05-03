@@ -528,6 +528,12 @@ describe("Menu", () => {
       );
     });
 
+    it("should return empty array when dataset has no menu documents", async () => {
+      sanityClientFetchMock.mockResolvedValueOnce([]);
+      const result = await getMenu();
+      expect(result).toEqual([]);
+    });
+
     it("should handle empty menu entries", async () => {
       const mockMenuData = [
         {

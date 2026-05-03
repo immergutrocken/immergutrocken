@@ -68,7 +68,7 @@ export const getArtistLinkList = async (
   }`;
   const result = await getSanityClient().fetch(query);
   return (
-    result[0].slugs?.map(
+    result?.[0]?.slugs?.map(
       (slug: string, index: number): IArtistLink => ({
         title:
           locale === "en" && result[0].titlesEn[index]

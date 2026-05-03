@@ -258,5 +258,11 @@ describe("Partner", () => {
       expect(result[0].logo.url).toBe("mock-image-url-50");
       expect(result[1].logo.url).toBe("mock-image-url-200");
     });
+
+    it("should return empty array when dataset has no sortings document", async () => {
+      sanityClientFetchMock.mockResolvedValueOnce([]);
+      const result = await getPartnerList(PartnerCategory.SPONSOR);
+      expect(result).toEqual([]);
+    });
   });
 });

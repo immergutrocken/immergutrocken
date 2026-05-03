@@ -8,6 +8,11 @@ node_modules
 # testing
 coverage
 
+# playwright
+playwright-report/
+test-results/
+playwright/.cache/
+
 # next.js
 .next
 out
@@ -50,3 +55,6 @@ public
 build/**
 dist/**
 .next/**
+
+# typescript
+*.tsbuildinfo

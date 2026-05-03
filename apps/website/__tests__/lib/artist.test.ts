@@ -171,4 +171,12 @@ describe("Artist", () => {
       ]);
     });
   });
+
+  describe("getArtistLinkList - empty dataset", () => {
+    it("should return empty array when dataset has no sortings document", async () => {
+      sanityClientFetchMock.mockResolvedValueOnce([]);
+      const result = await getArtistLinkList("de");
+      expect(result).toEqual([]);
+    });
+  });
 });

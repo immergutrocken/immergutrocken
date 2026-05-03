@@ -24,4 +24,12 @@
 
 ## Code Review
 - PRs are reviewed automatically by **Gemini Code Assist** (free, GitHub App)
-- Gemini is configured via `gemini-code-assist.yaml` in the repo root — update that file when conventions here change
+- Gemini is configured via `.gemini/config.yaml` — update that file when conventions here change
+- After Gemini (or any reviewer) leaves comments, always respond to every thread:
+  - If fixed: reply with ✅ and a short explanation of what changed
+  - If already correct / outdated: reply with ✅ or 👀 explaining why no change is needed
+  - If intentionally not fixing: reply with ⏭️ and the reasoning
+  - GitHub has no reaction tool available — use emoji-prefixed replies instead
+- Work directly on the PR branch — don't create a new branch per fix session
+- PRs are opened as **draft**. Only mark ready for review after: (1) CI is green and (2) the user explicitly gives permission. Use `mcp__github__update_pull_request` with `draft: false` to promote.
+- After promoting, if Gemini does not post a review within a few minutes, trigger it manually by posting `/gemini review` as a PR comment via `mcp__github__add_issue_comment`.

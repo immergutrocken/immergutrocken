@@ -54,6 +54,34 @@ export const getGeneralSettings = async (
     'countdown': countdown
   }`;
   const result = (await getSanityClient().fetch(query))[0];
+  if (!result) {
+    // 1×1 transparent PNG — satisfies Next.js Image blurDataURL requirement.
+    const blurDataURL =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+    const emptyImage = {
+      alt: "",
+      asset: {} as SanityImageSource,
+      credits: "",
+      url: blurDataURL,
+      urlWithBlur: blurDataURL,
+      width: 1,
+      height: 1,
+    };
+    return {
+      websiteTitle: "",
+      bannerDesktop: emptyImage,
+      bannerMobile: emptyImage,
+      showNewsAsPrimaryContent: false,
+      additionalTextAfterArtists: "",
+      isPerformanceDetailsVisible: false,
+      ticketshopUrl: "",
+      countdown: {
+        showCountdown: false,
+        festivalStartDate: "",
+        festivalEndDate: "",
+      },
+    };
+  }
   const bannerDesktop =
     locale === "de"
       ? result.bannerDesktopDe
