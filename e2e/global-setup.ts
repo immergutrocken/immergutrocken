@@ -66,6 +66,7 @@ async function saveCmsAuthState() {
     // Allow up to 120s: Vite compiles the /dev bundle on first request in CI.
     await page.waitForSelector(STUDIO_SELECTOR, { timeout: 120_000 });
   } catch {
+    await mkdir(dirname(AUTH_STATE_PATH), { recursive: true });
     await page.screenshot({ path: "e2e/.auth/global-setup-timeout.png" });
     await browser.close();
     throw new Error(
