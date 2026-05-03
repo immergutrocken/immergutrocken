@@ -40,7 +40,27 @@ async function saveCmsAuthState() {
   );
 
   const page = await context.newPage();
+
+  // Log browser console messages so CORS errors and JS errors appear in CI output.
+  page.on("console", (msg) => {
+    if (msg.type() === "error") console.error("[browser]", msg.text());
+    else console.log("[browser]", msg.text());
+  });
+  page.on("pageerror", (err) => console.error("[browser error]", err.message));
+
+  // Log failed network requests — CORS blocks show up as failed fetches here.
+  page.on("requestfailed", (req) =>
+    console.error(
+      "[request failed]",
+      req.method(),
+      req.url(),
+      req.failure()?.errorText,
+    ),
+  );
+
+  console.log("[globalSetup] navigating to", CMS_DEV_URL);
   await page.goto(CMS_DEV_URL);
+  console.log("[globalSetup] page URL after navigation:", page.url());
 
   try {
     // Allow up to 120s: Vite compiles the /dev bundle on first request in CI.
