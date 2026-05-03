@@ -2,7 +2,9 @@ import { defineField } from "sanity";
 
 import supportedLanguages from "../../supportedLanguages";
 
-const buildFields = (fields: any[]) =>
+type FieldDef = ReturnType<typeof defineField>;
+
+const buildFields = (fields: FieldDef[]) =>
   supportedLanguages.map((lang) =>
     defineField({
       type: "object",
@@ -13,7 +15,7 @@ const buildFields = (fields: any[]) =>
     }),
   );
 
-export default (fields: any[]) =>
+export default (fields: FieldDef[]) =>
   defineField({
     name: "languages",
     title: "",
