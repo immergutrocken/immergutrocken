@@ -12,5 +12,7 @@
   "sonarlint.connectedMode.project": {
     "connectionId": "immergutrocken",
     "projectKey": "immergutrocken_immergutrocken"
-  }
+  },
+  "doppler.autocomplete.enable": true,
+  "doppler.hover.enable": true
 }

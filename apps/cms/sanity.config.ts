@@ -57,7 +57,7 @@ export default defineConfig(
     ? [
         {
           ...commonWorkspace,
-          title: "DEV - Immergutrocken",
+          title: "DEV",
           dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "",
           name: "dev",
           basePath: "/dev",
@@ -65,7 +65,15 @@ export default defineConfig(
         },
         {
           ...commonWorkspace,
-          title: "PREVIEW - Immergutrocken",
+          title: "E2E",
+          dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "",
+          name: "e2e-test",
+          basePath: "/e2e",
+          plugins: pluginsWithVisionTool,
+        },
+        {
+          ...commonWorkspace,
+          title: "PREVIEW",
           dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW ?? "",
           name: "preview",
           basePath: "/preview",
@@ -73,7 +81,7 @@ export default defineConfig(
         },
         {
           ...commonWorkspace,
-          title: "PRODUCTION - Immergutrocken",
+          title: "PRODUCTION",
           dataset: process.env.SANITY_STUDIO_DATASET_PRODUCTION ?? "",
           name: "production",
           basePath: "/production",
