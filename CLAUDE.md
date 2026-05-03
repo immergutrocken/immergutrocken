@@ -24,7 +24,7 @@
 
 ## Code Review
 - PRs are reviewed automatically by **Gemini Code Assist** (free, GitHub App)
-- Gemini is configured via `gemini-code-assist.yaml` in the repo root — update that file when conventions here change
+- Gemini is configured via `.gemini/config.yaml` — update that file when conventions here change
 - After Gemini (or any reviewer) leaves comments, always respond to every thread:
   - If fixed: reply with ✅ and a short explanation of what changed
   - If already correct / outdated: reply with ✅ or 👀 explaining why no change is needed
