@@ -1,9 +1,5 @@
 import { createClient } from "@sanity/client";
 
-/**
- * Helper to reset the E2E Sanity dataset before tests
- * This ensures each test run starts with a clean slate
- */
 export async function resetE2EDataset() {
   const client = createClient({
     projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? "05hvmwlk",
@@ -13,23 +9,14 @@ export async function resetE2EDataset() {
     useCdn: false,
   });
 
-  // Delete all documents in the E2E dataset
-  try {
-    const query = "*";
-    const documents = await client.fetch(query);
-
-    if (documents && documents.length > 0) {
-      const transaction = client.transaction();
-      documents.forEach((doc: { _id: string }) => {
-        transaction.delete(doc._id);
-      });
-      await transaction.commit();
-      console.log(`Deleted ${documents.length} documents from E2E dataset`);
-    } else {
-      console.log("E2E dataset is already empty");
-    }
-  } catch (error) {
-    console.error("Error resetting E2E dataset:", error);
-    throw error;
+  const documents = await client.fetch("*");
+  if (!documents.length) {
+    console.log("E2E dataset is already empty");
+    return;
   }
+
+  const transaction = client.transaction();
+  documents.forEach((doc: { _id: string }) => transaction.delete(doc._id));
+  await transaction.commit();
+  console.log(`Deleted ${documents.length} documents from E2E dataset`);
 }
