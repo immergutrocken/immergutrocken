@@ -31,3 +31,4 @@
   - If intentionally not fixing: reply with ⏭️ and the reasoning
   - GitHub has no reaction tool available — use emoji-prefixed replies instead
 - Work directly on the PR branch — don't create a new branch per fix session
+- PRs are opened as **draft**. Only mark ready for review after: (1) CI is green and (2) the user explicitly gives permission. Use `mcp__github__update_pull_request` with `draft: false` to promote.
