@@ -16,7 +16,7 @@ const commonWorkspace: WorkspaceOptions & { plugins: PluginOptions[] } = {
   title: "Immergutrocken",
   projectId: "05hvmwlk",
   name: process.env.SANITY_STUDIO_DATASET ?? "immergutrocken",
-  dataset: process.env.SANITY_STUDIO_DATASET ?? "",
+  dataset: process.env.SANITY_STUDIO_DATASET ?? "immergutrocken",
   basePath: "/",
   plugins: [
     structureTool({
@@ -58,7 +58,8 @@ export default defineConfig(
         {
           ...commonWorkspace,
           title: "DEV",
-          dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "",
+          dataset:
+            process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "development",
           name: "dev",
           basePath: "/dev",
           plugins: pluginsWithVisionTool,
@@ -66,7 +67,7 @@ export default defineConfig(
         {
           ...commonWorkspace,
           title: "E2E",
-          dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "",
+          dataset: process.env.SANITY_STUDIO_DATASET_DEVELOPMENT ?? "e2e-test",
           name: "e2e-test",
           basePath: "/e2e",
           plugins: pluginsWithVisionTool,
@@ -74,7 +75,7 @@ export default defineConfig(
         {
           ...commonWorkspace,
           title: "PREVIEW",
-          dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW ?? "",
+          dataset: process.env.SANITY_STUDIO_DATASET_PREVIEW ?? "development",
           name: "preview",
           basePath: "/preview",
           plugins: pluginsWithVisionTool,
@@ -82,7 +83,8 @@ export default defineConfig(
         {
           ...commonWorkspace,
           title: "PRODUCTION",
-          dataset: process.env.SANITY_STUDIO_DATASET_PRODUCTION ?? "",
+          dataset:
+            process.env.SANITY_STUDIO_DATASET_PRODUCTION ?? "immergutrocken",
           name: "production",
           basePath: "/production",
           plugins: pluginsWithVisionTool,
