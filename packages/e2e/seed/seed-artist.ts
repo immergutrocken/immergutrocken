@@ -3,10 +3,12 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { createClient } from "@sanity/client";
+import dotenv from "dotenv";
 
 import { ARTIST_BANNER_ALT, ARTIST_SLUG, ARTIST_TITLE } from "./fixture-data";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: join(__dirname, "../.env.e2e.local") });
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
 const dataset = process.env.SANITY_STUDIO_DATASET;

@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test:e2e": "dotenv -e .env.e2e.local -- playwright test",
-    "seed": "dotenv -e .env.e2e.local -- tsx seed/seed-artist.ts"
+    "test:e2e": "playwright test",
+    "seed": "tsx seed/seed-artist.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
     "@sanity/client": "7.10.0",
     "@types/node": "24.3.0",
-    "dotenv-cli": "10.0.0",
+    "dotenv": "16.6.1",
     "tsx": "4.20.6",
     "typescript": "5.9.2"
   }
