@@ -11,8 +11,9 @@ visual-regression screenshots yet.
 ## One-time setup
 
 1. Copy `.env.e2e.example` to `.env.e2e.local` and fill in the values.
-2. The `e2e-test` Sanity dataset must already contain the seed data. If it's
-   empty, see `seed/README.md`.
+2. The `e2e-test` Sanity dataset must already contain a matching artist
+   document (see `fixture-data.ts` for the expected slug/title/banner alt
+   text) and a `generalSettings` document with banner images set.
 
 ## Running locally
 
@@ -27,8 +28,8 @@ runs the Playwright suite against it in WebKit.
 
 ## Scope / non-goals for this PoC
 
-- The test suite itself never mutates Sanity data — seeding is a separate,
-  manual step (`seed/seed-artist.ts`).
+- The test suite itself never mutates Sanity data — content is seeded and
+  maintained manually in Sanity Studio.
 - No CI wiring yet (browser install, secrets, gating strategy are left as a
   follow-up).
 - No screenshot-based visual regression yet — only structural assertions.

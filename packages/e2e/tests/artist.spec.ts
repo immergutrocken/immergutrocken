@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { ARTIST_BANNER_ALT, ARTIST_SLUG, ARTIST_TITLE } from "../seed/fixture-data";
+import { ARTIST_BANNER_ALT, ARTIST_SLUG, ARTIST_TITLE } from "../fixture-data";
 
 test("artist page renders title and banner image", async ({ page }) => {
   // "de" is the defaultLocale (see apps/website/next.config.mjs), so it has no path prefix.

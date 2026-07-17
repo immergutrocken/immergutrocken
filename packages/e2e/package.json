@@ -4,14 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test:e2e": "playwright test",
-    "seed": "tsx seed/seed-artist.ts"
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
-    "@sanity/client": "7.10.0",
     "@types/node": "24.3.0",
-    "tsx": "4.20.6",
     "typescript": "5.9.2"
   }
 }

@@ -260,15 +260,9 @@ importers:
       '@playwright/test':
         specifier: 1.56.1
         version: 1.56.1
-      '@sanity/client':
-        specifier: 7.10.0
-        version: 7.10.0
       '@types/node':
         specifier: 24.3.0
         version: 24.3.0
-      tsx:
-        specifier: 4.20.6
-        version: 4.20.6
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -18837,6 +18831,7 @@ snapshots:
       get-tsconfig: 4.10.1
     optionalDependencies:
       fsevents: 2.3.3
+    optional: true
 
   tunnel-agent@0.6.0:
     dependencies:
