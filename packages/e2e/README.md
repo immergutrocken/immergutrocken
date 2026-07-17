@@ -1,0 +1,34 @@
+# e2e
+
+End-to-end tests spanning the immergutrocken apps, using Playwright with
+WebKit (most visitors use Safari on iOS). Lives outside `apps/*` since e2e
+tests aren't scoped to a single app.
+
+This is a first proof of concept (issue #551): it loads one statically
+seeded artist page and asserts structure (title, banner image) — not full
+visual-regression screenshots yet.
+
+## One-time setup
+
+1. Copy `.env.e2e.example` to `.env.e2e.local` and fill in the values.
+2. The `e2e-test` Sanity dataset must already contain the seed data. If it's
+   empty, see `seed/README.md`.
+
+## Running locally
+
+```sh
+pnpm install
+pnpm --filter e2e exec playwright install webkit
+pnpm run test:e2e
+```
+
+This builds and starts `apps/website` against the `e2e-test` dataset, then
+runs the Playwright suite against it in WebKit.
+
+## Scope / non-goals for this PoC
+
+- The test suite itself never mutates Sanity data — seeding is a separate,
+  manual step (`seed/seed-artist.ts`).
+- No CI wiring yet (browser install, secrets, gating strategy are left as a
+  follow-up).
+- No screenshot-based visual regression yet — only structural assertions.

@@ -15,6 +15,10 @@
     "test:ci": {
       "outputs": ["dist/**", "build/**"]
     },
+    "test:e2e": {
+      "cache": false,
+      "env": ["SANITY_STUDIO_*", "E2E_BASE_URL"]
+    },
     "lint": {}
   }
 }

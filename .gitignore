@@ -50,3 +50,8 @@ public
 build/**
 dist/**
 .next/**
+
+# e2e
+.env.e2e.local
+packages/e2e/test-results
+packages/e2e/playwright-report
