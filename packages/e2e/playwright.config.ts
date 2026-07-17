@@ -1,11 +1,6 @@
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-
 import { defineConfig, devices } from "@playwright/test";
-import dotenv from "dotenv";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: join(__dirname, ".env.e2e.local") });
+import "./load-env";
 
 export default defineConfig({
   testDir: "./tests",
