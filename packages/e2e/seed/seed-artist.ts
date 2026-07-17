@@ -34,17 +34,17 @@ const client = createClient({
   useCdn: false,
 });
 
-const emptyBlockContent = [
+const dummyBlockContent = [
   {
     _type: "block",
-    _key: "seedblock1",
+    _key: "block1",
     style: "normal",
     markDefs: [],
     children: [
       {
         _type: "span",
-        _key: "seedspan1",
-        text: "This is static e2e test content, seeded for issue #551.",
+        _key: "span1",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         marks: [],
       },
     ],
@@ -83,7 +83,7 @@ const seed = async (): Promise<void> => {
           alt: ARTIST_BANNER_ALT,
           credits: "E2E fixture",
         },
-        content: emptyBlockContent,
+        content: dummyBlockContent,
       },
     },
     slug: { _type: "slug", current: ARTIST_SLUG },
