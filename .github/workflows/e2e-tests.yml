@@ -1,0 +1,34 @@
+name: e2e-tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  run-e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install modules
+        run: pnpm install
+      - name: Install Playwright WebKit
+        run: pnpm --filter e2e exec playwright install --with-deps webkit
+      - name: Run e2e tests
+        run: pnpm run test:e2e
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: packages/e2e/playwright-report/
+          retention-days: 7

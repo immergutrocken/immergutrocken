@@ -9,6 +9,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",
+    "test:e2e": "turbo run test:e2e",
     "lint": "turbo run lint",
     "vercel:pull-env-website": "vercel env pull --environment=development --yes --cwd apps/website",
     "vercel:pull-env-cms": "vercel env pull --environment=development --yes --cwd apps/cms",
