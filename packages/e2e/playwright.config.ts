@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
 const SANITY_STUDIO_PROJECT_ID = "05hvmwlk";
 const SANITY_STUDIO_DATASET = "e2e-test";
 
-const baseURL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
+const baseURL = "http://localhost:3000";
 
 export default defineConfig({
   testDir: "./tests",
@@ -22,24 +22,19 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
     },
   ],
-  // Skipped in CI when E2E_BASE_URL points at an already-running/deployed site.
-  //
   // Uses `next dev` rather than `next build && next start`: a full production build
   // statically exports every page in the site, which would require the e2e-test
   // dataset to have fixture data for all of them. Dev mode only renders the page
   // actually requested, so it only needs data for what the test visits.
-  webServer:
-    process.env.CI && process.env.E2E_BASE_URL
-      ? undefined
-      : {
-          command: "pnpm --filter website run dev",
-          cwd: "../../",
-          url: baseURL,
-          reuseExistingServer: !process.env.CI,
-          timeout: 180_000,
-          env: {
-            SANITY_STUDIO_PROJECT_ID,
-            SANITY_STUDIO_DATASET,
-          },
-        },
+  webServer: {
+    command: "pnpm --filter website run dev",
+    cwd: "../../",
+    url: baseURL,
+    reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
+    env: {
+      SANITY_STUDIO_PROJECT_ID,
+      SANITY_STUDIO_DATASET,
+    },
+  },
 });

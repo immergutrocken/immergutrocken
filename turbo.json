@@ -17,7 +17,7 @@
     },
     "test:e2e": {
       "cache": false,
-      "env": ["E2E_BASE_URL", "CI"]
+      "env": ["CI"]
     },
     "lint": {}
   }
