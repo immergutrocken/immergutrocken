@@ -17,7 +17,7 @@
     },
     "test:e2e": {
       "cache": false,
-      "env": ["SANITY_STUDIO_*", "E2E_BASE_URL"]
+      "env": ["SANITY_STUDIO_*", "E2E_BASE_URL", "CI"]
     },
     "lint": {}
   }

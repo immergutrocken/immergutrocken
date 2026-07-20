@@ -23,13 +23,15 @@ pnpm --filter e2e exec playwright install webkit
 pnpm run test:e2e
 ```
 
-This builds and starts `apps/website` against the `e2e-test` dataset, then
+This starts `apps/website` in dev mode against the `e2e-test` dataset, then
 runs the Playwright suite against it in WebKit.
+
+Also runs in CI on every PR/push to `main` (see
+`.github/workflows/e2e-tests.yml`) — the project ID/dataset are public and
+hardcoded there, so no secrets are needed.
 
 ## Scope / non-goals for this PoC
 
 - The test suite itself never mutates Sanity data — content is seeded and
   maintained manually in Sanity Studio.
-- No CI wiring yet (browser install, secrets, gating strategy are left as a
-  follow-up).
 - No screenshot-based visual regression yet — only structural assertions.
