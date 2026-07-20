@@ -8,7 +8,7 @@
 - Dev: `turbo run dev`
 - Build: `turbo run build` — run after every change to verify compilation
 - Test: `turbo run test`
-- E2E: `pnpm run test:e2e` (also runs in CI, see `.github/workflows/e2e-tests.yml`)
+- E2E: `turbo run test:e2e` (also runs in CI, see `.github/workflows/e2e-tests.yml`)
 - Lint: `turbo run lint`
 
 ## Structure
