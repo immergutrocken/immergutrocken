@@ -1,6 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
-import "./load-env";
+// Public read-only Sanity project/dataset for e2e fixtures — not a secret.
+const SANITY_STUDIO_PROJECT_ID = "05hvmwlk";
+const SANITY_STUDIO_DATASET = "e2e-test";
+
+const baseURL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
 
 export default defineConfig({
   testDir: "./tests",
@@ -9,7 +13,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
   use: {
-    baseURL: process.env.E2E_BASE_URL ?? "http://localhost:3000",
+    baseURL,
     trace: "retain-on-failure",
   },
   projects: [
@@ -30,8 +34,12 @@ export default defineConfig({
       : {
           command: "pnpm --filter website run dev",
           cwd: "../../",
-          url: process.env.E2E_BASE_URL ?? "http://localhost:3000",
+          url: baseURL,
           reuseExistingServer: !process.env.CI,
           timeout: 180_000,
+          env: {
+            SANITY_STUDIO_PROJECT_ID,
+            SANITY_STUDIO_DATASET,
+          },
         },
 });
