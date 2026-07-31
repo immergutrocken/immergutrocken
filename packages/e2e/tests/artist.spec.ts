@@ -8,26 +8,22 @@ import {
   ARTIST_TITLE,
 } from "../fixture-data";
 
-test("artist page renders title and banner image", async ({ page }) => {
+test("artist page renders correctly", async ({ page }) => {
   // "de" is the defaultLocale (see apps/website/next.config.mjs), so it has no path prefix.
   await page.goto(`/artist/${ARTIST_SLUG}`);
 
+  // The screenshot below is the actual coverage — it catches any visible regression.
+  // These two assertions earn their place by doubling as the wait for the slowest
+  // content, so the screenshot is never taken mid-render.
   await expect(page.getByRole("heading", { level: 1, name: ARTIST_TITLE })).toBeVisible();
   await expect(page.getByRole("img", { name: ARTIST_BANNER_ALT })).toBeVisible();
-  await expect(page).toHaveTitle(new RegExp(ARTIST_TITLE));
 
-  // Social media links render as icon-only <a> tags with no accessible name, so assert by href.
+  // Neither of these shows up in pixels, so the screenshot can't cover them:
+  // the document title lives in <head>, and a link's href isn't rendered.
+  await expect(page).toHaveTitle(new RegExp(ARTIST_TITLE));
   for (const href of ARTIST_SOCIAL_LINKS) {
     await expect(page.locator(`a[href="${href}"]`)).toBeVisible();
   }
-});
-
-test("artist page matches visual baseline", async ({ page }) => {
-  await page.goto(`/artist/${ARTIST_SLUG}`);
-
-  // Wait for the slowest content, so the screenshot isn't taken mid-render.
-  await expect(page.getByRole("heading", { level: 1, name: ARTIST_TITLE })).toBeVisible();
-  await expect(page.getByRole("img", { name: ARTIST_BANNER_ALT })).toBeVisible();
 
   // argosScreenshot stabilizes the page for us: it disables animations/transitions,
   // hides text carets and waits for images and web fonts to finish loading.

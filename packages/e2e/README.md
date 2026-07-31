@@ -4,9 +4,21 @@ End-to-end tests spanning the immergutrocken apps, using Playwright with
 WebKit (most visitors use Safari on iOS). Lives outside `apps/*` since e2e
 tests aren't scoped to a single app.
 
-It loads one statically seeded artist page, asserts its structure (title,
-banner image, social links) and captures a full-page screenshot for visual
-regression via [Argos](https://argos-ci.com).
+It loads one statically seeded artist page and captures a full-page screenshot
+for visual regression via [Argos](https://argos-ci.com).
+
+**Visual regression is the primary coverage mechanism here** — one screenshot
+catches any visible change, which is far more ground than a list of structural
+assertions could cover. So keep hand-written assertions to the two cases that
+earn it:
+
+1. Things the screenshot can't see — the document title, a link's `href`,
+   anything in `<head>` or in an attribute rather than in pixels.
+2. Readiness: an `expect(...).toBeVisible()` on the slowest content, so the
+   screenshot is never taken mid-render.
+
+Anything else visible on the page needs no assertion — if it changes, the diff
+shows up in Argos.
 
 ## One-time setup
 
@@ -70,5 +82,5 @@ otherwise every build after it will diff.
 
 - The test suite itself never mutates Sanity data — content is seeded and
   maintained manually in Sanity Studio.
-- Only the artist page is snapshotted so far, matching the scope of the
-  existing structural test.
+- Only the artist page is covered so far. New pages get added the same way:
+  one test that navigates, waits, and screenshots.
