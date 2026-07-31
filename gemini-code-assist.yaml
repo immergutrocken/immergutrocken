@@ -14,3 +14,5 @@ code_review:
       instructions: "Pages Router only — flag any App Router patterns (e.g. app/ directory, server components, use client without Pages Router context)."
     - glob: "apps/cms/**"
       instructions: "Sanity Studio 4 — flag deprecated Sanity v3 APIs or patterns."
+    - glob: "packages/e2e/**"
+      instructions: "Playwright on WebKit only, against the public read-only Sanity `e2e-test` dataset. Visual regression runs through Argos (baselines are hosted, never committed). Flag screenshots of content whose pixels depend on the current date or live data unless it is masked. Prefer role/text/alt/href locators over data-testid."

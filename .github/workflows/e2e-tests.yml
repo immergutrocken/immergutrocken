@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: read
+  # Argos resolves the pull request belonging to the head SHA via the GitHub API.
+  pull-requests: read
 
 jobs:
   run-e2e-tests:
@@ -25,6 +27,10 @@ jobs:
         run: pnpm --filter e2e exec playwright install --with-deps webkit
       - name: Run e2e tests
         run: pnpm run test:e2e
+        env:
+          # Uploads the screenshots to Argos, which then posts the visual diff check on the PR.
+          ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4

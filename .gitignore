@@ -54,3 +54,5 @@ dist/**
 # e2e
 packages/e2e/test-results
 packages/e2e/playwright-report
+# Local Argos screenshots — baselines are hosted by Argos, never committed
+packages/e2e/screenshots
