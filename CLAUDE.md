@@ -3,7 +3,7 @@
 ## Package Manager
 - Always use `pnpm` — never npm or yarn
 - Dependencies are pinned to exact versions everywhere (no `^`/`~`); Renovate (`renovate.json`) raises upgrade PRs so every bump gets a CI run. `pnpm add` writes a caret by default — strip it afterwards
-- To change only a version specifier, edit `package.json` plus the matching `specifier:` line in `pnpm-lock.yaml` by hand, then verify with `pnpm install --frozen-lockfile`. `pnpm install --lockfile-only` re-resolves the whole tree and drags in unrelated transitive bumps
+- Hand-editing `pnpm-lock.yaml` is normally wrong — but stripping a caret is the exception, because `specifier:` only mirrors `package.json` and the resolved version doesn't change. Edit `package.json` plus the matching `specifier:` line, then prove consistency with `pnpm install --frozen-lockfile` (and a plain `pnpm install` that comes out as a no-op). Letting pnpm regenerate instead — `--lockfile-only` *or* a plain `install` after the edit — re-resolves the whole tree and drags in unrelated transitive bumps (verified: `@emnapi/runtime`, `debug`, `semver`, `detect-libc` all moved). Never hand-edit resolutions, integrity hashes or dependency trees
 
 ## Commands
 - Install: `pnpm install`
