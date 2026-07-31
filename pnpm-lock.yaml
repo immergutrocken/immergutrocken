@@ -258,7 +258,7 @@ importers:
   packages/e2e:
     devDependencies:
       '@argos-ci/playwright':
-        specifier: ^7.4.0
+        specifier: 7.4.0
         version: 7.4.0(@types/node@24.3.0)
       '@playwright/test':
         specifier: 1.56.1
