@@ -17,7 +17,9 @@
     },
     "test:e2e": {
       "cache": false,
-      "env": ["CI"]
+      // ARGOS_*/GITHUB_* are what the Argos reporter authenticates with and reads the
+      // CI context (repo, commit, branch, run id) from — turbo strips anything unlisted.
+      "env": ["CI", "ARGOS_*", "GITHUB_*"]
     },
     "lint": {}
   }

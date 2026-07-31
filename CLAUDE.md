@@ -30,6 +30,9 @@
 - WebKit only (most visitors are on Safari/iOS), against a dedicated public/read-only Sanity dataset `e2e-test` (project `05hvmwlk`) — not a secret, hardcoded in `playwright.config.ts` and CI, no `.env` needed
 - Runs the site under test via `next dev`, not `next build && next start` — a production build statically exports *every* page, which would require `e2e-test` to have fixture data for the whole site; dev mode only renders the page actually requested
 - The **Sanity MCP tools have no binary asset upload** — only document CRUD. Anything needing a real image (e.g. the artist page's required banner) has to be seeded/edited manually in Sanity Studio; MCP can only handle the non-image singleton docs (`menu`, `sortings`) a page's `getStaticProps` chain depends on
+- Visual regression via **Argos** (`@argos-ci/playwright`): baselines are hosted by Argos, never committed. Uploads only happen when `CI` is set, authenticated with the `ARGOS_TOKEN` repo secret; approving/rejecting a diff needs a human in the Argos UI (no MCP/API path for it)
+- Anything whose pixels depend on the current date or live data must be masked in `argosScreenshot()` — currently the footer countdown; `argosScreenshot()` itself already disables animations and waits for images/fonts
+- The webkit project sets `browserName` explicitly on top of `devices["Desktop Safari"]`: the device descriptor only carries `defaultBrowserType`, and Argos' reporter reads `browserName` to decide whether its Chromium-only font flags apply
 - Locator preference: role/text/alt/href over `data-testid` — the site's existing semantic markup (headings, `next/image` alt text, link hrefs) already gives unique, meaningful selectors without editing `apps/website` source just for testability
 
 ## Code Review

@@ -1,3 +1,4 @@
+import { argosScreenshot } from "@argos-ci/playwright";
 import { expect, test } from "@playwright/test";
 
 import {
@@ -19,4 +20,22 @@ test("artist page renders title and banner image", async ({ page }) => {
   for (const href of ARTIST_SOCIAL_LINKS) {
     await expect(page.locator(`a[href="${href}"]`)).toBeVisible();
   }
+});
+
+test("artist page matches visual baseline", async ({ page }) => {
+  await page.goto(`/artist/${ARTIST_SLUG}`);
+
+  // Wait for the slowest content, so the screenshot isn't taken mid-render.
+  await expect(page.getByRole("heading", { level: 1, name: ARTIST_TITLE })).toBeVisible();
+  await expect(page.getByRole("img", { name: ARTIST_BANNER_ALT })).toBeVisible();
+
+  // argosScreenshot stabilizes the page for us: it disables animations/transitions,
+  // hides text carets and waits for images and web fonts to finish loading.
+  await argosScreenshot(page, "artist-page", {
+    fullPage: true,
+    // The footer countdown renders "<n> days left" relative to the current date, so its
+    // pixels change every day. It's a class-only element with no role or stable text,
+    // hence the CSS locator rather than the semantic ones preferred elsewhere.
+    mask: [page.locator("footer div.fixed.bottom-0")],
+  });
 });
