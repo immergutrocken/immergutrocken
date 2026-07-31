@@ -29,6 +29,10 @@ test("artist page matches visual baseline", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: ARTIST_TITLE })).toBeVisible();
   await expect(page.getByRole("img", { name: ARTIST_BANNER_ALT })).toBeVisible();
 
+  // TEMPORARY — remove before merge. Forces a visible pixel change so Argos has a
+  // second build to diff against the first one, to walk through the review flow.
+  await page.addStyleTag({ content: "h1 { color: #ff4b00; font-style: italic; }" });
+
   // argosScreenshot stabilizes the page for us: it disables animations/transitions,
   // hides text carets and waits for images and web fonts to finish loading.
   await argosScreenshot(page, "artist-page", {
