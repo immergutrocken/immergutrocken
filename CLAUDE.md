@@ -46,5 +46,5 @@
 - PRs are reviewed automatically by **Greptile** (GitHub App) on the free **Starter plan**: 50 credits/month, 1 active developer, unlimited repos — a standard review costs 1 credit. It replaced Gemini Code Assist, whose consumer version Google shut down on 2026-07-17
 - Configured per repo via `greptile.json` in the repo root, which **overrides** the Greptile dashboard settings for this repo. Field reference: https://www.greptile.com/docs/code-review/greptile-json-reference
 - Greptile indexes `CLAUDE.md` automatically, so conventions documented here already feed into reviews — `greptile.json` only carries the review-behaviour settings plus per-path rules (`customContext.rules` with glob `scope`s). Keep the rules in sync when conventions here change; don't duplicate this file wholesale into it
-- Credit budget shapes the config: `triggerOnUpdates` is `false` (a credit per push, not per PR), and `excludeAuthors` skips `renovate[bot]` so dependency PRs don't eat the month
+- Credit budget shapes the config: `triggerOnUpdates` is `false`, so a PR costs one credit when it's opened instead of one per push, and `excludeAuthors` skips `renovate[bot]` so dependency PRs don't eat the month
 - Account settings (AI training opt-out, plan, App installation) live in the Greptile web UI — there is no MCP server or API path for them
