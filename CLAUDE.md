@@ -43,5 +43,8 @@
 - Locator preference: role/text/alt/href over `data-testid` — the site's existing semantic markup (headings, `next/image` alt text, link hrefs) already gives unique, meaningful selectors without editing `apps/website` source just for testability
 
 ## Code Review
-- **No automated reviewer is active right now.** The consumer version of Gemini Code Assist on GitHub was shut down on 2026-07-17 (deprecated 2026-06-18); only the paid enterprise version survives. Its GitHub App still comments on PRs, but only to announce the sunset
-- `gemini-code-assist.yaml` is kept in the repo root deliberately: its instructions are the source for whatever reviewer replaces it (Robin and Review My Code are the candidates). Keep it updated when conventions here change, so the migration is a port rather than a rewrite
+- PRs are reviewed automatically by **Greptile** (GitHub App) on the free **Starter plan**: 50 credits/month, 1 active developer, unlimited repos — a standard review costs 1 credit. It replaced Gemini Code Assist, whose consumer version Google shut down on 2026-07-17
+- Configured per repo via `greptile.json` in the repo root, which **overrides** the Greptile dashboard settings for this repo. Field reference: https://www.greptile.com/docs/code-review/greptile-json-reference
+- Greptile indexes `CLAUDE.md` automatically, so conventions documented here already feed into reviews — `greptile.json` only carries the review-behaviour settings plus per-path rules (`customContext.rules` with glob `scope`s). Keep the rules in sync when conventions here change; don't duplicate this file wholesale into it
+- Credit budget shapes the config: `triggerOnUpdates` is `false`, so a PR costs one credit when it's opened instead of one per push, and `excludeAuthors` skips `renovate[bot]` so dependency PRs don't eat the month
+- Account settings (AI training opt-out, plan, App installation) live in the Greptile web UI — there is no MCP server or API path for them
