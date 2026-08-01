@@ -1,0 +1,32 @@
+{
+  "strictness": 2,
+  "triggerOnUpdates": false,
+  "triggerOnDrafts": false,
+  "excludeAuthors": ["renovate[bot]"],
+  "ignorePatterns": "pnpm-lock.yaml\n**/.next/**\n**/dist/**\n**/build/**\n**/node_modules/**\n**/test-results/**\n**/playwright-report/**",
+  "instructions": "Read CLAUDE.md in the repository root for the project conventions and treat it as the source of truth. Key points: package manager is pnpm — flag any npm or yarn usage; dependencies are pinned to exact versions everywhere, so flag any `^`/`~` range in a package.json. apps/website is Next.js 15 SSG using the Pages Router (not the App Router) with TypeScript strict and Tailwind; apps/cms is Sanity Studio 4; packages/e2e holds Playwright e2e tests. TypeScript strict mode everywhere — avoid `any`, and require a comment documenting any exception. i18n runs through next-intl with locales `de` (default) and `en`. No .env files are committed — secrets come from Doppler into .env.local.",
+  "customContext": {
+    "rules": [
+      {
+        "rule": "Pages Router only — flag any App Router patterns (an app/ directory, server components, `use client` without Pages Router context).",
+        "scope": ["apps/website/**"]
+      },
+      {
+        "rule": "Sanity Studio 4 — flag deprecated Sanity v3 APIs or patterns.",
+        "scope": ["apps/cms/**"]
+      },
+      {
+        "rule": "Playwright runs on WebKit only, against the public read-only Sanity `e2e-test` dataset. Visual regression runs through Argos and its baselines are hosted, never committed. Flag screenshots of content whose pixels depend on the current date or on live data unless it is masked in argosScreenshot(). Prefer role/text/alt/href locators over data-testid, and don't add structural assertions for something the screenshot already covers.",
+        "scope": ["packages/e2e/**"]
+      },
+      {
+        "rule": "turbo.json runs tasks in strict env mode: every `process.env.*` variable a task's script reads must be listed in that task's `env` array, or turbo strips it from the subprocess.",
+        "scope": ["**"]
+      },
+      {
+        "rule": "GitHub Actions workflows need an explicit `permissions:` block limiting GITHUB_TOKEN scope — `contents: read` unless a step needs more.",
+        "scope": [".github/workflows/**"]
+      }
+    ]
+  }
+}
