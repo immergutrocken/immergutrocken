@@ -3,3 +3,5 @@ packages:
   - packages/*
 onlyBuiltDependencies:
   - '@vercel/speed-insights'
+# 5 days in minutes — keep in sync with minimumReleaseAge in renovate.json.
+minimumReleaseAge: 7200
