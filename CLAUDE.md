@@ -48,3 +48,8 @@
 - Greptile indexes `CLAUDE.md` automatically, so conventions documented here already feed into reviews — `greptile.json` only carries the review-behaviour settings plus per-path rules (`customContext.rules` with glob `scope`s). Keep the rules in sync when conventions here change; don't duplicate this file wholesale into it
 - Credit budget shapes the config: `triggerOnUpdates` is `false`, so a PR costs one credit when it's opened instead of one per push, and `excludeAuthors` skips `renovate[bot]` so dependency PRs don't eat the month
 - Account settings (AI training opt-out, plan, App installation) live in the Greptile web UI — there is no MCP server or API path for them
+
+## PR workflow
+- The goal is that a human only reviews once everything that can run automatically has run. So the draft state means "CI still running or work unfinished", not "waiting for a human to press a button"
+- Claude opens PRs as drafts, then **marks them ready for review itself** once CI is green and it is satisfied with the change — that is also what triggers the Greptile review (`triggerOnDrafts` is `false`), so it lands on the finished state instead of the first push. Exception: if the change involves a decision Claude is genuinely unsure about, leave it as a draft and ask instead of flipping it
+- Whatever Greptile then reports, Claude addresses on the same branch; the follow-up pushes cost no extra credit (`triggerOnUpdates` is `false`). Merging stays a human decision
