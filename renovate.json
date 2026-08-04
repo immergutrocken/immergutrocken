@@ -2,5 +2,15 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "description": [
+    "Let a published version age 5 days before proposing it, so a compromised publish has time to be yanked. Keep in sync with minimumReleaseAge in pnpm-workspace.yaml, which is set in minutes.",
+    "internalChecksFilter 'strict' is already the default; it is pinned here so it cannot drift to 'flexible' or 'none', which would weaken or disable the age gate.",
+    "The vulnerabilityAlerts override below does NOT currently take effect: 'strict' drops the too-fresh patched release during datasource lookup, before the vulnerabilityAlerts config is merged, so a [SECURITY] PR can target a version that is still vulnerable. See renovatebot/renovate#44065. Verify the target version of a [SECURITY] PR by hand until that is fixed; the override is kept so the behaviour corrects itself automatically."
+  ],
+  "minimumReleaseAge": "5 days",
+  "internalChecksFilter": "strict",
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": null
+  }
 }
