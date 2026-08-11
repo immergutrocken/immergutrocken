@@ -1,7 +1,20 @@
 packages:
   - apps/*
   - packages/*
-onlyBuiltDependencies:
-  - '@vercel/speed-insights'
-# Deliberately no minimumReleaseAge here — it makes Mend-hosted Renovate run out
-# of memory. See the Package Manager section in CLAUDE.md before adding it back.
+# Replaces pnpm 10's onlyBuiltDependencies. Under pnpm 10 only the packages
+# listed there ran their build scripts and the rest were ignored with a warning;
+# pnpm 11 turns that warning into an error (strictDepBuilds), so every package
+# asking to build has to be answered explicitly. The `false` entries keep the
+# behaviour the site has been built with all along — all four ship prebuilt
+# binaries and don't need a local build step.
+allowBuilds:
+  '@parcel/watcher': false
+  '@vercel/speed-insights': true
+  esbuild: false
+  sharp: false
+  unrs-resolver: false
+# 5 days, in minutes (Renovate takes a duration string, pnpm counts minutes).
+# Backstop for what Renovate's own minimumReleaseAge can't cover: transitive
+# dependencies and manual `pnpm add` / `pnpm update`. Affordable only since
+# pnpm 11 — see the Package Manager section in CLAUDE.md before changing it.
+minimumReleaseAge: 7200
