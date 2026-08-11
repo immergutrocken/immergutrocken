@@ -3,5 +3,5 @@ packages:
   - packages/*
 onlyBuiltDependencies:
   - '@vercel/speed-insights'
-# 5 days in minutes — keep in sync with minimumReleaseAge in renovate.json.
-minimumReleaseAge: 7200
+# Deliberately no minimumReleaseAge here — it makes Mend-hosted Renovate run out
+# of memory. See the Package Manager section in CLAUDE.md before adding it back.
